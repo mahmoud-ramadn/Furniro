@@ -13,15 +13,15 @@ function FuniroFurniture() {
         <div className=" w-full   flex items-center flex-wrap   gap-4  justify-center">
             <div className=" space-y-4">
             <div className=" flex items-end  overflow-hidden gap-4">
-                <img src="/public/Grid/leftTop.jpg" alt="" />
-                <img src="/public/Grid/LeftTopp.jpg" alt="" />
+                <img src="/Grid/leftTop.jpg" alt="" />
+                <img src="/Grid/LeftTopp.jpg" alt="" />
 
 
             </div>
             <div className=" flex items-end  overflow-hidden gap-4">
 
-                <img src="/public/Grid/Leftbottom.jpg" alt="" />
-                <img src="/public/Grid/Leftbottomm.jpg" alt="" />
+                <img src="/Grid/Leftbottom.jpg" alt="" />
+                <img src="/Grid/Leftbottomm.jpg" alt="" />
 
 
             </div>
@@ -34,12 +34,12 @@ function FuniroFurniture() {
 
              <div className=" space-y-4">     
             <div className=" flex md:items-end justify-center   overflow-hidden gap-4 ">
-                <img src="/public/Grid/rightop.jpg" alt="" />
-                <img src="/public/Grid/righttop.jpg" alt="" />
+                <img src="/Grid/rightop.jpg" alt="" />
+                <img src="/Grid/righttop.jpg" alt="" />
             </div>
             <div className=" flex md:items-end md:justify-start justify-center   overflow-hidden gap-4">
-                <img src="/public/Grid/rightbottom.jpg" alt="" />
-                <img src="/public/Grid/rightbottomm.jpg" alt="" />
+                <img src="/Grid/rightbottom.jpg" alt="" />
+                <img src="/Grid/rightbottomm.jpg" alt="" />
             </div>
              </div>
 

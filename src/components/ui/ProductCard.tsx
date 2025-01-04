@@ -1,6 +1,6 @@
 import { IconHeart } from "../../assets/icons/Heart";
 import { IconReverse_alt } from "../../assets/icons/Revers";
-import { IconBxsShareAlt } from "../../assets/icons/share";
+import { IconBxsShareAlt } from "../../assets/icons/Share";
 
 function ProductCard() {
   const CardImage = [

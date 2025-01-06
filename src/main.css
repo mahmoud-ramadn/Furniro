@@ -1,0 +1,18 @@
+body {
+  font-family: 'Poppins', serif;
+}
+.Herobackground {
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/hero.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hidden {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

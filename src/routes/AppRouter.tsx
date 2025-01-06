@@ -1,14 +1,14 @@
-import { lazy, Suspense } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import MainLayout from "../layouts/Mainlayout/MainLayout";
-import Error from "../pages/Error";
-import Hero from "../components/skeleteon/Hero";
-const Home =lazy(()=>import('../pages/Home'));
-
+import { lazy, Suspense } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import MainLayout from '../layouts/Mainlayout/MainLayout';
+import Error from '../pages/Error';
+import Hero from '../components/skeleteon/Hero';
+const Home = lazy(() => import('../pages/Home'));
+const Shope = lazy(() => import('../pages/Shope'));
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: (
       <Suspense
         fallback={
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
                 "
           >
             <h1 className=" text-4xl font-bold  text-violet-400">
-              {" "}
+              {' '}
               Loading .....
             </h1>
           </div>
@@ -32,12 +32,24 @@ const router = createBrowserRouter([
       {
         index: true,
         element: (
+          <Suspense fallback={<Hero />}>
+            <Home />
+          </Suspense>
+        ),
+      },
+      {
+        path: '/shope',
+        element: (
           <Suspense
             fallback={
-              <Hero/>
+              <div>
+                <h1 className=" text-4xl font-bold  text-primary-900 ">
+                  loading...
+                </h1>
+              </div>
             }
           >
-            <Home />
+            <Shope />
           </Suspense>
         ),
       },
@@ -49,4 +61,3 @@ const AppRouter = () => {
   return <RouterProvider router={router} />;
 };
 export default AppRouter;
-

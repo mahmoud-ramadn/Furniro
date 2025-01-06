@@ -1,24 +1,27 @@
-import { useRef, useState, useEffect } from "react";
-import { EpArrowRightBold } from "../../assets/ArrowRig";
+import { useRef, useState, useEffect } from 'react';
+import { EpArrowRightBold } from '../../assets/ArrowRig';
 
 function Carousel() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const items = [
-    "/our Products/carouse.jpg",
-    "/Grid/Leftbottomm.jpg",
-    "/Grid/rightbottomm.jpg",
-    "/Grid/righttop.jpg",
-    "/Grid/center.jpg",
+    '/our Products/Image 5.webp',
+    '/our Products/Images-2.webp',
+    '/our Products/Images-3.webp',
+    '/our Products/Images-6.webp',
+    '/our Products/Images-6.webp',
+    '/Grid/lefttop.webp',
+    '/Grid/center.webp',
+    '/Grid/rightbottom.webp',
   ];
 
-  const scrollCarousel = (direction: "left" | "right") => {
+  const scrollCarousel = (direction: 'left' | 'right') => {
     if (carouselRef.current) {
       const scrollAmount = 300;
       carouselRef.current.scrollBy({
-        left: direction === "right" ? scrollAmount : -scrollAmount,
-        behavior: "smooth",
+        left: direction === 'right' ? scrollAmount : -scrollAmount,
+        behavior: 'smooth',
       });
     }
   };
@@ -28,7 +31,7 @@ function Carousel() {
       const scrollAmount = event.deltaY > 0 ? 300 : -300;
       carouselRef.current.scrollBy({
         left: scrollAmount,
-        behavior: "smooth",
+        behavior: 'smooth',
       });
       event.preventDefault();
     }
@@ -45,11 +48,11 @@ function Carousel() {
 
   useEffect(() => {
     if (carouselRef.current) {
-      carouselRef.current.addEventListener("scroll", updateActiveDot);
+      carouselRef.current.addEventListener('scroll', updateActiveDot);
     }
     return () => {
       if (carouselRef.current) {
-        carouselRef.current.removeEventListener("scroll", updateActiveDot);
+        carouselRef.current.removeEventListener('scroll', updateActiveDot);
       }
     };
   }, []);
@@ -58,7 +61,7 @@ function Carousel() {
     <div className="col-span-1 h-full flex flex-col justify-between gap-5 relative pb-5 items-start">
       {/* Right Scroll Button */}
       <span
-        onClick={() => scrollCarousel("right")}
+        onClick={() => scrollCarousel('right')}
         className="w-12 h-12 absolute cursor-pointer right-20 top-80 rounded-full p-5 flex items-center justify-center bg-white shadow-md"
       >
         <EpArrowRightBold />
@@ -66,7 +69,7 @@ function Carousel() {
 
       {/* Left Scroll Button */}
       <span
-        onClick={() => scrollCarousel("left")}
+        onClick={() => scrollCarousel('left')}
         className="w-12 h-12 absolute cursor-pointer left-20 top-80 rounded-full p-5 flex items-center justify-center bg-white shadow-md"
       >
         <EpArrowRightBold className="rotate-180" />
@@ -90,8 +93,8 @@ function Carousel() {
             key={index}
             className={`w-4 h-4 rounded-full ${
               activeIndex === index
-                ? "bg-secondry outline outline-secondry"
-                : "bg-[#D8D8D8]"
+                ? 'bg-secondary-500 outline outline-secondary-500 p-2'
+                : 'bg-[#D8D8D8]'
             }`}
           ></div>
         ))}

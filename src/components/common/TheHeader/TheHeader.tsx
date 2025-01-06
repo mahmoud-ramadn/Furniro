@@ -1,92 +1,92 @@
-import { Link } from "react-router-dom";
-import { IconBars } from "../../../assets/icons/Bars";
-import User from "../../../assets/icons/User";
-import Serach from "../../../assets/icons/Search";
-import Faviort from "../../../assets/icons/Faviort";
-import Cart from "../../../assets/icons/Cart";
-import { useState } from "react";
-import { MingcuteCloseFill } from "../../../assets/icons/Close";
+import { Link } from 'react-router-dom';
+import { IconBars } from '../../../assets/icons/Bars';
+import User from '../../../assets/icons/User';
+import Search from '../../../assets/icons/Search';
+import Favorite from '../../../assets/icons/Faviort';
+import Cart from '../../../assets/icons/Cart';
+import { useState } from 'react';
+import { MingcuteCloseFill } from '../../../assets/icons/Close';
 
 function TheHeader() {
-  const [open,setOpen]=useState(true);
+  const [open, setOpen] = useState(true);
 
   const pagesLinks = [
     {
-      title: "Home",
-      path: "/",
+      title: 'Home',
+      path: '/',
     },
     {
-      title: "shop",
-      path: "/",
+      title: 'shop',
+      path: '/shope',
     },
     {
-      title: "About",
-      path: "/",
+      title: 'About',
+      path: '/',
     },
     {
-      title: "Contact",
-      path: "/",
+      title: 'Contact',
+      path: '/',
     },
   ];
-   
 
-  const handleList=()=>{
-  setOpen(!open);
-  }
-  
+  const handleList = () => {
+    setOpen(!open);
+  };
 
   return (
-    <header className={` w-full  py-7  md:pl-14 md:pr-20   h-24  px-3  relative    `}  >
-      <div className=" flex justify-between  items-center  gap-4   ">
-        {/* logo */}
+    <header className="w-full bg-white py-7 px-3 md:px-14 lg:px-20 h-24 relative">
+      <div className="flex justify-between items-center">
+        {/* Logo Section */}
+        <Link to="/" className="flex items-center gap-1 md:w-[185px]">
+          <img src="/images/logo.svg" alt="logo" className="w-8 h-8" />
+          <h1 className="font-bold text-2xl md:text-4xl">Furniro</h1>
+        </Link>
 
-        <div className="md:w-[185px] flex items-center  gap-1  ">
-          <img src="/images/logo.png" alt="logo" />
-          <h1 className=" font-bold   text-4xl ">Furniro</h1>
-        </div>
-
-        <nav className="custom-md:hidden lg:block  hidden ">
-          <ul className="md:w-[430px] flex   justify-between items-center">
+        <nav className="hidden lg:block">
+          <ul className="flex gap-8 md:gap-14 lg:gap-20 items-center">
             {pagesLinks.map((page, index) => (
-              <li key={index} className=" text-base  font-medium">
-                <Link to={page.path}>{page.title}</Link>
+              <li key={index} className="text-base font-medium text-gray-700">
+                <Link to={page.path} className="hover:text-gray-900">
+                  {page.title}
+                </Link>
               </li>
             ))}
           </ul>
         </nav>
 
-        {/* part right */}
-
-        <div className="md:flex  custom-md:flex hidden items-center    gap-x-11">
+        <div className="hidden md:flex items-center gap-x-6">
           <User />
-          <Serach />
-          <Faviort />
+          <Search />
+          <Favorite />
           <Cart />
         </div>
 
-        <button type="button" onClick={handleList} >
-            {
-              open? (          <IconBars className="  text-2xl  md:hidden  custom-md:block lg:hidden block " />):  (
-                 <MingcuteCloseFill/>
-              )
-            }
+        <button
+          type="button"
+          onClick={handleList}
+          className="text-2xl md:hidden"
+        >
+          {open ? <IconBars /> : <MingcuteCloseFill />}
         </button>
-
-      
       </div>
 
-      <div className={`absolute  w-full    ${ open ?'hidden':""}  overflow-hidden   left-0  top-24  flex  items-start pt-11 justify-center  min-h-screen bg-black/80 `}>
-      <nav className=" ">
-          <ul className="md:w-[430px] flex   flex-col h-80   justify-between ">
+      <div
+        className={`absolute w-full ${open ? 'hidden' : 'flex'
+          } flex-col items-center pt-11 justify-center min-h-screen  bg-text-primary/65  z-20 top-24 left-0`}
+      >
+        <nav>
+          <ul className="flex flex-col gap-6">
             {pagesLinks.map((page, index) => (
-              <li key={index} className="  text-4xl text-white  font-medium">
+              <li
+                key={index}
+                className="text-2xl font-medium text-white hover:text-gray-300"
+              >
                 <Link to={page.path}>{page.title}</Link>
               </li>
             ))}
           </ul>
         </nav>
-
-       </div>
+      </div>
     </header>
   );
 }

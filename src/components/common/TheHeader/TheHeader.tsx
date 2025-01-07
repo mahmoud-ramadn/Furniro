@@ -6,6 +6,7 @@ import Favorite from '../../../assets/icons/Faviort';
 import Cart from '../../../assets/icons/Cart';
 import { useState } from 'react';
 import { MingcuteCloseFill } from '../../../assets/icons/Close';
+import AppImg from '../../ui/AppImg';
 
 function TheHeader() {
   const [open, setOpen] = useState(true);
@@ -34,11 +35,12 @@ function TheHeader() {
   };
 
   return (
-    <header className="w-full bg-white py-7 px-3 md:px-14 lg:px-20 h-24 relative">
+    <>
+    <header className="w-full bg-white py-7 px-3 md:px-14 lg:px-20 h-24  fixed left-0 top-0 z-50 ">
       <div className="flex justify-between items-center">
         {/* Logo Section */}
         <Link to="/" className="flex items-center gap-1 md:w-[185px]">
-          <img src="/images/logo.svg" alt="logo" className="w-8 h-8" />
+          <AppImg src="/images/logo.svg" alt="logo" className="w-8 h-8" />
           <h1 className="font-bold text-2xl md:text-4xl">Furniro</h1>
         </Link>
 
@@ -88,6 +90,10 @@ function TheHeader() {
         </nav>
       </div>
     </header>
+    <div className='w-full shadow-md bg-white py-7 px-3 md:px-14 lg:px-20 h-24'>
+
+    </div>
+    </>
   );
 }
 

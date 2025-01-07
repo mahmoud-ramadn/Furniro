@@ -1,27 +1,27 @@
+import { TProduct } from '../../types/products';
 import Card from '../ecommerce/Card';
-interface CardProps {
-  image: string;
-  title: string;
-  subtitle: string;
-  price: string;
-  discount: string;
-  offer?: string;
-  percent?: string;
+
+
+
+
+interface ProductsResponse {
+  products: TProduct[];
 }
 
-const ProductsList = ({ CardData }: { CardData: CardProps[] }) => {
+const ProductsList = ({ cardData }: { cardData: ProductsResponse }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-4 py-3 md:gap-8 gap-4">
-      {CardData.map((card, index) => (
+      {cardData.products.map((card:TProduct) => (
         <Card
-          key={index}
-          image={card.image}
-          title={card.title}
-          subtitle={card.subtitle}
-          price={card.price}
-          discount={card.discount}
-          offer={card.offer}
-          percent={card.percent}
+          key={card.id} 
+          id={card.id}
+          image={card.images[0]}
+          title={card.title.substring(0,20)}
+          subtitle={card.title.substring(0,30)}
+          price={`$${card.price}`}
+          discount={`$${(card.price * 0.8).toFixed(2)}`} 
+          offer="New"
+          percent={`$${(card.price * 0.8).toFixed(2)}`}  
         />
       ))}
     </div>

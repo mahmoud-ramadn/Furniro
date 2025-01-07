@@ -69,6 +69,11 @@ export default {
         900: '#521A1A',
       },
     },
+    extend:{
+       container:{
+        center:true,
+       }
+    }
   },
   plugins: [],
 };

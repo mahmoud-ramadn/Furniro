@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MainLayout from '../layouts/Mainlayout/MainLayout';
 import Error from '../pages/Error';
 import Hero from '../components/skeleteon/Hero';
+const SingleProduct =lazy(()=> import('../pages/SingleProduct'));
 const Home = lazy(() => import('../pages/Home'));
 const Shope = lazy(() => import('../pages/Shope'));
 
@@ -50,6 +51,22 @@ const router = createBrowserRouter([
             }
           >
             <Shope />
+          </Suspense>
+        ),
+      },
+      {
+        path:'/shope/:id',
+        element: (
+          <Suspense
+            fallback={
+              <div>
+                <h1 className=" text-4xl font-bold  text-primary-900 ">
+                  loading...
+                </h1>
+              </div>
+            }
+          >
+            <SingleProduct />
           </Suspense>
         ),
       },

@@ -1,8 +1,9 @@
+
 function HeroSection() {
   return (
     <section className="   relative    w-full lg:h-[716px]   h-full  flex  justify-end items-center  mr-14    mb-14       md:pr-[2%]   ">
       <img
-        className=" w-full h-full  absolute -z-10  left-0 top-0    object-cover "
+        className=" w-full h-full  -z-10   absolute left-0 top-0      object-cover     "
         src="/images/hero.jpg"
         alt=""
       />

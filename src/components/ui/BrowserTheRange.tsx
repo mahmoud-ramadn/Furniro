@@ -1,3 +1,4 @@
+import AppImg from './AppImg';
 import SectionTitle from './SectionTitle';
 
 function BrowserTheRange() {
@@ -29,7 +30,7 @@ function BrowserTheRange() {
           return (
             <>
               <div className="  md:col-span-2  lg:col-span-1 col-span-1 md:h-[520px] flex   space-y-7  flex-col justify-between  ">
-                <img
+                <AppImg
                   className=" w-full   rounded-md h-[480px] "
                   src={item.one}
                   alt="cardimg"

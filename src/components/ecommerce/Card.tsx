@@ -1,8 +1,11 @@
+import { Link } from 'react-router-dom';
 import { IconHeart } from '../../assets/icons/Heart';
 import { IconReverse_alt } from '../../assets/icons/Revers';
 import { IconBxsShareAlt } from '../../assets/icons/Share';
+import AppImg from '../ui/AppImg';
 
 interface CardProps {
+  id:string;
   image: string;
   title: string;
   subtitle: string;
@@ -11,8 +14,8 @@ interface CardProps {
   offer?: string;
   percent?: string;
 }
-
-const Card: React.FC<CardProps> = ({
+const Card = ({
+  id,
   image,
   title,
   subtitle,
@@ -20,63 +23,71 @@ const Card: React.FC<CardProps> = ({
   discount,
   offer,
   percent,
-}) => {
+}:CardProps) => {
   return (
-    <div className="col-span-1 md:col-span-1 h-[446px] relative group bg-Cardeatios-500 rounded-sm shadow-md">
-      {offer ? (
+    <div className="col-span-1 md:col-span-1 h-[446px] relative bg-Cardeatios-500 rounded-sm shadow-md">
+      {price ? (
         <span
-          className="w-12 h-12 rounded-full absolute right-6 top-6 bg-success-500 
-      flex items-center text-base font-medium text-white justify-center"
+          className="w-12 h-12 rounded-full absolute right-6 z-10 top-6 bg-success-500 
+          flex items-center text-base font-medium text-white justify-center"
         >
           {offer}
         </span>
       ) : percent ? (
         <span
-          className="w-12 h-12 rounded-full absolute right-6 top-6 bg-danger-500 
-      flex items-center text-base font-medium text-white justify-center"
+          className="w-12 h-12 rounded-full absolute right-6 z-10 top-6 bg-danger-500 
+          flex items-center text-base font-medium text-white justify-center"
         >
           {percent}
         </span>
       ) : null}
+         {/* Image and Hover Group */}
+      <div className="relative group overflow-hidden w-full h-[301px]">
+        <AppImg src={image} alt={title} width='100%' className=" h-full object-cover"  />
 
-      <div
-        className="w-full h-[0%] absolute left-0 overflow-hidden top-1/2 
-        -translate-y-1/2 group-hover:h-[100%] duration-100 ease-linear 
-        transition-all flex items-center justify-center px-4 bg-text-dark/45"
-      >
-        <div className="px-3 flex items-center flex-col justify-between h-24">
-          <button
-            type="button"
-            className="text-secondary-500 w-[202px] font-semibold h-12 flex items-center 
-                      justify-center text-base bg-white"
-          >
-            Add to Cart
-          </button>
-          <div className="flex items-center text-base font-semibold text-white gap-x-5">
-            <button type="button" className="flex items-center">
-              <IconBxsShareAlt /> Share
+        {/* Hover Content */}
+        <div
+          className="w-full h-0 absolute left-0 top-0 z-10 
+          flex items-center justify-center px-4 bg-text-dark/45 
+          overflow-hidden transition-all duration-300 ease-in-out 
+          group-hover:h-full"
+        >
+          <div className="px-3 flex items-center flex-col justify-between h-24">
+            <button
+              type="button"
+              className="text-secondary-500 w-[202px] font-semibold h-12 flex items-center 
+              justify-center text-base bg-white"
+            >
+              Add to Cart
             </button>
-            <button type="button" className="flex items-center">
-              <IconReverse_alt /> Compare
-            </button>
-            <button type="button" className="flex items-center">
-              <IconHeart /> Like
-            </button>
+            <div className="flex items-center text-base font-semibold text-white gap-x-5">
+              <button type="button" className="flex items-center">
+                <IconBxsShareAlt /> Share
+              </button>
+              <button type="button" className="flex items-center">
+                <IconReverse_alt /> Compare
+              </button>
+              <button type="button" className="flex items-center">
+                <IconHeart /> Like
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <img src={image} alt={title} className="w-full h-[301px] object-cover" />
-      <div className="py-5 px-4">
+
+      {/* Card Details */}
+
+      <div  className="py-5  w-full  px-5   cursor-pointer">
+        <Link to={`/shope/${id}`} >
         <h2 className="text-2xl text-text-cardTitle font-semibold">{title}</h2>
-        <p className="text-base text-text-cardSubtitle font-medium">
-          {subtitle}
-        </p>
+        <p className="text-base text-text-cardSubtitle font-medium">{subtitle}</p>
         <div className="mt-2 flex justify-between items-center">
           <h3 className="text-lg text-text-cardTitle font-bold">{price}</h3>
           <span className="line-through text-text-cardSubtitle/30 font-normal text-base">
             {discount}
           </span>
         </div>
+        </Link>
       </div>
     </div>
   );

@@ -3,8 +3,9 @@ import AppImg from './AppImg';
 import useFetchSinglProduct from '../../hooks/GetSingleProduct';
 import Btn from './Btn';
 import Counter from './Counter';
+import { TProduct } from '../../types/products';
 
-function ProductDetails({ productData }) {
+function ProductDetails({ productData }: { productData :TProduct}) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { data } = useFetchSinglProduct();
 

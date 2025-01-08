@@ -1,4 +1,5 @@
  export interface TProduct {
+  product: any;
   id: string;
   category: {
     image: string;

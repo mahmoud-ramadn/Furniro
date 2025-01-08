@@ -14,7 +14,7 @@ function Home() {
   }, []);
 
 
-  if (loading) return <div className=" font-bold text-5xl p w-full min-h-screen flex items-center justify-center   bg-primary-200 rounded-md    animate-ping ">
+  if (loading) return <div className=" font-bold text-5xl p w-full min-h-screen  flex items-center justify-center   bg-primary-200 rounded-md    animate-ping ">
 
     <h1> Loading ...</h1>
   </div>
@@ -24,7 +24,7 @@ function Home() {
     <main className="   ">
       <HeroSection />
       <BrowserTheRange />
-      <OurProducts />
+      <OurProducts visibleNumber={8} Title=' Our Products' />
       <BeautifulRoomSection />
       <FuniroFurniture />
     </main>

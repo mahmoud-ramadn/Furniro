@@ -34,6 +34,10 @@ function TheHeader() {
     setOpen(!open);
   };
 
+
+
+
+  
   return (
     <>
     <header className="w-full bg-white py-7 px-3 md:px-14 lg:px-20 h-24  fixed left-0 top-0 z-50 ">
@@ -71,10 +75,9 @@ function TheHeader() {
           {open ? <IconBars /> : <MingcuteCloseFill />}
         </button>
       </div>
-
       <div
         className={`absolute w-full ${open ? 'hidden' : 'flex'
-          } flex-col items-center pt-11 justify-center min-h-screen  bg-text-primary/65  z-20 top-24 left-0`}
+          } flex-col items-center pt-11 justify-center min-h-screen md:hidden bg-text-primary/65  z-20 top-24 left-0`}
       >
         <nav>
           <ul className="flex flex-col gap-6">

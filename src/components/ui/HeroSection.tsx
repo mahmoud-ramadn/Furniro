@@ -3,9 +3,9 @@ function HeroSection() {
   return (
     <section className="   relative    w-full lg:h-[716px]   h-full  flex  justify-end items-center  mr-14    mb-14       md:pr-[2%]   ">
       <img
-        className=" w-full h-full  -z-10   absolute left-0 top-0      object-cover     "
-        src="/images/hero.jpg"
-        alt=""
+        className=" w-full h-full  -z-10   absolute left-0 top-0       object-fit-xxl-scale    "
+        src="/images/scandinavian-interior-mockup-wall-decal-background 1 (1).jpg"
+        alt="heo"
       />
       <div className="  w-full lg:w-2/4 md:h-[443px]  bg-primary-500 md:rounded-xl   pt-16 pb-9 px-9  ">
         <h3 className=" text-base  font-semibold    text-text-primary  mb-1 ">

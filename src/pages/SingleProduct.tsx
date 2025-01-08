@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import Iconright from "../assets/Iconright";
 import ProductDeatails from "../components/ui/ProductDeatails";
 import useFetchSinglProduct from "../hooks/GetSingleProduct";
+import Tabs from "../components/ui/Tabs";
 function SingleProduct() {
 
   window.scrollTo(0, 0);
@@ -29,16 +30,13 @@ function SingleProduct() {
           <h1 className=" flex  items-center  gap-[14px]  ">
             <span className=" flex  items-center text-[#9F9F9F]    gap-[14px] "> Home <Iconright /> Shope </span>  <Iconright /> <span className=" h-9 border-l-2 flex items-center   
              border-[#9F9F9F]  pl-8 "> {data?.product.title.substring(0, 10)}</span> </h1>
-
-
         </div>
       </div>
-      <div className=" container    ">
+      <div className=" container">
        <ProductDeatails productData={data} />
       </div>
       <hr className=" h-[1px] mb-12" />
-
-
+      <Tabs/>
     </section>
   )
 }

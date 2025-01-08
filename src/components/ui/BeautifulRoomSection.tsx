@@ -31,7 +31,7 @@ function BeautifulRoomSection() {
           <div className=" col-span-1  relative z-10  flex overflow-hidden   items-end   pl-6 pb-6    h-full">
             <img
               className=" w-full absolute left-0 top-0   -z-10 "
-              src="/images/banner.webp"
+              src="/Rectangle 24.webp"
               alt=""
             />
             <div className="  flex  items-end ">

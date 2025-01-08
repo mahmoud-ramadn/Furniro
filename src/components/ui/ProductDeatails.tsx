@@ -1,22 +1,23 @@
 import { useState } from 'react';
 import AppImg from './AppImg';
-import useFetchSinglProduct from '../../hooks/GetSingleProduct';
 import Btn from './Btn';
 import Counter from './Counter';
 import { TProduct } from '../../types/products';
 
-interface ProductDetailsProps {
-  productData: TProduct; // Define the type for the productData prop
-}
 
-function ProductDetails({ productData }: ProductDetailsProps) {
+function ProductDetails({ productData }:{productData:TProduct}) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { data } = useFetchSinglProduct();
 
   const images = productData?.product?.images || [];
   const displayedImage = selectedImage || images[0];
 
+  
+
+  
+  
+
   return (
+ 
     <div className="container mt-9 mb-14 flex flex-wrap justify-center items-start gap-20 px-4">
       <div className="flex md:items-start flex-wrap md:flex-row flex-col gap-8">
         <div className="flex md:flex-col flex-row gap-8 justify-between md:h-[416px]">
@@ -55,10 +56,10 @@ function ProductDetails({ productData }: ProductDetailsProps) {
 
       <div className="md:w-[606px] md:h-[730px] rounded-md">
         <h2 className="font-normal text-[42px]">
-          {data?.product?.title?.substring(0, 19)}
+          {productData?.title?.substring(0, 19)}
         </h2>
         <h3 className="font-medium text-2xl text-text-links">
-          Rs ${data?.product?.price}
+          Rs ${productData?.price}
         </h3>
         <div className="h-[30px] mt-[10px] mb-3 flex items-center gap-x-5">
           <div className="flex items-center gap-2">
@@ -74,7 +75,7 @@ function ProductDetails({ productData }: ProductDetailsProps) {
           </p>
         </div>
         <p className="md:w-[450px] text-sm font-normal">
-          {data?.product?.description?.substring(0, 140)}
+          {productData?.description?.substring(0, 140)}
         </p>
 
         <div className="mt-5 mb-[18px] h-16 flex flex-col justify-between">

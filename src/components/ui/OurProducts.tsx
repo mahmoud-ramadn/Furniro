@@ -12,21 +12,19 @@ interface OurProductsProps {
 function OurProducts({ visibleNumber, Title }: OurProductsProps) {
   const { loading, data, error } = useFetchProduct();
   const [visibleProducts, setVisibleProducts] = useState<number>(visibleNumber);
-  const [showMore, setShowMore] = useState<boolean>(false); // Tracks toggle state
+  const [showMore, setShowMore] = useState<boolean>(false); 
 
   useEffect(() => {
     if (data) {
-      setVisibleProducts(visibleNumber); // Initialize with `visibleNumber` only when data is fetched
+      setVisibleProducts(visibleNumber);
     }
   }, [data, visibleNumber]);
 
   const handleToggle = () => {
     if (showMore) {
-      // Reset to initial state
-      setVisibleProducts(visibleNumber);
-    } else {
-      // Show up to 16 products or the max number available
-      setVisibleProducts(Math.min(19, data?.products.length || 0));
+      setVisibleProducts( visibleProducts+4  );
+    } else {      
+      setVisibleProducts(Math.min(visibleNumber, data?.products.length || 0));
     }
     setShowMore(!showMore); 
     window.scrollTo({

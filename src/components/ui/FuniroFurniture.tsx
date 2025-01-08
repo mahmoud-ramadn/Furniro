@@ -14,7 +14,7 @@ function FuniroFurniture() {
       <div className=" w-full   grid  justify-center md:grid-cols-2  lg:grid-cols-3 grid-cols-1  gap-4  ">
         <div className=" col-span-1 space-y-4">
           <div className=" flex   items-end  overflow-hidden gap-4">
-            <AppImg className=" w-full" src="/public/Grid/leftopp.webp" alt="" />
+            <AppImg className=" w-full" src="/Grid/leftopp.webp" alt="" />
             <AppImg className=" w-full    " src="/Grid/lefttop.webp" alt="" />
           </div>
           <div className=" flex  items-start  overflow-hidden gap-4">

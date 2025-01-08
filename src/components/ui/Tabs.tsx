@@ -53,11 +53,11 @@ function Tabs() {
 
              <div className="  justify-center flex mt-9 flex-wrap  gap-8 items-center ">
                 <div className="md:w-[605px] md:h-[348px] bg-primary-500 rounded ">
-                <img src="/public/sofa.webp" alt="" />
+                <img src="/sofa.webp" alt="" />
                 </div>
                 <div className="md:w-[605px] md:h-[348px] bg-primary-500 rounded">
 
-                <img src="/public/sofa1.webp" alt="" />
+                <img src="/sofa1.webp" alt="" />
                 </div>
 
 

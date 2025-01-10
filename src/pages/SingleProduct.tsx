@@ -17,7 +17,7 @@ function SingleProduct() {
 
 
 
-  if (loading) return <div className=" font-bold text-5xl p w-full min-h-screen flex items-center justify-center   bg-primary-200 rounded-md    animate-ping ">
+  if (loading) return <div className=" font-bold md:text-5xl text-lg p w-full min-h-screen flex items-center justify-center   bg-primary-200 rounded-md    animate-ping ">
 
     <h1> Loading ...</h1> 
   </div>
@@ -33,7 +33,8 @@ function SingleProduct() {
              border-[#9F9F9F]  pl-8 "> {data?.product.title.substring(0, 10)}</span> </h1>
         </div>
       </div>
-      <div className=" container">
+
+      <div className=" container px-4">
         <ProductDeatails productData={data?.product as TProduct} />
       </div>
       <hr className=" h-[1px] mb-12" />

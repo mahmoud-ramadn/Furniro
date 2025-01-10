@@ -6,6 +6,7 @@ import TopageBanner from '../components/ui/TopageBanner';
 
 function Shope() {
   const { loading, data, error } = useFetchProduct();
+  
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 16;
 
@@ -22,12 +23,14 @@ function Shope() {
     }
   };
 
+
   const handlePageClick = (page: number) => {
     setCurrentPage(page);
   };
+
   if (loading) {
     return (
-      <div className="font-bold text-5xl w-full min-h-screen flex items-center justify-center bg-primary-200 rounded-md">
+      <div className="font-bold md:text-5xl  text-lg w-full min-h-screen flex items-center justify-center bg-primary-200 rounded-md">
         <h1>Loading...</h1>
       </div>
     );

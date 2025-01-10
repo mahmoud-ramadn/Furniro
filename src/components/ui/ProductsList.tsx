@@ -3,7 +3,7 @@ import Card from '../ecommerce/Card';
 
 const ProductsList = ({ cardData }: { cardData: TProduct[] }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 px-4 py-3 md:gap-8 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 py-3 md:gap-8 gap-4">
       {cardData.map((card: TProduct) => {
         const formattedPrice = `$${card.price.toFixed(2)}`;
         const discountedPrice = `$${(card.price * 0.8).toFixed(2)}`;

@@ -21,10 +21,12 @@ function Home() {
 
 
   return (
-    <main className="   ">
+    <main>
       <HeroSection />
       <BrowserTheRange />
+      <div className=' px-4'>
       <OurProducts visibleNumber={8} Title=' Our Products' />
+      </div>
       <BeautifulRoomSection />
       <FuniroFurniture />
     </main>

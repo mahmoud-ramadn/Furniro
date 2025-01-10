@@ -21,7 +21,7 @@ function Home() {
 
 
   return (
-    <main>
+    <main className=' overflow-hidden'>
       <HeroSection />
       <BrowserTheRange />
       <div className=' px-4'>

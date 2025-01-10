@@ -27,7 +27,7 @@ function EmailSubscription() {
   };
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 ">
       <h3 className="font-medium text-base text-[#9F9F9F]">Newsletter</h3>
       <div>
         <div className="w-full flex     items-end gap-2 ">

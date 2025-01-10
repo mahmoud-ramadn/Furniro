@@ -4,7 +4,7 @@ function TheFooter() {
   return (
     <footer className="  px-10    border-t-[1px]  pt-12">
       <div>
-        <div className="  md:h-[419px]  flex-wrap  border-b-[1px] container mx-auto  pb-3  flex  items-start    w-full ">
+        <div className="  md:h-[419px]  flex-wrap   container mx-auto  pb-3  flex  items-start    w-full ">
           <div className=" w-[285px] space-y-14  md:mr-32 ">
             <h3 className=" font-bold  text-2xl  ">Funiro.</h3>
             <p className=" text-text-links">
@@ -27,7 +27,7 @@ function TheFooter() {
           </div>
           <EmailSubscription />
         </div>
-        <div className="  container mx-auto my-9">
+        <div className="  border-t-[1px] container mx-auto my-9">
           <p className=" ">2023 furino. All rights reverved</p>
         </div>
       </div>

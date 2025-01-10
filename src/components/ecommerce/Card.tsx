@@ -25,7 +25,7 @@ const Card = ({
   percent,
 }:CardProps) => {
   return (
-    <div className="col-span-1 md:col-span-1 h-[446px] relative bg-Cardeatios-500 rounded-sm shadow-md">
+    <div className="col-span-1 md:col-span-1 lg:h-[500px] md:h-fit h-full relative bg-Cardeatios-500  rounded-sm shadow-md">
       {price ? (
         <span
           className="w-12 h-12 rounded-full absolute right-6 z-10 top-6 bg-success-500 

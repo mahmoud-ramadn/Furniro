@@ -43,7 +43,7 @@ function Tabs() {
       </div>
 
       <div
-        className="mx-auto md:h-44 lg:w-[1026px] flex flex-col justify-between text-text-links
+        className="mx-auto md:h-44 lg:w-[1026px overflow-hidden  w-full flex flex-col justify-between text-text-links
                  md:text-base text-sm font-normal  "
       >
         <p>

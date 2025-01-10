@@ -17,15 +17,15 @@ const GET_SINGLE_PRODUCT = gql`
   }
 `;
 const useFetchSinglProduct = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
 
-  const { loading, error, data } = useQuery<{ product:TProduct }>(
+  const { loading, error, data } = useQuery<{ product: TProduct }>(
     GET_SINGLE_PRODUCT,
     {
-      variables: { id }, 
+      variables: { id },
     },
   );
-  return { loading, error, data ,id };
+  return { loading, error, data, id };
 };
 
 export default useFetchSinglProduct;

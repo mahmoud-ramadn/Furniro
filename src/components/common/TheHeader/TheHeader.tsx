@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { IconBars } from '../../../assets/icons/Bars';
-import User from '../../../assets/icons/User';
-import Search from '../../../assets/icons/Search';
-import Favorite from '../../../assets/icons/Faviort';
+// import User from '../../../assets/icons/User';
+// import Search from '../../../assets/icons/Search';
+// import Favorite from '../../../assets/icons/Faviort';
 import Cart from '../../../assets/icons/Cart';
 import { useState } from 'react';
 import { MingcuteCloseFill } from '../../../assets/icons/Close';
@@ -61,10 +61,10 @@ function TheHeader() {
         </nav>
 
         <div className="hidden md:flex items-center gap-x-6">
-          <User />
+          {/* <User />
           <Search />
-          <Favorite />
-          <Cart />
+          <Favorite />*/}
+          <Cart /> 
         </div>
 
         <button

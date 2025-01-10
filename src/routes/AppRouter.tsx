@@ -2,7 +2,7 @@ import { lazy, Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import MainLayout from '../layouts/Mainlayout/MainLayout';
 import Error from '../pages/Error';
-const SingleProduct =lazy(()=> import('../pages/SingleProduct'));
+const SingleProduct = lazy(() => import('../pages/SingleProduct'));
 const Home = lazy(() => import('../pages/Home'));
 const Shope = lazy(() => import('../pages/Shope'));
 
@@ -10,18 +10,16 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <Suspense fallback={""}>
-
+      <Suspense fallback={''}>
         <MainLayout />
       </Suspense>
-    
     ),
     errorElement: <Error />,
     children: [
       {
         index: true,
         element: (
-          <Suspense fallback={ ""}>
+          <Suspense fallback={''}>
             <Home />
           </Suspense>
         ),
@@ -29,19 +27,15 @@ const router = createBrowserRouter([
       {
         path: '/shope',
         element: (
-          <Suspense
-            fallback={""}
-          >
+          <Suspense fallback={''}>
             <Shope />
           </Suspense>
         ),
       },
       {
-        path:'/shope/:id',
+        path: '/shope/:id',
         element: (
-          <Suspense
-            fallback={""}
-          >
+          <Suspense fallback={''}>
             <SingleProduct />
           </Suspense>
         ),

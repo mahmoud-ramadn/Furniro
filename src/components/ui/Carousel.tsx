@@ -33,7 +33,7 @@ function Carousel() {
         left: scrollAmount,
         behavior: 'smooth',
       });
-      event.preventDefault();
+      event.preventDefault(); // تمنع التمرير الافتراضي
     }
   };
 
@@ -49,17 +49,21 @@ function Carousel() {
   useEffect(() => {
     if (carouselRef.current) {
       carouselRef.current.addEventListener('scroll', updateActiveDot);
+
+      // إضافة مستمع حدث التمرير مع `passive: false`
+      carouselRef.current.addEventListener('wheel', handleWheel, { passive: false });
     }
     return () => {
       if (carouselRef.current) {
         carouselRef.current.removeEventListener('scroll', updateActiveDot);
+        carouselRef.current.removeEventListener('wheel', handleWheel);
       }
     };
   }, []);
 
   return (
     <div className="col-span-1 h-full flex flex-col justify-between gap-5 relative pb-5 items-start">
-      {/* Right Scroll Button */}
+      {/* زر التمرير إلى اليمين */}
       <span
         onClick={() => scrollCarousel('right')}
         className="w-12 h-12 absolute cursor-pointer right-20 top-80 rounded-full p-5 flex items-center justify-center bg-white shadow-md"
@@ -67,7 +71,7 @@ function Carousel() {
         <EpArrowRightBold />
       </span>
 
-      {/* Left Scroll Button */}
+      {/* زر التمرير إلى اليسار */}
       <span
         onClick={() => scrollCarousel('left')}
         className="w-12 h-12 absolute cursor-pointer left-20 top-80 rounded-full p-5 flex items-center justify-center bg-white shadow-md"
@@ -75,10 +79,9 @@ function Carousel() {
         <EpArrowRightBold className="rotate-180" />
       </span>
 
-      {/* Carousel Content */}
+      {/* محتوى الكاروسيل */}
       <div
         ref={carouselRef}
-        onWheel={handleWheel}
         className="overflow-x-scroll flex items-center scrollbar-hidden gap-4"
       >
         {items.map((item, index) => (
@@ -86,16 +89,15 @@ function Carousel() {
         ))}
       </div>
 
-      {/* Dots Indicators */}
+      {/* مؤشرات النقاط */}
       <div className="flex items-center gap-3">
         {items.map((_, index) => (
           <div
             key={index}
-            className={`w-4 h-4 rounded-full ${
-              activeIndex === index
+            className={`w-4 h-4 rounded-full ${activeIndex === index
                 ? 'bg-secondary-500 outline outline-secondary-500 p-2'
                 : 'bg-[#D8D8D8]'
-            }`}
+              }`}
           ></div>
         ))}
       </div>

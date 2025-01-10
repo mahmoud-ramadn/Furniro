@@ -8,24 +8,23 @@ import useFetchProduct from '../hooks/GetProducts';
 function Home() {
   const { loading } = useFetchProduct();
 
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-
-  if (loading) return <div className=" font-bold text-5xl p w-full min-h-screen  flex items-center justify-center   bg-primary-200 rounded-md    animate-ping ">
-
-    <h1> Loading ...</h1>
-  </div>
-
+  if (loading)
+    return (
+      <div className=" font-bold text-5xl p w-full min-h-screen  flex items-center justify-center   bg-primary-200 rounded-md    animate-ping ">
+        <h1> Loading ...</h1>
+      </div>
+    );
 
   return (
-    <main className=' overflow-hidden'>
+    <main className=" overflow-hidden">
       <HeroSection />
       <BrowserTheRange />
-      <div className=' px-4'>
-      <OurProducts visibleNumber={8} Title=' Our Products' />
+      <div className=" px-4">
+        <OurProducts visibleNumber={8} Title=" Our Products" />
       </div>
       <BeautifulRoomSection />
       <FuniroFurniture />

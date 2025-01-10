@@ -10,8 +10,10 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-  
+      <Suspense fallback={""}>
+
         <MainLayout />
+      </Suspense>
     
     ),
     errorElement: <Error />,

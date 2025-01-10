@@ -21,7 +21,7 @@ function ProductDetails({ productData }:{productData:TProduct}) {
     <div className="container mt-9 mb-14 flex flex-wrap justify-center items-start gap-20 px-4">
       <div className="flex md:items-start flex-wrap md:flex-row flex-col gap-8">
         <div className="flex md:flex-col flex-row gap-8 justify-between md:h-[416px]">
-          {images.map((image: string, index: number) => (
+          {productData.images.map((image: string, index: number) => (
             <div
               key={index}
               className={`md:w-20 w-1/4 md:h-20 h-fit rounded-lg overflow-hidden cursor-pointer ${selectedImage === image ? 'border-2 border-secondary-500' : ''

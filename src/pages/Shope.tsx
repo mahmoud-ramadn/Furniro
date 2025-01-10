@@ -9,7 +9,6 @@ function Shope() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 16;
 
-  // Calculate total pages and the products to display
   const totalPages = Math.ceil((data?.products.length || 0) / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const productsToDisplay = data?.products.slice(
@@ -17,12 +16,6 @@ function Shope() {
     startIndex + itemsPerPage,
   );
 
-  // Scroll to top when the page changes
-  // useEffect(() => {
-  //   window.scrollTo(0, 0);
-  // }, [currentPage]);
-
-  // Handlers
   const handleNext = () => {
     if (currentPage < totalPages) {
       setCurrentPage((prev) => prev + 1);
@@ -32,8 +25,6 @@ function Shope() {
   const handlePageClick = (page: number) => {
     setCurrentPage(page);
   };
-
-  // Loading and Error States
   if (loading) {
     return (
       <div className="font-bold text-5xl w-full min-h-screen flex items-center justify-center bg-primary-200 rounded-md">
@@ -84,6 +75,7 @@ function Shope() {
             Next
           </button>
         </div>
+        
       </section>
       <Banner />
     </div>

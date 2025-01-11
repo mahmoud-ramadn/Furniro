@@ -3,11 +3,14 @@ function HeroSection() {
   return (
     <section className="   relative    w-full lg:h-[716px]   h-full  flex  justify-end items-center  mr-14    mb-14       md:pr-[2%]   ">
       <img
-        className=" w-full h-full  -z-10   absolute left-0 top-0       object-fit-xxl-scale    "
+        className="w-full h-full -z-10 absolute left-0 top-0 object-cover"
+        srcSet="/images/scandinavian-interior-mockup-wall-decal-background 1 (1).webp 1x, /images/scandinavian-interior-mockup-wall-decal-background 1 (1)@2x.webp 2x"
         src="/images/scandinavian-interior-mockup-wall-decal-background 1 (1).webp"
-        alt="heo"
+        alt="hero"
+        loading="lazy"
       />
-      <div className="  w-full lg:w-2/4 md:h-[443px]  bg-primary-500 md:rounded-xl   pt-16 pb-9 px-9  ">
+
+      <div className=" md:w-[643px] md:h-[443px]  bg-primary-500 md:rounded-xl   pt-16 pb-9 px-9  ">
         <h3 className=" text-base  font-semibold    text-text-primary  mb-1 ">
           New Arrival
         </h3>

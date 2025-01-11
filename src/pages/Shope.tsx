@@ -3,6 +3,7 @@ import ProductsList from '../components/ui/ProductsList';
 import Banner from '../components/ui/Banner';
 import useFetchProduct from '../hooks/GetProducts';
 import TopageBanner from '../components/ui/TopageBanner';
+import AppImg from '../components/ui/AppImg';
 
 function Shope() {
   const { loading, data, error } = useFetchProduct();
@@ -30,8 +31,8 @@ function Shope() {
 
   if (loading) {
     return (
-      <div className="font-bold md:text-5xl  text-lg w-full min-h-screen flex items-center justify-center bg-primary-200 rounded-md">
-        <h1>Loading...</h1>
+      <div className="font-bold md:text-5xl  text-lg w-full min-h-screen flex items-center justify-center  bg-primary-500 rounded-md">
+        <AppImg  className='' src='/images/logo.svg' alt='loading'/>
       </div>
     );
   }
@@ -48,10 +49,8 @@ function Shope() {
     <div>
       <TopageBanner />
       <div className="w-full h-[100px] bg-primary-500"></div>
-      <section className="container mx-auto my-8">
+      <section className="container px-4 mx-auto my-8">
         <ProductsList cardData={productsToDisplay || []} />
-
-        {/* Pagination */}
         <div className="flex justify-center gap-4 my-20 items-center">
           {Array.from({ length: totalPages }, (_, index) => (
             <button
@@ -78,7 +77,6 @@ function Shope() {
             Next
           </button>
         </div>
-        
       </section>
       <Banner />
     </div>

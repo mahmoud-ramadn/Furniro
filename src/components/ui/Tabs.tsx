@@ -71,7 +71,7 @@ function Tabs() {
           <img src="/sofa1.webp" alt="" />
         </div>
       </div>
-      <OurProducts Title="" visibleNumber={4} />
+      <OurProducts Title="Related Products" visibleNumber={4} />
     </div>
   );
 }

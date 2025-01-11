@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import useFetchProduct from '../../hooks/GetProducts';
 import ProductsList from './ProductsList';
 import { TProduct } from '../../types/products';
@@ -11,45 +11,61 @@ interface OurProductsProps {
 
 function OurProducts({ visibleNumber, Title }: OurProductsProps) {
   const { loading, data, error } = useFetchProduct();
-  const [visibleProducts, setVisibleProducts] = useState<number>(visibleNumber);
-  const [showMore, setShowMore] = useState<boolean>(false); 
+  const [state, setState] = useState({
+    visibleProducts: visibleNumber,
+    showMore: false,
+  });
+
+  const productsToDisplay: TProduct[] = useMemo(() => {
+    return data?.products?.slice(0, state.visibleProducts) || [];
+  }, [data, state.visibleProducts]);
 
   useEffect(() => {
-    if (data) {
-      setVisibleProducts(visibleNumber);
-    }
-  }, [data, visibleNumber]);
+    setState((prevState) => ({
+      ...prevState,
+      visibleProducts: visibleNumber,
+    }));
+  }, [visibleNumber]);
 
-  const handleToggle = () => {
-    if (showMore) {
-      setVisibleProducts( visibleProducts+4  );
-    } else {      
-      setVisibleProducts(Math.min(visibleNumber, data?.products.length || 0));
-    }
-    setShowMore(!showMore); 
+  const handleToggle = useCallback(() => {
+    setState((prevState) => {
+      const totalProducts = data?.products.length || 0;
+      const newVisibleProducts = prevState.showMore
+        ? Math.max(visibleNumber, prevState.visibleProducts - 4) 
+        : Math.min(totalProducts, prevState.visibleProducts + 4); 
+
+      return {
+        visibleProducts: newVisibleProducts,
+        showMore: newVisibleProducts < totalProducts, 
+      };
+    });
+
     window.scrollTo({
       top: 1200,
       behavior: 'smooth',
     });
-  };
+  }, [data?.products.length, state.visibleProducts, visibleNumber]);
 
   if (loading) return <div>Loading, please wait...</div>;
   if (error) return <div className="text-3xl font-bold text-danger-500">Something went wrong.</div>;
-
-  const productsToDisplay: TProduct[] = data?.products?.slice(0, visibleProducts) || [];
 
   return (
     <section className="container mx-auto my-8">
       <h1 className="text-[40px] text-text-cardTitle mb-8 text-center font-bold">
         {Title}
       </h1>
-      <ProductsList cardData={productsToDisplay} />
+
+      {/* Use React.lazy for better performance if ProductsList is large */}
+      <React.Suspense fallback={<div>Loading products...</div>}>
+        <ProductsList cardData={productsToDisplay} />
+      </React.Suspense>
+
       <div className="flex justify-center mt-8">
         <Btn
           onClick={handleToggle}
-          className="px-6 py-2 text-lg font-medium text-white bg-primary-500 rounded-md hover:bg-primary-600 transition"
+          className="text-lg font-medium border-secondary-500 border-[1px] w-[245px] h-[48px] flex items-center justify-center hover:bg-primary-600 transition-all"
         >
-          {showMore ? 'Show Less' : 'Show More'}
+          {state.showMore ? 'Show Less' : 'Show More'}
         </Btn>
       </div>
     </section>

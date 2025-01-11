@@ -2,12 +2,9 @@ import { useQuery, gql } from '@apollo/client';
 import { TProduct } from '../types/products';
 
 const GET_PRODUCTS = gql`
-  query {
+  query GetProducts {
     products {
       id
-      category {
-        image
-      }
       title
       price
       images
@@ -21,7 +18,18 @@ interface ProductsResponse {
 }
 
 const useFetchProduct = () => {
-  const { loading, error, data } = useQuery<ProductsResponse>(GET_PRODUCTS);
+  const { loading, error, data } = useQuery<ProductsResponse>(GET_PRODUCTS, {
+    
+    fetchPolicy: 'cache-first', 
+   
+  });
+
+  // Error Handling: You can customize how you want to handle errors
+  if (error) {
+    console.error('Error fetching products:', error);
+  }
+
+  // You can return the error, loading, and data to the component
   return { loading, error, data };
 };
 

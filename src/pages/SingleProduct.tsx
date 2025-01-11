@@ -3,6 +3,7 @@ import ProductDeatails from '../components/ui/ProductDeatails';
 import useFetchSinglProduct from '../hooks/GetSingleProduct';
 import Tabs from '../components/ui/Tabs';
 import { TProduct } from '../types/products';
+import AppImg from '../components/ui/AppImg';
 function SingleProduct() {
   window.scrollTo(0, 0);
 
@@ -10,12 +11,13 @@ function SingleProduct() {
 
   const { error, loading, data } = useFetchSinglProduct();
 
-  if (loading)
+  if (loading) {
     return (
-      <div className=" font-bold md:text-5xl text-lg p w-full min-h-screen flex items-center justify-center   bg-primary-200 rounded-md    animate-ping ">
-        <h1> Loading ...</h1>
+      <div className="font-bold md:text-5xl  text-lg w-full min-h-screen flex items-center justify-center  bg-primary-500 rounded-md">
+        <AppImg className='' src='/images/logo.svg' alt='loading' />
       </div>
     );
+  }
 
   if (error) return <div> some thing want worng</div>;
 

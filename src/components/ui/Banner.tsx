@@ -9,7 +9,7 @@ function Banner() {
     {
       icon: '/banner/customer-support.svg',
       title: 'High Quality',
-      subtitle: 'crafted from top materials',
+      subtitle: 'Crafted from top materials',
     },
     {
       icon: '/banner/Group.svg',
@@ -29,13 +29,22 @@ function Banner() {
   ];
 
   return (
-    <div className=" w-full bg-primary-500 md:h-[270px] flex items-center flex-wrap justify-center gap-4  py-6 md:justify-between px-14">
+    <div className="w-full bg-primary-500 flex flex-wrap items-center justify-between gap-6  px-14 md:h-[270px]">
       {bannerData.map((item, index) => (
-        <div key={index} className="  flex items-center    gap-x-2">
-          <img src={`${item.icon}`} alt="" />
+        <div
+          key={index}
+          className="flex items-center gap-4 w-full sm:w-auto text-center sm:text-left"
+        >
+          <div className="flex-shrink-0">
+            <img
+              className="w-12 h-12 sm:w-16 sm:h-16"
+              src={item.icon}
+              alt={item.title}
+            />
+          </div>
           <div>
-            <h2 className="  text-2xl font-semibold ">{item.title}</h2>
-            <p className="  text-xl font-medium text-text-cardSubtitle">
+            <h2 className="text-lg sm:text-xl font-semibold">{item.title}</h2>
+            <p className="text-sm sm:text-base text-text-cardSubtitle">
               {item.subtitle}
             </p>
           </div>

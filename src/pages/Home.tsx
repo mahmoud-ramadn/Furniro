@@ -5,6 +5,7 @@ import BeautifulRoomSection from '../components/ui/BeautifulRoomSection';
 import HeroSection from '../components/ui/HeroSection';
 import { useEffect } from 'react';
 import useFetchProduct from '../hooks/GetProducts';
+import AppImg from '../components/ui/AppImg';
 function Home() {
   const { loading } = useFetchProduct();
 
@@ -12,12 +13,13 @@ function Home() {
     window.scrollTo(0, 0);
   }, []);
 
-  if (loading)
+  if (loading) {
     return (
-      <div className=" font-bold text-5xl p w-full min-h-screen  flex items-center justify-center   bg-primary-200 rounded-md    animate-ping ">
-        <h1> Loading ...</h1>
+      <div className="font-bold md:text-5xl  text-lg w-full min-h-screen flex items-center justify-center  bg-primary-500 rounded-md">
+        <AppImg className='' src='/images/logo.svg' alt='loading' />
       </div>
     );
+  }
 
   return (
     <main className=" overflow-hidden">

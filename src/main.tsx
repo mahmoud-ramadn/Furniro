@@ -4,12 +4,16 @@ import './main.css';
 import AppRouter from './routes/AppRouter';
 import { ApolloProvider } from '@apollo/client';
 import client from './apollo/ApolloClient';
+import { CartProvider } from './context/Cartcontext';
 
 
 
 createRoot(document.getElementById('root')!).render(
-<ApolloProvider client={client}>
-<AppRouter />
-</ApolloProvider>
+
+    <ApolloProvider client={client}>
+        <CartProvider>
+            <AppRouter />
+        </CartProvider>
+    </ApolloProvider>
 
 );

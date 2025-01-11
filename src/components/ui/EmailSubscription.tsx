@@ -47,7 +47,7 @@ function EmailSubscription() {
             SUBSCRIBE
           </button>
         </div>
-        {error && <p className="  text-danger-600 text-xs mt-1">{error}</p>}
+        {error && <p className="   text-danger-500 text-xs mt-1">{error}</p>}
       </div>
     </div>
   );

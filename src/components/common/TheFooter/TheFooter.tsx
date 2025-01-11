@@ -28,7 +28,7 @@ function TheFooter() {
           <EmailSubscription />
         </div>
         <div className="  border-t-[1px] container mx-auto my-9">
-          <p className=" ">2023 furino. All rights reverved</p>
+          <p className=" ">2025 furino. All rights reverved</p>
         </div>
       </div>
     </footer>

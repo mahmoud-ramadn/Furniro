@@ -7,7 +7,6 @@ export default {
       current: 'currentColor',
       white: '#ffffff',
 
-      // Custom Colors from Figma
       primary: {
         
         500: '#FFF3E3', // Base color
@@ -32,7 +31,7 @@ export default {
 
       success: {
        
-        500: '#2EC1AC', // Base color
+        500: '#2EC1AC', 
       
       },
 
@@ -42,7 +41,7 @@ export default {
 
       danger: {
        
-        500: '#E97171', // Base color
+        500: '#E97171', 
      
       },
     },

@@ -3,6 +3,7 @@ import { IconHeart } from '../../assets/icons/Heart';
 import { IconReverse_alt } from '../../assets/icons/Revers';
 import { IconBxsShareAlt } from '../../assets/icons/Share';
 import AppImg from '../ui/AppImg';
+import { useCart } from '../../context/Cartcontext';
 
 interface CardProps {
   id:string;
@@ -24,8 +25,28 @@ const Card = ({
   offer,
   percent,
 }:CardProps) => {
+
+  const { addToCart } = useCart();
+
+
+  const handleAddToCart = () => {
+    const product:CardProps= {
+      id,
+      image,
+      title,
+      subtitle,
+      price,
+      discount,
+      offer,
+      percent,
+    };
+    addToCart(product); 
+
+  }
+
   return (
     <div className="col-span-1 md:col-span-1 lg:h-[500px] md:h-fit h-full relative bg-Cardeatios-500  rounded-sm shadow-md">
+
       {price ? (
         <span
           className="w-12 h-12 rounded-full absolute right-6 z-10 top-6 bg-success-500 
@@ -54,6 +75,7 @@ const Card = ({
         >
           <div className="px-3 flex items-center flex-col justify-between h-24">
             <button
+             onClick={handleAddToCart}
               type="button"
               className="text-secondary-500 w-[202px] font-semibold h-12 flex items-center 
               justify-center text-base bg-white"
@@ -78,7 +100,7 @@ const Card = ({
       {/* Card Details */}
 
       <div  className="py-5  w-full  px-5   cursor-pointer">
-        <Link to={`/shope/${id}`} >
+        <Link to={`/shop/${id}`} >
         <h2 className="text-2xl text-text-cardTitle font-semibold">{title}</h2>
         <p className="text-base text-text-cardSubtitle font-medium">{subtitle}</p>
         <div className="mt-2 flex justify-between items-center">

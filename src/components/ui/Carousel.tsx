@@ -33,7 +33,7 @@ function Carousel() {
         left: scrollAmount,
         behavior: 'smooth',
       });
-      event.preventDefault(); // تمنع التمرير الافتراضي
+      event.preventDefault(); 
     }
   };
 
@@ -50,7 +50,6 @@ function Carousel() {
     if (carouselRef.current) {
       carouselRef.current.addEventListener('scroll', updateActiveDot);
 
-      // إضافة مستمع حدث التمرير مع `passive: false`
       carouselRef.current.addEventListener('wheel', handleWheel, { passive: false });
     }
     return () => {
@@ -63,7 +62,6 @@ function Carousel() {
 
   return (
     <div className="col-span-1 h-full flex flex-col justify-between gap-5 relative pb-5 items-start">
-      {/* زر التمرير إلى اليمين */}
       <span
         onClick={() => scrollCarousel('right')}
         className="w-12 h-12 absolute cursor-pointer right-20 top-80 rounded-full p-5 flex items-center justify-center bg-white shadow-md"
@@ -71,7 +69,6 @@ function Carousel() {
         <EpArrowRightBold />
       </span>
 
-      {/* زر التمرير إلى اليسار */}
       <span
         onClick={() => scrollCarousel('left')}
         className="w-12 h-12 absolute cursor-pointer left-20 top-80 rounded-full p-5 flex items-center justify-center bg-white shadow-md"
@@ -79,7 +76,6 @@ function Carousel() {
         <EpArrowRightBold className="rotate-180" />
       </span>
 
-      {/* محتوى الكاروسيل */}
       <div
         ref={carouselRef}
         className="overflow-x-scroll flex items-center scrollbar-hidden gap-4"
@@ -89,7 +85,6 @@ function Carousel() {
         ))}
       </div>
 
-      {/* مؤشرات النقاط */}
       <div className="flex items-center gap-3">
         {items.map((_, index) => (
           <div

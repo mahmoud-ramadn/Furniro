@@ -18,22 +18,21 @@ function BrowserTheRange() {
   ];
 
   return (
-    <section className="container mx-auto md:px-32 px-4 text-center">
+    <section className="container mx-auto  px-4 text-center">
       <div className="space-y-3 mb-14">
         <SectionTitle title="Browse The Range" />
         <p className="md:text-xl font-normal text-base text-text-secondary">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
       </div>
-
       <div className="w-full grid md:grid-cols-4 lg:grid-cols-3 mb-14 gap-5 grid-cols-1">
         {CardImage.map((item, index) => (
           <div
             key={index} 
-            className="md:col-span-2 lg:col-span-1 col-span-1 md:h-[520px] flex space-y-7 flex-col justify-between"
+            className="sm:col-span-2 lg:col-span-1 col-span-1 md:h-[520px] flex space-y-7 flex-col justify-between"
           >
             <AppImg
-              className="w-full rounded-md h-[480px]"
+              className="w-full rounded-md md:h-[480px]"
               src={item.one}
               alt="cardimg"
             />

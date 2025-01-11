@@ -3,12 +3,16 @@ import AppImg from './AppImg';
 import Btn from './Btn';
 import Counter from './Counter';
 import { TProduct } from '../../types/products';
+import { useCart } from '../../context/Cartcontext';
 
 function ProductDetails({ productData }: { productData: TProduct }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const {addToCart}=useCart();
 
-  const images = productData?.images || []; // Ensure images fallback to an empty array
+  const images = productData?.images || [];
   const displayedImage = selectedImage || images[0];
+
+
 
   return (
     <div className="container mt-9 mb-14 flex flex-wrap justify-center items-start gap-20 ">
@@ -98,11 +102,11 @@ function ProductDetails({ productData }: { productData: TProduct }) {
         </div>
 
         <div className="mt-8 mb-[60px] flex items-center gap-2 md:flex-nowrap flex-wrap">
-          <Counter />
-          <Btn className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">
+         <Counter/>
+          <Btn onClick={()=>addToCart(productData as TProduct)} className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">
             Add To Cart
           </Btn>
-          <Btn className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">
+          <Btn  className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">
             + Compare
           </Btn>
         </div>

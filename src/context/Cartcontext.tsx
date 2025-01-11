@@ -2,6 +2,7 @@ import { createContext, useState, useContext, ReactNode, useEffect } from "react
 import useCounter from "../hooks/counter";
 
 interface TItem {
+    images: any;
     id: string;
     title: string;
     price: string | number; // Allow price to be either a string or a number

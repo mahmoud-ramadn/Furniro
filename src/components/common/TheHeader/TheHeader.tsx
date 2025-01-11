@@ -41,12 +41,12 @@ function TheHeader() {
         const results = data.products.filter((product) =>
           product.title.toLowerCase().includes(value.toLowerCase()),
         );
-        setFilteredProducts(results);
+        setFilteredProducts(results as never);
       }, 500),
     [data],
   );
 
-  const handleSearchInput = (e) => {
+  const handleSearchInput = (e:any ) => {
     const value = e.target.value;
     setSearchText(value);
     handleSearch(value);

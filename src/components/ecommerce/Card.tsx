@@ -40,7 +40,7 @@ const Card = ({
       offer,
       percent,
     };
-    addToCart(product); 
+    addToCart(product as any); 
 
   }
 

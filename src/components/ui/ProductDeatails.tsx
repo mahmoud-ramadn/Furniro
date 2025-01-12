@@ -5,6 +5,8 @@ import Counter from './Counter';
 import { TProduct } from '../../types/products';
 import { useCart } from '../../context/Cartcontext';
 
+
+
 function ProductDetails({ productData }: { productData: TProduct }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const {addToCart}=useCart();
@@ -103,7 +105,7 @@ function ProductDetails({ productData }: { productData: TProduct }) {
 
         <div className="mt-8 mb-[60px] flex items-center gap-2 md:flex-nowrap flex-wrap">
          <Counter/>
-          <Btn onClick={()=>addToCart(productData as TProduct)} className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">
+          <Btn onClick={()=>addToCart(productData  as TProduct)} className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">
             Add To Cart
           </Btn>
           <Btn  className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">

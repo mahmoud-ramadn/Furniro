@@ -6,6 +6,8 @@ const SingleProduct = lazy(() => import('../pages/SingleProduct'));
 const Home = lazy(() => import('../pages/Home'));
 const Shope = lazy(() => import('../pages/Shope'));
 const Cart=lazy(()=>import('../pages/Cart'));
+import Checkout from '../pages/checkout';
+const Contact=lazy(()=>import('../pages/Contact'));
 
 const router = createBrowserRouter([
   {
@@ -50,6 +52,26 @@ const router = createBrowserRouter([
             </div>
           }>
             <Cart/>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/checkout', 
+        element: (
+        
+            <Checkout/>
+          
+        ),
+      },
+      {
+        path: '/contact', 
+        element: (
+          <Suspense fallback={
+            <div>
+              <h1>loading....</h1>
+            </div>
+          }>
+            <Contact/>
           </Suspense>
         ),
       },

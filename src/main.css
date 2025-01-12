@@ -1,18 +1,23 @@
+/* Use the correct method to import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
+/* Define the font-face for fallback (Optional) */
 @font-face {
   font-family: 'Poppins';
-  src: url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap') format('woff2'); 
+  font-style: normal;
+  font-weight: 400;
   font-display: swap;
+  src: local('Poppins Regular'), 
+       local('Poppins-Regular'),
+       url('https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJfecg.woff2') format('woff2');
 }
 
+/* Define the fallback font-family in case Poppins fails to load */
 body {
-  font-family: 'Poppins', serif;
+  font-family: 'Poppins', Arial, sans-serif; /* Add Arial or another sans-serif fallback */
 }
 
-
-
-
-
+/* Scrollbar-hidden styles */
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }
@@ -21,3 +26,7 @@ body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;     /* Firefox */
 }
+input[type="radio"] {
+  accent-color: black; /* Makes the radio button black */
+}
+

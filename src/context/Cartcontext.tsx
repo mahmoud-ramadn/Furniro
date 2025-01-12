@@ -1,19 +1,12 @@
 import { createContext, useState, useContext, ReactNode, useEffect } from "react";
 import useCounter from "../hooks/counter";
+import { TProduct } from "../types/products";
 
-interface TItem {
-    images: any;
-    id: string;
-    title: string;
-    price: string | number; // Allow price to be either a string or a number
-    image: string;
-    description: string;
-}
-
+// Cart context type definition
 interface CartContextType {
-    cart: TItem[];
-    addToCart: (product: TItem) => void;
-    deleteProduct: (product: TItem) => void;
+    cart: TProduct[];
+    addToCart: (product: TProduct) => void;
+    deleteProduct: (product: TProduct) => void;
     subtotal: number;
     count: number;
 }
@@ -22,25 +15,27 @@ interface CartProviderProps {
     children: ReactNode;
 }
 
+// Create CartContext with type safety
 export const CartContext = createContext<CartContextType | null>(null);
 
 export const CartProvider = ({ children }: CartProviderProps) => {
-    const [cart, setCart] = useState<TItem[]>(() => {
+    const [cart, setCart] = useState<TProduct[]>(() => {
         const storedCart = localStorage.getItem("cart");
         return storedCart ? JSON.parse(storedCart) : [];
     });
 
+    console.log(cart);
+
     const { count } = useCounter();
 
-    // Convert price to a string (if it's a number) and then parse it as a float
     const subtotal = cart
         .map(item => {
             const priceString = typeof item.price === "string" ? item.price : String(item.price);
-            return parseFloat(priceString.replace('$', '')); // Remove '$' and convert to number
+            return parseFloat(priceString.replace('$', '')); // Removing '$' if it's a string
         })
-        .reduce((sum, price) => sum + price, 0); // Sum up all prices
+        .reduce((sum, price) => sum + price, 0);
 
-    const addToCart = (product: TItem) => {
+    const addToCart = (product: TProduct) => {
         const exists = cart.some((item) => item.id === product.id);
         if (exists) {
             console.warn(`Product with ID ${product.id} is already in the cart.`);
@@ -52,7 +47,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         localStorage.setItem("cart", JSON.stringify(updatedCart));
     };
 
-    const deleteProduct = (product: TItem) => {
+    const deleteProduct = (product: TProduct) => {
         const updatedCart = cart.filter((item) => item.id !== product.id);
         setCart(updatedCart);
         localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -69,6 +64,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     );
 };
 
+// Custom hook to use cart context
 export const useCart = (): CartContextType => {
     const context = useContext(CartContext);
     if (!context) {

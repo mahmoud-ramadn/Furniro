@@ -7,7 +7,7 @@ import AppImg from '../components/ui/AppImg';
 function SingleProduct() {
   window.scrollTo(0, 0);
 
-
+ 
 
   const { error, loading, data } = useFetchSinglProduct();
 

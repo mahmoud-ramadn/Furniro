@@ -29,7 +29,7 @@ function Banner() {
   ];
 
   return (
-    <div className="w-full bg-primary-500 flex flex-wrap items-center justify-between gap-6  px-14 md:h-[270px]">
+    <div className="w-full bg-primary-500 flex flex-wrap items-center justify-between gap-6 py-4 px-14 md:h-[270px]">
       {bannerData.map((item, index) => (
         <div
           key={index}

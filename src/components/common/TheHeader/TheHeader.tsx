@@ -26,7 +26,7 @@ function TheHeader() {
     { title: 'Home', path: '/' },
     { title: 'Shop', path: '/shop' },
     { title: 'About', path: '/about' },
-    { title: 'cart', path: '/cart' },
+    { title: 'Cart', path: '/cart' },
     { title: 'Contact', path: '/contact' },
   ];
 
@@ -46,7 +46,7 @@ function TheHeader() {
     [data],
   );
 
-  const handleSearchInput = (e:any ) => {
+  const handleSearchInput = (e) => {
     const value = e.target.value;
     setSearchText(value);
     handleSearch(value);
@@ -70,17 +70,21 @@ function TheHeader() {
                   key={index}
                   className="   flex justify-between items-center  my-5 "
                 >
-                  <div className=" w-[105px] h-[105px] rounded-md overflow-hidden">
-                    <img
-                      className=" w-full  h-full"
-                      src={item.image || item.images[0]}
-                      alt="item product"
-                    />
+                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-lg bg-primary-500 overflow-hidden">
+                    {/* Check if images exist and have at least one element */}
+                    {item.images && item.images.length > 0 ? (
+                      <AppImg
+                        className="w-full h-full"
+                        src={item.images[0]}
+                        alt="product item"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gray-200"></div>
+                    )}
                   </div>
-
                   <div>
                     <h3 className=" text-base font-normal">
-                      {item.title.substring(0, 20)}
+                      {item.title}
                     </h3>
                     <p>
                       1 x{' '}
@@ -164,7 +168,7 @@ function TheHeader() {
             </span>
             <Favorite />
             <div className="relative">
-              <Link to="/cart" onMouseDown={toggleCartDropdown}>
+              <Link to="/cart" onClick={(e) => { e.preventDefault(); toggleCartDropdown(); }}>
                 {cart.length > 0 && (
                   <span className="absolute -top-2 -right-2 w-5 h-5  bg-secondary-500/85 text-white text-xs flex items-center justify-center rounded-full animate-bounce">
                     {cart.length}
@@ -174,6 +178,7 @@ function TheHeader() {
               </Link>
               {cartDropdownOpen && renderCartDropdown()}
             </div>
+
           </div>
 
           <button

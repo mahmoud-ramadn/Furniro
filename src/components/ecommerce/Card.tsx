@@ -4,6 +4,7 @@ import { IconReverse_alt } from '../../assets/icons/Revers';
 import { IconBxsShareAlt } from '../../assets/icons/Share';
 import AppImg from '../ui/AppImg';
 import { useCart } from '../../context/Cartcontext';
+import { TProduct } from '../../types/products';
 
 interface CardProps {
   id:string;
@@ -30,18 +31,18 @@ const Card = ({
 
 
   const handleAddToCart = () => {
-    const product:CardProps= {
+    const product: TProduct = {
       id,
-      image,
       title,
-      subtitle,
       price,
-      discount,
-      offer,
-      percent,
+      description: '', // You can fill this with the actual description if available
+      images: [image], // Assuming you're passing a single image for now
+      category: {
+        image, // Assuming category image is the same as the product image for simplicity
+      },
     };
-    addToCart(product as any); 
 
+    addToCart(product);
   }
 
   return (

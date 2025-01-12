@@ -26,14 +26,15 @@ function Carousel() {
     }
   };
 
-  const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+  // Explicitly typing the event to WheelEvent
+  const handleWheel = (event: WheelEvent) => {
     if (carouselRef.current) {
       const scrollAmount = event.deltaY > 0 ? 300 : -300;
       carouselRef.current.scrollBy({
         left: scrollAmount,
         behavior: 'smooth',
       });
-      event.preventDefault(); 
+      event.preventDefault();
     }
   };
 
@@ -48,16 +49,17 @@ function Carousel() {
 
   useEffect(() => {
     if (carouselRef.current) {
-      carouselRef.current.addEventListener('scroll', updateActiveDot);
+      // Casting the ref to HTMLDivElement for proper typing
+      const carouselElement = carouselRef.current;
 
-      carouselRef.current.addEventListener('wheel', handleWheel, { passive: false });
+      carouselElement.addEventListener('scroll', updateActiveDot);
+      carouselElement.addEventListener('wheel', handleWheel, { passive: false });
+
+      return () => {
+        carouselElement.removeEventListener('scroll', updateActiveDot);
+        carouselElement.removeEventListener('wheel', handleWheel);
+      };
     }
-    return () => {
-      if (carouselRef.current) {
-        carouselRef.current.removeEventListener('scroll', updateActiveDot);
-        carouselRef.current.removeEventListener('wheel', handleWheel);
-      }
-    };
   }, []);
 
   return (
@@ -90,8 +92,8 @@ function Carousel() {
           <div
             key={index}
             className={`w-4 h-4 rounded-full ${activeIndex === index
-                ? 'bg-secondary-500 outline outline-secondary-500 p-2'
-                : 'bg-[#D8D8D8]'
+              ? 'bg-secondary-500 outline outline-secondary-500 p-2'
+              : 'bg-[#D8D8D8]'
               }`}
           ></div>
         ))}

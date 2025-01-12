@@ -46,7 +46,7 @@ function TheHeader() {
     [data],
   );
 
-  const handleSearchInput = (e) => {
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchText(value);
     handleSearch(value);

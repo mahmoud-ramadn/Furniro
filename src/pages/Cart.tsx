@@ -4,7 +4,7 @@ import Banner from "../components/ui/Banner";
 import Btn from "../components/ui/Btn";
 import TopageBanner from "../components/ui/TopageBanner";
 import { useCart } from "../context/Cartcontext";
-import { IconoirTrashSolid } from "../assets/icons/delet";
+import { IconoirTrashSolid } from "../assets/icons/Trash";
 
 function Cart() {
   const { cart, deleteProduct } = useCart();

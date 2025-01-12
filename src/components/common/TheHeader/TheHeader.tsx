@@ -59,7 +59,7 @@ function TheHeader() {
           <div className=" w-[350px]     mt-7 ml-7    ">
             <div className=" w-full border-b-[1px] pb-6 border-text-links ">
               <h2 className=" text-2xl font-semibold w-full flex justify-between items-center">
-                Shopping Cart <img src="/src/assets/icons/lock.webp" />
+                Shopping Cart <img src="/src/assets/icons/lock.svg" />
               </h2>
             </div>
  <div className=' flex justify-between h-full flex-col'>
@@ -94,7 +94,7 @@ function TheHeader() {
                     </p>
                   </div>
                   <button type="button" onClick={() => deleteProduct(item)}>
-                    <img src="/src/assets/icons/delet2.webp" alt="" />
+                    <img src="/src/assets/icons/close.svg" alt="" />
                   </button>
                 </div>
               ))}

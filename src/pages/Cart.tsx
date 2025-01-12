@@ -61,7 +61,7 @@ function Cart() {
                 <button type="button" onClick={() => deleteProduct(item)}>
                   <img
                     className="w-6 h-6"
-                    src="/src/assets/icons/delet (1).webp"
+                    src="/src/assets/icons/delet.svg"
                     alt="Delete"
                   />
                 </button>

@@ -11,8 +11,8 @@ import useFetchProduct from '../../../hooks/GetProducts';
 import debounce from 'lodash.debounce';
 import ProductsList from '../../ui/ProductsList';
 import { useCart } from '../../../context/Cartcontext';
-import Closes from '../../../assets/icons/Closes';
-import Lock from '../../../assets/icons/lock';
+import  { CarbonCloseFilled } from '../../../assets/icons/Closes';
+import { PhLockLight } from '../../../assets/icons/lock';
 
 function TheHeader() {
   const [openMenu, setOpenMenu] = useState(true);
@@ -61,7 +61,7 @@ function TheHeader() {
           <div className=" w-[350px]     mt-7 ml-7    ">
             <div className=" w-full border-b-[1px] pb-6 border-text-links ">
               <h2 className=" text-2xl font-semibold w-full flex justify-between items-center">
-                Shopping Cart  <Lock/>
+                Shopping Cart <PhLockLight className=' w-[32px] h-[19px] '/>
               </h2>
             </div>
  <div className=' flex justify-between h-full flex-col'>
@@ -96,7 +96,7 @@ function TheHeader() {
                     </p>
                   </div>
                   <button type="button" onClick={() => deleteProduct(item)}>
-                    <Closes/>
+                    <CarbonCloseFilled className='w-5 h-5'/>
                   </button>
                 </div>
               ))}

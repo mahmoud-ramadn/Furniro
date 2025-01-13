@@ -5,7 +5,9 @@ function MainLayout() {
   return (
     <div className=" w-full  mx-auto min-h-screen      ">
       <TheHeader />
+      <div className=' min-h-screen'>
       <Outlet />
+      </div>
       <TheFooter />
     </div>
   );

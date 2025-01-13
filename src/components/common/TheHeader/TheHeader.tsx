@@ -27,7 +27,7 @@ function TheHeader() {
   const pagesLinks = [
     { title: 'Home', path: '/' },
     { title: 'Shop', path: '/shop' },
-    { title: 'About', path: '/about' },
+    { title: 'About', path: '/' },
     { title: 'Cart', path: '/cart' },
     { title: 'Contact', path: '/contact' },
   ];
@@ -64,7 +64,7 @@ function TheHeader() {
                 Shopping Cart <PhLockLight className=' w-[32px] h-[19px] '/>
               </h2>
             </div>
- <div className=' flex justify-between h-full flex-col'>
+            <div className=' flex justify-between h-full flex-col'>
 
             <div className="overflow-y-scroll  h-[450px]  scrollbar-hidden">
               {cart.map((item, index) => (
@@ -119,7 +119,7 @@ function TheHeader() {
               cart
             </Link>
             <Link
-              to="/cart"
+              to="/checkout"
               className=" text-sm  font-normal  border-[1px] rounded-[50px] flex items-center  h-[30px] px-8"
             >
               Checkout

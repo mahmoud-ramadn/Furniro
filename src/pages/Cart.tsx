@@ -9,11 +9,14 @@ import { IconoirTrashSolid } from "../assets/icons/Trash";
 function Cart() {
   const { cart, deleteProduct } = useCart();
 
+ 
+
   return (
-    <section>
+    <section className=" ">
       <TopageBanner />
 
       <div className="container px-4 grid lg:grid-cols-6 md:grid-cols-2 grid-cols-1 gap-8 mt-8 mb-8">
+
         <div className="lg:col-span-4 md:col-span-2 w-full rounded-md py-4">
           <div className="w-full rounded-md p-4 bg-primary-500">
             <div className="flex items-center gap-x-4 md:gap-x-12 lg:gap-x-28 justify-start">
@@ -73,7 +76,7 @@ function Cart() {
           )}
         </div>
 
-        <div className="lg:col-span-2 md:col-span-2 w-full bg-primary-500 rounded-md p-6 text-center">
+        <div className="lg:col-span-2 md:col-span-2 w-full h-[393px] bg-primary-500 rounded-md p-6 text-center">
           <h2 className="text-xl lg:text-2xl font-semibold mb-8">
             Cart Totals
           </h2>

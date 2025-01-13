@@ -112,11 +112,6 @@ type FormValues = z.infer<typeof formSchema>;
 
 
      </div>
-
-
-
-
-
     <Banner/>
   </section>
   )

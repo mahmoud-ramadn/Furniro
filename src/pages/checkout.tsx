@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Btn from "../components/ui/Btn";
 import { useCart } from "../context/Cartcontext";
+import TopageBanner from "../components/ui/TopageBanner";
+import Banner from "../components/ui/Banner";
 
 const formSchema = z.object({
     firstname: z.string().nonempty("First name is required"),
@@ -44,6 +46,7 @@ const Checkout: React.FC = () => {
 
     return (
         <section>
+            <TopageBanner/>
             <form onSubmit={handleSubmit(onSubmit)} className="container mt-16 mb-14 grid md:grid-cols-2 gap-7 px-4 grid-cols-1">
                 {/* Billing Details Section */}
                 <div className="col-span-1 sm:col-span-2 md:col-span-1 pb-16 pt-9 md:pl-20">
@@ -155,6 +158,7 @@ const Checkout: React.FC = () => {
                     </div>
                 </div>
             </form>
+            <Banner/>
         </section>
     );
 };

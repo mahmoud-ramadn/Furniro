@@ -8,6 +8,7 @@ const Shope = lazy(() => import('../pages/Shope'));
 const Cart=lazy(()=>import('../pages/Cart'));
 import Checkout from '../pages/checkout';
 const Contact=lazy(()=>import('../pages/Contact'));
+const Blog =lazy(()=>import('../pages/Blog'))
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,18 @@ const router = createBrowserRouter([
             </div>
           }>
             <Contact/>
+          </Suspense>
+        ),
+      },
+      {
+        path: '/blog', 
+        element: (
+          <Suspense fallback={
+            <div>
+              <h1>loading....</h1>
+            </div>
+          }>
+            <Blog/>
           </Suspense>
         ),
       },

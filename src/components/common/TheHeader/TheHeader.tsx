@@ -30,6 +30,7 @@ function TheHeader() {
     { title: 'About', path: '/' },
     { title: 'Cart', path: '/cart' },
     { title: 'Contact', path: '/contact' },
+    { title: 'blog', path: '/blog' },
   ];
 
   const toggleMenu = () => setOpenMenu(!openMenu);
@@ -75,18 +76,20 @@ function TheHeader() {
                   <div className="w-16 h-16 md:w-24 md:h-24 rounded-lg bg-primary-500 overflow-hidden">
                     {/* Check if images exist and have at least one element */}
                     {item.images && item.images.length > 0 ? (
-                      <AppImg
-                        className="w-full h-full"
-                        src={item.images[0]}
-                        alt="product item"
-                      />
+                      <div className=' overflow-hidden w-[105px] h-[108px] rounded-md'>
+                        <AppImg
+                          className="w-full h-full"
+                          src={item.images[0]}
+                          alt="product item"
+                        />
+                      </div>
                     ) : (
                       <div className="w-full h-full bg-gray-200"></div>
                     )}
                   </div>
                   <div>
                     <h3 className=" text-base font-normal">
-                      {item.title}
+                      {item.title.substring(0,20)}
                     </h3>
                     <p>
                       1 x{' '}
@@ -143,7 +146,7 @@ function TheHeader() {
 
   return (
     <>
-      <header className="w-full bg-white py-7 px-4 md:px-14 lg:px-20 fixed top-0 left-0 z-50 shadow-md">
+      <header className="w-full bg-white py-7 px-4 md:px-14 lg:px-20 fixed top-0 left-0 z-50   ">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center gap-2">
             <AppImg src="/images/logo.svg" alt="logo" className="w-8 h-8" />
@@ -231,7 +234,7 @@ function TheHeader() {
           </div>
         )}
       </header>
-      <div className="h-24" />
+      <div className="py-7  w-full" />
     </>
   );
 }

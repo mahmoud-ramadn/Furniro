@@ -1,4 +1,3 @@
-import React from 'react';
 
 function Phone({ width = 24, height = 24, fill = "black", className = "" }: { width?: number; height?: number; fill?: string; className?: string }) {
     return (

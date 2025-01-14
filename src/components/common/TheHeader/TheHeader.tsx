@@ -22,7 +22,7 @@ function TheHeader() {
   const [cartDropdownOpen, setCartDropdownOpen] = useState(false);
 
   const { loading, error, data } = useFetchProduct();
-  const { cart, deleteProduct,subtotal } = useCart();
+  const { cart, deleteProduct, subtotal, getProductQuantity } = useCart();
 
   const pagesLinks = [
     { title: 'Home', path: '/' },
@@ -92,7 +92,7 @@ function TheHeader() {
                       {item.title.substring(0,20)}
                     </h3>
                     <p>
-                      1 x{' '}
+                      {item.count} x
                       <span className=" text-secondary-500 text-sm">
                         RS{item.price}
                       </span>

@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import AppImg from './AppImg';
 import Btn from './Btn';
-import Counter from './Counter';
-import { TProduct } from '../../types/products';
+import { TProduct, TProductWithCount } from '../../types/products';
 import { useCart } from '../../context/Cartcontext';
+import Counter from './Counter';
 
 
 
-function ProductDetails({ productData }: { productData: TProduct }) {
+function ProductDetails({ productData }: { productData: TProductWithCount }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const {addToCart}=useCart();
-
+  const { addToCart }=useCart();
   const images = productData?.images || [];
   const displayedImage = selectedImage || images[0];
+
+  
 
 
 
@@ -104,13 +105,23 @@ function ProductDetails({ productData }: { productData: TProduct }) {
         </div>
 
         <div className="mt-8 mb-[60px] flex items-center gap-2 md:flex-nowrap flex-wrap">
-         <Counter/>
+
+    
+        <Counter productData={productData.id} />
+
+
+
           <Btn onClick={()=>addToCart(productData  as TProduct)} className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">
             Add To Cart
           </Btn>
+
+
           <Btn  className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">
             + Compare
           </Btn>
+
+
+
         </div>
         <hr className="w-full h-[1px] text-text-links" />
         <div className="my-12 text-text-links text-base font-normal">

@@ -5,6 +5,7 @@ import { IconBxsShareAlt } from '../../assets/icons/Share';
 import AppImg from '../ui/AppImg';
 import { useCart } from '../../context/Cartcontext';
 import { TProduct } from '../../types/products';
+import Counter from '../ui/Counter';
 
 interface CardProps {
   id:string;
@@ -27,7 +28,7 @@ const Card = ({
   percent,
 }:CardProps) => {
 
-  const { addToCart } = useCart();
+  const { addToCart  } = useCart();
 
 
   const handleAddToCart = () => {
@@ -35,15 +36,16 @@ const Card = ({
       id,
       title,
       price,
-      description: '', // You can fill this with the actual description if available
-      images: [image], // Assuming you're passing a single image for now
+      description: '', 
+      images: [image], 
       category: {
-        image, // Assuming category image is the same as the product image for simplicity
+        image, 
       },
     };
 
     addToCart(product);
   }
+ 
 
   return (
     <div className="col-span-1 md:col-span-1 lg:h-[500px] md:h-fit h-full relative bg-Cardeatios-500  rounded-sm shadow-md">
@@ -74,7 +76,12 @@ const Card = ({
           overflow-hidden transition-all duration-300 ease-in-out 
           group-hover:h-full"
         >
-          <div className="px-3 flex items-center flex-col justify-between h-24">
+          <div className="px-3  flex items-center flex-col justify-between gap-y-3  h-fit">
+
+
+
+          <Counter productData={id}/>
+
             <button
              onClick={handleAddToCart}
               type="button"
@@ -83,6 +90,10 @@ const Card = ({
             >
               Add to Cart
             </button>
+
+
+
+
             <div className="flex items-center text-base font-semibold text-white gap-x-5">
               <button type="button" className="flex items-center">
                 <IconBxsShareAlt /> Share

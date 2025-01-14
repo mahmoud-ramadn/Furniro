@@ -7,7 +7,7 @@ import { useCart } from "../context/Cartcontext";
 import { IconoirTrashSolid } from "../assets/icons/Trash";
 
 function Cart() {
-  const { cart, deleteProduct } = useCart();
+  const { cart, deleteProduct ,subtotal } = useCart();
 
  
 
@@ -57,10 +57,10 @@ function Cart() {
                   Rs. {item.price}
                 </p>
                 <span className="w-8 h-8 rounded flex items-center justify-center text-sm md:text-base font-normal border-2 border-text-links">
-                  1
+                  {item.count}
                 </span>
                 <p className="text-sm md:text-base font-normal">
-                  Rs. 
+                  Rs. {subtotal}
                 </p>
                 <button type="button" onClick={() => deleteProduct(item)}>
                   <IconoirTrashSolid/>
@@ -84,13 +84,13 @@ function Cart() {
             <div className="flex items-center justify-between">
               <h3 className="text-sm md:text-base font-medium">Subtotal</h3>
               <p className="text-sm md:text-base font-medium text-text-links">
-                Rs. 
+                Rs. {subtotal}
               </p>
             </div>
             <div className="flex items-center justify-between">
               <h3 className="text-sm md:text-base font-medium">Total</h3>
               <p className="font-medium text-lg text-secondary-500">
-                Rs. 
+                Rs. {subtotal}
               </p>
             </div>
           </div>

@@ -13,3 +13,6 @@
 
 
 
+export interface TProductWithCount extends TProduct {
+  count: number;
+}

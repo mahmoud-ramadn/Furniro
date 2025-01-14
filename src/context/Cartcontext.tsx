@@ -1,56 +1,74 @@
 import { createContext, useState, useContext, ReactNode, useEffect } from "react";
-import useCounter from "../hooks/counter";
-import { TProduct } from "../types/products";
+import { TProduct ,TProductWithCount } from "../types/products";
 
 // Cart context type definition
 interface CartContextType {
-    cart: TProduct[];
+    cart: TProductWithCount[];
     addToCart: (product: TProduct) => void;
     deleteProduct: (product: TProduct) => void;
+    incrementCount: (id: string) => void;
+    decrementCount: (id: string) => void;
+    getProductQuantity:(id:string)=>void;
+    
     subtotal: number;
-    count: number;
 }
 
 interface CartProviderProps {
     children: ReactNode;
 }
 
-// Create CartContext with type safety
 export const CartContext = createContext<CartContextType | null>(null);
 
 export const CartProvider = ({ children }: CartProviderProps) => {
-    const [cart, setCart] = useState<TProduct[]>(() => {
+    const [cart, setCart] = useState<TProductWithCount[]>(() => {
         const storedCart = localStorage.getItem("cart");
         return storedCart ? JSON.parse(storedCart) : [];
     });
 
-    console.log(cart);
-
-    const { count } = useCounter();
-
-    const subtotal = cart
-        .map(item => {
-            const priceString = typeof item.price === "string" ? item.price : String(item.price);
-            return parseFloat(priceString.replace('$', '')); // Removing '$' if it's a string
-        })
-        .reduce((sum, price) => sum + price, 0);
+    const subtotal = cart.reduce((sum, item) => {
+        const price = typeof item.price === "string" ? parseFloat(item.price.replace('$', '')) : item.price;
+        return sum + price * item.count; 
+    }, 0);
 
     const addToCart = (product: TProduct) => {
-        const exists = cart.some((item) => item.id === product.id);
+        const exists = cart.find((item) => item.id === product.id);
         if (exists) {
-            console.warn(`Product with ID ${product.id} is already in the cart.`);
-            return;
+            // If product exists, increment its count
+            const updatedCart = cart.map((item) =>
+                item.id === product.id ? { ...item, count: item.count + 1 } : item
+            );
+            setCart(updatedCart);
+        } else {
+            // Add new product with count 1
+            const updatedCart = [...cart, { ...product, count: 1 }];
+            setCart(updatedCart);
         }
-        const updatedCart = [...cart, product];
-        setCart(updatedCart);
-
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
     };
 
     const deleteProduct = (product: TProduct) => {
         const updatedCart = cart.filter((item) => item.id !== product.id);
         setCart(updatedCart);
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
+    };
+
+    const incrementCount = (id: string) => {
+        const updatedCart = cart.map((item) =>
+            item.id === id ? { ...item, count: item.count + 1 } : item
+        );
+        setCart(updatedCart);
+    };
+
+
+    const getProductQuantity = (id: string) => {
+        return cart.find((item) => item.id === id)?.count;
+    };
+
+    const decrementCount = (id: string) => {
+        const updatedCart = cart.map((item) =>
+            item.id === id
+                ? { ...item, count: Math.max(item.count - 1, 1) } 
+                : item
+        );
+        setCart(updatedCart);
     };
 
     useEffect(() => {
@@ -58,13 +76,13 @@ export const CartProvider = ({ children }: CartProviderProps) => {
     }, [cart]);
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, deleteProduct, subtotal, count }}>
+        <CartContext.Provider value={{ cart, addToCart, deleteProduct, incrementCount, decrementCount, subtotal,
+        getProductQuantity }}>
             {children}
         </CartContext.Provider>
     );
 };
 
-// Custom hook to use cart context
 export const useCart = (): CartContextType => {
     const context = useContext(CartContext);
     if (!context) {

@@ -22,7 +22,7 @@ function TheHeader() {
   const [cartDropdownOpen, setCartDropdownOpen] = useState(false);
 
   const { loading, error, data } = useFetchProduct();
-  const { cart, deleteProduct, subtotal, getProductQuantity } = useCart();
+  const { cart, deleteProduct, subtotal} = useCart();
 
   const pagesLinks = [
     { title: 'Home', path: '/' },

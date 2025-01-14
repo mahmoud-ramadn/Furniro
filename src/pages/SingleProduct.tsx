@@ -2,7 +2,7 @@ import Iconright from '../assets/Iconright';
 import ProductDeatails from '../components/ui/ProductDeatails';
 import useFetchSinglProduct from '../hooks/GetSingleProduct';
 import Tabs from '../components/ui/Tabs';
-import { TProduct } from '../types/products';
+import { TProductWithCount } from '../types/products';
 import AppImg from '../components/ui/AppImg';
 function SingleProduct() {
   window.scrollTo(0, 0);
@@ -43,7 +43,7 @@ function SingleProduct() {
       </div>
 
       <div className=" container px-4">
-        <ProductDeatails productData={data?.product as TProduct} />
+        <ProductDeatails productData={data?.product as TProductWithCount} />
       </div>
       <hr className=" h-[1px] mb-12" />
       <Tabs />

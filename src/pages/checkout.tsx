@@ -32,22 +32,23 @@ const Checkout: React.FC = () => {
             return;
         }
 
-        const response = await fetch('http://localhost:5000/create-checkout-session', {
+        const response = await fetch('http://localhost:5002/create-checkout-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ items: cart }),
         });
 
-        const session = await response.json();
+        const responseData = await response.json();
+        console.log(responseData);  // Log raw response
 
-        if (response.ok && session.id) {
-            const result = await stripe.redirectToCheckout({ sessionId: session.id });
+        if (response.ok && responseData.id) {
+            const result = await stripe.redirectToCheckout({ sessionId: responseData.id });
 
             if (result.error) {
                 console.error(result.error.message);
             }
         } else {
-            console.error("Failed to create checkout session:", session.error);
+            console.error("Failed to create checkout session:", responseData.error || "Unknown error");
         }
 
         await restCart();

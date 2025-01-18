@@ -10,7 +10,7 @@ function Shope() {
   
   return (
     
-      <Loading loading={loading} error={error as undefined}>
+      <Loading loading={loading} error={error as undefined} type='Shope'>
       <TopageBanner />
 
       <div className="w-full bg-primary-500  text-center ">

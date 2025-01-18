@@ -1,7 +1,9 @@
 import HomeSkeleton from "../skeleteon/HomeSkeleton";
+import ShopeSkeleton from "../skeleteon/ShopeSkeleton";
 
 const skeletonsTypes = {
     Home: HomeSkeleton,
+    Shope:ShopeSkeleton,
 };
 
 type LoadingProps = {
@@ -14,7 +16,7 @@ type LoadingProps = {
 const Loading = ({ children, loading, error, type }: LoadingProps) => {
     const Component = type ? skeletonsTypes[type] : null;
 
-    if (loading) {
+    if (!loading) {
         return (
             <div
                 className=" bg-primary-500  pb-4"

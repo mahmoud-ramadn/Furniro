@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import  { Suspense, lazy } from 'react';
 
 // تحميل المكونات بشكل كسول
 const Banner = lazy(() => import("../components/ui/Banner"));
@@ -30,7 +30,6 @@ function Success() {
                         عرض طلباتي
                     </a>
                 </div>
-                {/* Banner سيتم تحميله بشكل كسول هنا */}
                 <Banner />
             </Suspense>
         </section>

@@ -1,9 +1,9 @@
-import { UseFormRegister, FieldValues } from "react-hook-form";
+import { UseFormRegister, FieldValues, Path } from "react-hook-form";
 
 interface InputFieldProps<TFieldValue extends FieldValues> {
     label: string;
     type?: string;
-    name: keyof TFieldValue;
+    name: Path<TFieldValue>; // Update this type
     register: UseFormRegister<TFieldValue>;
     placeholder?: string;
     error?: string;
@@ -21,7 +21,7 @@ const InputField = <TFieldValue extends FieldValues>({
 }: InputFieldProps<TFieldValue>) => {
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         if (onBlur) {
-            onBlur(e); 
+            onBlur(e);
         }
     };
 
@@ -34,12 +34,12 @@ const InputField = <TFieldValue extends FieldValues>({
                 id={String(name)}
                 type={type}
                 placeholder={placeholder}
-                {...register(name)}
+                {...register(name)} // Works with Path<TFieldValue>
                 onBlur={(e) => {
-                    handleBlur(e); 
+                    handleBlur(e);
                     register(name).onBlur?.(e);
                 }}
-                className={`h-[75px] w-full rounded-xl border-[1px] pl-3 placeholder:text-text-links placeholder:text-base ${error ? " border-danger-500" : "border-gray-300"}`}
+                className={`h-[75px] w-full rounded-xl border-[1px] pl-3 placeholder:text-text-links placeholder:text-base ${error ? "border-danger-500" : "border-gray-300"}`}
             />
             {error && <p className="mt-2 text-sm text-danger-500">{error}</p>}
         </div>

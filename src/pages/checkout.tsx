@@ -27,13 +27,16 @@ const Checkout: React.FC = () => {
     const onSubmit: SubmitHandler<Formcheckout> = async () => {
         const stripe = await stripePromise;
 
+        if (!stripe) {
+            console.error("Stripe initialization failed.");
+            return;
+        }
+
         const response = await fetch('http://localhost:5000/create-checkout-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ items: cart }),
         });
-
-     await restCart()
 
         const session = await response.json();
 
@@ -41,12 +44,15 @@ const Checkout: React.FC = () => {
             const result = await stripe.redirectToCheckout({ sessionId: session.id });
 
             if (result.error) {
-                console.log(result.error.message);
+                console.error(result.error.message);
             }
         } else {
             console.error("Failed to create checkout session:", session.error);
         }
+
+        await restCart();
     };
+
 
 
     const FormInput = [

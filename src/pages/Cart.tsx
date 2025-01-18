@@ -5,14 +5,9 @@ import Btn from "../components/ui/Btn";
 import TopageBanner from "../components/ui/TopageBanner";
 import { useCart } from "../context/Cartcontext";
 import { IconoirTrashSolid } from "../assets/icons/Trash";
-import useLoging from "../hooks/useLogin";
 function Cart() {
   const { cart, deleteProduct ,subtotal } = useCart();
-  const {data}=useLoging();
-
   
-console.log(data);
-
 
  
   

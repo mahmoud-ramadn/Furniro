@@ -37,7 +37,10 @@ const useLoging = () => {
 
       // Store user name and token in cookies
       Cookies.set('userDisplayName', user.displayName || '', { expires: 7 });
-      Cookies.set('userToken', user.accessToken , { expires: 7 });
+
+      // Get the ID token and store it in cookies
+      const token = await user.getIdToken();
+      Cookies.set('userToken', token, { expires: 7 });
 
       // Redirect to home page or another page
       navigate('/');

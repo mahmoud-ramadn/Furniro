@@ -8,6 +8,7 @@ const Shope = lazy(() => import('../pages/Shope'));
 const Cart = lazy(() => import('../pages/Cart'));
 import Checkout from '../pages/checkout';
 import SuspenseWrapper from '../components/feedback/SuspenseWrapper';
+import ProtectedRoute from '../components/Auth/protecteRout';
 const Contact = lazy(() => import('../pages/Contact'));
 const Blog = lazy(() => import('../pages/Blog'));
 const Success = lazy(() => import('../pages/sucess'));
@@ -54,20 +55,25 @@ const router = createBrowserRouter([
       {
         path: '/cart', // Corrected from /shope/:id
         element: (
+          <ProtectedRoute>
+
           <SuspenseWrapper>
 
             <Cart />
           </SuspenseWrapper>
+          </ProtectedRoute>
        
         ),
       },
       {
         path: '/checkout',
         element:(
+          <ProtectedRoute>
           <SuspenseWrapper>
 
             <Checkout />
           </SuspenseWrapper>
+          </ProtectedRoute>
           ),
       },
       {

@@ -1,23 +1,26 @@
 import useLoging from "../../hooks/useLogin";
 import Btn from "../ui/Btn";
 import InputField from "../ui/Form/input";
- // Import axios for making API requests
+import { Link } from "react-router-dom";
 
 function LoginForm() {
-    
-    const{register,loading,errors,errorMessage,handleSubmit,submitForm ,user}=useLoging();
+    const { register, loading, errors, errorMessage, handleSubmit, submitForm } = useLoging();
 
-    console.log( user);
+
+
     
+
 
     return (
         <form onSubmit={handleSubmit(submitForm)} className="w-3/4 mx-auto space-y-7">
             <div className="text-center">
-                <h1 className="text-4xl font-bold text-secondary-500">Furnio</h1>
+                <Link to='/' className="text-4xl  cursor-pointer font-bold text-secondary-500">Furnio</Link>
             </div>
 
+            {/* Show error message if login fails */}
             {errorMessage && <div className="text-danger-500 text-center">{errorMessage}</div>}
 
+            {/* Input fields for email and password */}
             <InputField
                 register={register}
                 placeholder="Enter Your Email"
@@ -25,6 +28,7 @@ function LoginForm() {
                 error={errors.email?.message}
                 type="email"
                 name="email"
+                
             />
             <InputField
                 register={register}
@@ -35,12 +39,13 @@ function LoginForm() {
                 name="password"
             />
 
+            {/* Submit button */}
             <Btn
                 type="submit"
                 className="w-full h-[75px] bg-secondary-500 text-white rounded-xl"
-                disabled={loading} // Disable button when loading
+                disabled={loading} // Disable the button when submitting
             >
-                {loading ? "Signing In..." : "Sign In"} {/* Show loading text */}
+                {loading ? "Signing In..." : "Sign In"} {/* Show loading text if submitting */}
             </Btn>
         </form>
     );

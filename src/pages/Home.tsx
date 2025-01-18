@@ -7,7 +7,8 @@ import useFetchProduct from '../hooks/GetProducts';
 import Loading from '../components/feedback/Loading';
 function Home() {
   const { loading,error } = useFetchProduct();  
- 
+  
+
   return (
     <Loading error={error as undefined} type='Home' loading={loading}>
     <main className=" overflow-hidden">

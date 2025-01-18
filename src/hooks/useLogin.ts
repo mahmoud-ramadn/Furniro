@@ -6,14 +6,14 @@ import {
   type LoginForm,
 } from '../Validations/AuthVailadation';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase/firebase';
+import Cookies from 'js-cookie';
 
 const useLoging = () => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false); // Track loading state
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [user, setUser] = useState(() => localStorage.getItem('token') || '');
-  const [data, setData] = useState<unknown>(null); // Explicit any type for clarity
 
   const {
     register,
@@ -26,31 +26,37 @@ const useLoging = () => {
 
   const submitForm: SubmitHandler<LoginForm> = async (formData) => {
     setLoading(true);
-    setErrorMessage(''); // Clear any previous errors
+    setErrorMessage('');
     try {
-      const response = await axios.post('http://localhost:5002/login', {
-        username: formData.email,
-        password: formData.password,
-      });
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        formData.email,
+        formData.password,
+      );
+      const user = userCredential.user;
 
-      const { token, firstName, lastName } = response.data;
+      // Store user name and token in cookies
+      Cookies.set('userDisplayName', user.displayName || '', { expires: 7 });
+      Cookies.set('userToken', user.accessToken , { expires: 7 });
 
-      setData({ firstName, lastName }); 
-      setUser(token);
-      localStorage.setItem('token', token); 
-      navigate('/'); 
+      // Redirect to home page or another page
+      navigate('/');
     } catch (error) {
-      console.error('Login failed', error); 
-      setErrorMessage('Invalid credentials, please try again.');
+      const errorCode = error;
+      switch (errorCode) {
+        case 'auth/user-not-found':
+          setErrorMessage('User not found. Please check your email.');
+          break;
+        case 'auth/wrong-password':
+          setErrorMessage('Incorrect password. Please try again.');
+          break;
+        default:
+          setErrorMessage('Something went wrong. Please try again.');
+      }
+      console.error('Login error:', error);
     } finally {
       setLoading(false);
     }
-  };
-
-  const logout = () => {
-    setUser('');
-    localStorage.removeItem('token');
-    navigate('/login');
   };
 
   return {
@@ -60,9 +66,6 @@ const useLoging = () => {
     errorMessage,
     handleSubmit,
     submitForm,
-    user,
-    data,
-    logout,
   };
 };
 

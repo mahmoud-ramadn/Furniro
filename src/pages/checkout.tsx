@@ -13,7 +13,8 @@ const stripePromise = loadStripe("pk_test_51Qi1ltG1Yc7r0GlRGtv1njDWunCxy3QmSE4A8
 
 
 const Checkout: React.FC = () => {
-    const { subtotal = 0 ,cart  ,restCart} = useCart();
+
+    const { subtotal = 0 ,cart  } = useCart();
     const [selectedOption, setSelectedOption] = useState<string>("");
     const {
         register,
@@ -24,22 +25,39 @@ const Checkout: React.FC = () => {
     });
 
 
+    const [isLoading, setIsLoading] = useState(false);
+
     const onSubmit: SubmitHandler<Formcheckout> = async () => {
+        setIsLoading(true);
         const stripe = await stripePromise;
 
         if (!stripe) {
             console.error("Stripe initialization failed.");
+            setIsLoading(false);
             return;
         }
+
+        // Check the structure of cart before sending to the server
+        console.log("Cart data:", cart);
+
+        const items = cart.map(item => ({
+            id: item.id,            // Ensure the item has an ID
+            name: item.title,       // Product name
+            quantity: item.count, // Product quantity
+            price: item.price,      // Product price
+            currency: 'USD',        // Assuming the currency is USD, replace if needed
+        }));
+
+        console.log("Formatted items:", items);  // Log the formatted items array
 
         const response = await fetch('http://localhost:5002/create-checkout-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ items: cart }),
+            body: JSON.stringify({ items }),
         });
 
         const responseData = await response.json();
-        console.log(responseData);  // Log raw response
+        console.log(responseData);
 
         if (response.ok && responseData.id) {
             const result = await stripe.redirectToCheckout({ sessionId: responseData.id });
@@ -51,7 +69,7 @@ const Checkout: React.FC = () => {
             console.error("Failed to create checkout session:", responseData.error || "Unknown error");
         }
 
-        await restCart();
+        setIsLoading(false);
     };
 
 
@@ -169,14 +187,23 @@ const Checkout: React.FC = () => {
                         </p>
                     </div>
                     <div className="w-full text-center mt-10">
-                    {
-                            cart.length ? <Btn type="submit" className="w-full md:w-[318px] border-2 text-xl font-normal h-[64px] rounded-2xl">
-                                Place order
-                            </Btn> : <Btn disabled={true} type="submit" className="w-full md:w-[318px] border-2 text-xl font-normal  cursor-not-allowed  text-danger-500 h-[64px] rounded-2xl">
-                                     NO products in cart
-                                  </Btn>
-                    }
-                       
+                        {cart.length ? (
+                            <Btn
+                                type="submit"
+                                className="w-full md:w-[318px] border-2 text-xl font-normal h-[64px] rounded-2xl"
+                                disabled={isLoading}
+                            >
+                                {isLoading ? "Processing..." : "Place order"}
+                            </Btn>
+                        ) : (
+                            <Btn
+                                disabled={true}
+                                type="submit"
+                                className="w-full md:w-[318px] border-2 text-xl font-normal cursor-not-allowed text-danger-500 h-[64px] rounded-2xl"
+                            >
+                                NO products in cart
+                            </Btn>
+                        )}
                     </div>
                 </div>
             </form>

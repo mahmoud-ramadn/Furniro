@@ -1,16 +1,15 @@
-// components/ProtectedRoute.tsx
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import useLoging from '../../hooks/useLogin';
+import Cookies from 'js-cookie';
 
 const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const { user } = useLoging();  // Access the logged-in user
+    const token = Cookies.get('userToken');
 
-    if (!user) {
-        return <Navigate to="/auth" />;  // Redirect to login if not logged in
-    }
+    if (!token) {
+        return <Navigate to="/auth" />;  // Redirect to login if token doesn't exist
+    } 
 
-    return <>{children}</>;  // Render protected children if logged in
+    return <>{children}</>;  // Render protected children if token exists
 };
 
 export default ProtectedRoute;

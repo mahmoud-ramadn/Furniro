@@ -6,7 +6,6 @@ import TopageBanner from "../components/ui/TopageBanner";
 import { useCart } from "../context/Cartcontext";
 import { IconoirTrashSolid } from "../assets/icons/Trash";
 import useLoging from "../hooks/useLogin";
-
 function Cart() {
   const { cart, deleteProduct ,subtotal } = useCart();
   const {data}=useLoging();
@@ -18,6 +17,8 @@ console.log(data);
  
   
   return (
+
+
     <section className=" ">
       <TopageBanner />
       <div className="container px-4 grid lg:grid-cols-6 md:grid-cols-2 grid-cols-1 gap-8 mt-8 mb-8">

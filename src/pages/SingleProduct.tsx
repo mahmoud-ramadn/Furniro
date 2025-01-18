@@ -7,7 +7,7 @@ import Loading from '../components/feedback/Loading';
 function SingleProduct() {
   const { error, loading, data } = useFetchSinglProduct()
   return (
-   <Loading loading={loading} error={error as undefined}>
+   <Loading loading={loading} error={error as undefined} type='SingleProduct'>
     <section>
       <div className=" w-full h-[130px]  flex items-center   px-10   md:px-[100px] bg-primary-500">
         <div className="text-base font-normal   ">
@@ -25,7 +25,6 @@ function SingleProduct() {
           </h1>
         </div>
       </div>
-
       <div className=" container px-4">
         <ProductDeatails productData={data?.product as TProductWithCount} />
       </div>

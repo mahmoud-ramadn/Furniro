@@ -9,7 +9,7 @@ function AuthLayout() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
-      <div className="bg-primary-500/20 flex items-center justify-center">
+      <div className="bg-primary-500 flex items-center justify-center">
         <AppImg src="/images/logo.svg" alt="logo" className="w-full h-full object-cover" />
       </div>
 

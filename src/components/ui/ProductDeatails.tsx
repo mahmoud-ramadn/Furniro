@@ -11,6 +11,8 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
   const displayedImage = selectedImage || images[0];
   return (
     <div className="container mt-9 mb-14 flex flex-wrap justify-center items-start gap-20 ">
+
+
       <div className="flex md:items-start flex-wrap md:flex-row flex-col gap-8">
         <div className="flex md:flex-col flex-row gap-8 justify-between md:h-[416px]">
           <>
@@ -135,6 +137,7 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
 
         </div>
       </div>
+      
     </div>
   );
 }

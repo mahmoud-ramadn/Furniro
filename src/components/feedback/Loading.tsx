@@ -1,25 +1,26 @@
 import HomeSkeleton from "../skeleteon/HomeSkeleton";
 import ShopeSkeleton from "../skeleteon/ShopeSkeleton";
+import CartSkeleton from "../skeleteon/CartSkeleton";
+import SingleProductSkeleton from "./SingleProductSkeleton";
 
 const skeletonsTypes = {
     Home: HomeSkeleton,
     Shope:ShopeSkeleton,
+    Cart :CartSkeleton,
+    SingleProduct:SingleProductSkeleton
 };
-
 type LoadingProps = {
     children: React.ReactNode;
     loading: boolean;
     error: boolean | undefined;
     type?: keyof typeof skeletonsTypes;
 };
-
 const Loading = ({ children, loading, error, type }: LoadingProps) => {
     const Component = type ? skeletonsTypes[type] : null;
-
-    if (!loading) {
+    if (loading) {
         return (
             <div
-                className=" bg-primary-500  pb-4"
+                className=" bg-primary-500   min-h-screen pb-4"
                 role="status"
                 aria-busy="true"
                 aria-live="polite"

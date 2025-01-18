@@ -5,18 +5,22 @@ import Btn from "../components/ui/Btn";
 import TopageBanner from "../components/ui/TopageBanner";
 import { useCart } from "../context/Cartcontext";
 import { IconoirTrashSolid } from "../assets/icons/Trash";
+import useLoging from "../hooks/useLogin";
 
 function Cart() {
   const { cart, deleteProduct ,subtotal } = useCart();
+  const {data}=useLoging();
+
+  
+console.log(data);
+
 
  
-
+  
   return (
     <section className=" ">
       <TopageBanner />
-
       <div className="container px-4 grid lg:grid-cols-6 md:grid-cols-2 grid-cols-1 gap-8 mt-8 mb-8">
-
         <div className="lg:col-span-4 md:col-span-2 w-full rounded-md py-4">
           <div className="w-full rounded-md p-4 bg-primary-500">
             <div className="flex items-center gap-x-4 md:gap-x-12 lg:gap-x-28 justify-start">
@@ -29,7 +33,6 @@ function Cart() {
               <p className="text-sm md:text-base font-normal">Subtotal</p>
             </div>
           </div>
-
           {cart.length > 0 ? (
             cart.map((item, index) => (
               <div

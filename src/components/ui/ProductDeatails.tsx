@@ -4,19 +4,11 @@ import Btn from './Btn';
 import { TProduct, TProductWithCount } from '../../types/products';
 import { useCart } from '../../context/Cartcontext';
 import Counter from './Counter';
-
-
-
 function ProductDetails({ productData }: { productData: TProductWithCount }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const { addToCart }=useCart();
+  const { addToCart } = useCart();
   const images = productData?.images || [];
   const displayedImage = selectedImage || images[0];
-
-  
-
-
-
   return (
     <div className="container mt-9 mb-14 flex flex-wrap justify-center items-start gap-20 ">
       <div className="flex md:items-start flex-wrap md:flex-row flex-col gap-8">
@@ -25,9 +17,8 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
             {images.map((image, index) => (
               <div
                 key={index}
-                className={`md:w-20 w-1/4 md:h-20  h-full rounded-lg overflow-hidden cursor-pointer ${
-                  selectedImage === image ? 'border-2 border-secondary-500' : ''
-                }`}
+                className={`md:w-20 w-1/4 md:h-20  h-full rounded-lg overflow-hidden cursor-pointer ${selectedImage === image ? 'border-2 border-secondary-500' : ''
+                  }`}
                 onClick={() => setSelectedImage(image)}
               >
                 <AppImg
@@ -65,10 +56,10 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
         </h3>
         <div className="h-[30px] mt-[10px] mb-3 flex items-center gap-x-5">
           <div className="flex items-center gap-2">
-            <img src="/src/assets/icons/star.png" alt="Star" />
-            <img src="/src/assets/icons/star.png" alt="Star" />
-            <img src="/src/assets/icons/star.png" alt="Star" />
-            <img src="/src/assets/icons/star.png" alt="Star" />
+            <img src="/src/assets/icons/star.Webp" alt="Star" />
+            <img src="/src/assets/icons/star.Webp" alt="Star" />
+            <img src="/src/assets/icons/star.Webp" alt="Star" />
+            <img src="/src/assets/icons/star.Webp" alt="Star" />
             <img src="/src/assets/icons/haifstar.png" alt="Half Star" />
           </div>
           <div className="h-full w-[2px] bg-text-links"></div>
@@ -105,55 +96,43 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
         </div>
 
         <div className="mt-8 mb-[60px] flex items-center gap-2 md:flex-nowrap flex-wrap">
-
-    
-        <Counter productData={productData.id} />
-
-
-
-          <Btn onClick={()=>addToCart(productData  as TProduct)} className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">
+          <Counter productData={productData.id} />
+          <Btn onClick={() => addToCart(productData as TProduct)} className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">
             Add To Cart
           </Btn>
-
-
-          <Btn  className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">
+          <Btn className="md:w-[215px] border-[1px] w-full rounded-2xl h-16 flex items-center justify-center text-xl font-normal">
             + Compare
           </Btn>
-
-
-
         </div>
         <hr className="w-full h-[1px] text-text-links" />
-        <div className="my-12 text-text-links text-base font-normal">
-          <div className="w-28 flex items-start justify-between">
-            <span className="w-28">SKU</span>
-            <p className="flex items-center">
-              <span className="px-3">:</span> SS001
-            </p>
+        <div className="my-12   w-full  text-text-links text-base font-normal">
+          <div className=" w-full  flex items-start ">
+            <span className=" w-36">SKU</span>
+            <div className='  w-56 h-6 pl-3 '>:  Sofas
+
+            </div>
+           
           </div>
-          <div className="w-28 flex items-start justify-between">
-            <span className="w-28">Category</span>
-            <p className="flex items-center">
-              <span className="px-3">:</span> SS001
-            </p>
+
+          <div className="  w-full flex items-start ">
+            <span className=" w-36 ">Category</span>
+            <div className='  w-56 h-6  pl-3'>: SS001
+
+            </div>
+          
           </div>
-          <h3 className="flex items-center">
-            <span className="w-[75px]">Share</span>:
-            <span className="flex items-center gap-x-6">
-              <img
-                src="/src/assets/soical/akar-icons_facebook-fill.svg"
-                alt="Facebook"
-              />
-              <img
-                src="/src/assets/soical/akar-icons_linkedin-box-fill.svg"
-                alt="LinkedIn"
-              />
-              <img
-                src="/src/assets/soical/ant-design_twitter-circle-filled.svg"
-                alt="Twitter"
-              />
-            </span>
-          </h3>
+
+          <div className=" w-full flex items-center">
+            <span className=" w-36">Tags</span>
+            <div className='   h-6  pl-3'>:  Sofa, Chair, Home, Shop
+            </div>
+          </div>
+          <div className=" w-full flex items-center">
+            <span className=" w-36">Share</span>
+            <div className='   h-6  pl-3'>:  Sofa, Chair, Home, Shop
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

@@ -1,98 +1,150 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import MainLayout from '../layouts/Mainlayout/MainLayout';
 import Error from '../pages/Error';
+import MainLayout from '../layouts/Mainlayout/MainLayout';
 const SingleProduct = lazy(() => import('../pages/SingleProduct'));
 const Home = lazy(() => import('../pages/Home'));
 const Shope = lazy(() => import('../pages/Shope'));
-const Cart=lazy(()=>import('../pages/Cart'));
+const Cart = lazy(() => import('../pages/Cart'));
 import Checkout from '../pages/checkout';
-const Contact=lazy(()=>import('../pages/Contact'));
-const Blog =lazy(()=>import('../pages/Blog'))
+import SuspenseWrapper from '../components/feedback/SuspenseWrapper';
+import ProtectedRoute from '../components/Auth/protecteRout';
+const Contact = lazy(() => import('../pages/Contact'));
+const Blog = lazy(() => import('../pages/Blog'));
+const Success = lazy(() => import('../pages/sucess'));
+const Cancel = lazy(() => import('../pages/cancel'));
+const Orders = lazy(() => import('../pages/Order'));
+const AuthLayout=lazy(()=>import('../layouts/AuthLayout'));
+const Auth=lazy(()=>import('../pages/Auth/Auth'))
+
+
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <Suspense fallback={''}>
+      
         <MainLayout />
-      </Suspense>
     ),
     errorElement: <Error />,
     children: [
       {
         index: true,
         element: (
-          <Suspense fallback={''}>
             <Home />
-          </Suspense>
+          
         ),
       },
       {
         path: '/shop', // Corrected from /shope
         element: (
-          <Suspense fallback={''}>
+          <SuspenseWrapper>
+
             <Shope />
-          </Suspense>
+          </SuspenseWrapper>
         ),
       },
       {
         path: '/shop/:id', // Corrected from /shope/:id
         element: (
-          <Suspense fallback={''}>
+          <SuspenseWrapper>
             <SingleProduct />
-          </Suspense>
+          </SuspenseWrapper>
         ),
       },
       {
         path: '/cart', // Corrected from /shope/:id
         element: (
-          <Suspense fallback={
-            <div>
-              <h1>loading....</h1>
-            </div>
-          }>
-            <Cart/>
-          </Suspense>
+          <ProtectedRoute>
+          <SuspenseWrapper>
+
+            <Cart />
+          </SuspenseWrapper>
+          </ProtectedRoute>
         ),
       },
       {
-        path: '/checkout', 
+        path: '/checkout',
+        element:(
+          <SuspenseWrapper>
+
+            <Checkout />
+          </SuspenseWrapper>
+          ),
+      },
+      {
+        path: '/contact',
         element: (
-        
-            <Checkout/>
-          
+          <SuspenseWrapper>
+            <Contact />
+          </SuspenseWrapper>
+        ),
+      },
+
+      {
+        path: '/Success',
+        element: (
+         <SuspenseWrapper>
+           <Success />
+         </SuspenseWrapper>
         ),
       },
       {
-        path: '/contact', 
+        path: '/Cancel',
         element: (
-          <Suspense fallback={
-            <div>
-              <h1>loading....</h1>
-            </div>
-          }>
-            <Contact/>
-          </Suspense>
+          <SuspenseWrapper>
+            <Cancel />
+          </SuspenseWrapper>
+         
         ),
       },
       {
-        path: '/blog', 
+        path: '/order',
         element: (
-          <Suspense fallback={
-            <div>
-              <h1>loading....</h1>
-            </div>
-          }>
-            <Blog/>
-          </Suspense>
+          <SuspenseWrapper>
+
+            <Orders />
+          </SuspenseWrapper>
+        ),
+      },
+      {
+        path: '/blog',
+        element: (
+         <SuspenseWrapper>
+
+           <Blog />
+         </SuspenseWrapper>
         ),
       },
     ],
+  
   },
+  {
+    path:'/auth',
+    element:(
+      <SuspenseWrapper>
+        <AuthLayout/> 
+      </SuspenseWrapper>
+    ),
+    children:[
+     {index:true,
+     path:"/auth",
+     element:(
+  <SuspenseWrapper>
+    <Auth/>
+  </SuspenseWrapper>
+     )
+     }
+    ]
+  }
 ]);
 
 const AppRouter = () => {
+
+
+ 
+  
+  
   return <RouterProvider router={router} />;
 };
 export default AppRouter;

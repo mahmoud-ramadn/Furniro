@@ -7,7 +7,6 @@ import client from './apollo/ApolloClient';
 import { CartProvider } from './context/Cartcontext';
 
 
-
 createRoot(document.getElementById('root')!).render(
 
     <ApolloProvider client={client}>

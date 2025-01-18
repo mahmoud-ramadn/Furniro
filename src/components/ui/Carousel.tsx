@@ -26,7 +26,6 @@ function Carousel() {
     }
   };
 
-  // Explicitly typing the event to WheelEvent
   const handleWheel = (event: WheelEvent) => {
     if (carouselRef.current) {
       const scrollAmount = event.deltaY > 0 ? 300 : -300;
@@ -49,7 +48,6 @@ function Carousel() {
 
   useEffect(() => {
     if (carouselRef.current) {
-      // Casting the ref to HTMLDivElement for proper typing
       const carouselElement = carouselRef.current;
 
       carouselElement.addEventListener('scroll', updateActiveDot);

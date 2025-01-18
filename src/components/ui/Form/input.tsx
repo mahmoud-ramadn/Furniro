@@ -1,57 +1,49 @@
-import React from "react";
-import { Path, FieldValues, UseFormRegister } from "react-hook-form";
-import './style.css'
+import { UseFormRegister, FieldValues } from "react-hook-form";
 
-type InputProps<TFieldValue extends FieldValues> = {
+interface InputFieldProps<TFieldValue extends FieldValues> {
     label: string;
-    name: Path<TFieldValue>;
     type?: string;
+    name: keyof TFieldValue;
     register: UseFormRegister<TFieldValue>;
+    placeholder?: string;
     error?: string;
     onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
-    formText?: string;
-    success?: string;
-    disabled?: boolean;
-};
+}
 
-const Input = <TFieldValue extends FieldValues>({
+const InputField = <TFieldValue extends FieldValues>({
     label,
-    name,
     type = "text",
-    register,
+    name,
+    placeholder = "",
     error,
     onBlur,
-    formText,
-    success,
-    disabled,
-}: InputProps<TFieldValue>) => {
-    const onblurHandler = (e: React.FocusEvent<HTMLInputElement>) => {
+    register,
+}: InputFieldProps<TFieldValue>) => {
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         if (onBlur) {
-            onBlur(e);
-            register(name).onBlur(e);
-        } else {
-            register(name).onBlur(e);
+            onBlur(e); 
         }
     };
 
     return (
-        <div className="mb-3">
-            <label htmlFor={name} className="form-label">
+        <div className="md:h-[121px] flex flex-col justify-between">
+            <label htmlFor={String(name)} className="block text-sm font-medium text-gray-700">
                 {label}
             </label>
             <input
-                id={name}
+                id={String(name)}
                 type={type}
+                placeholder={placeholder}
                 {...register(name)}
-                className={`form-control ${error ? "is-invalid" : ""} ${success ? "is-valid" : ""}`}
-                onBlur={onblurHandler}
-                disabled={disabled}
+                onBlur={(e) => {
+                    handleBlur(e); 
+                    register(name).onBlur?.(e);
+                }}
+                className={`h-[75px] w-full rounded-xl border-[1px] pl-3 placeholder:text-text-links placeholder:text-base ${error ? " border-danger-500" : "border-gray-300"}`}
             />
-            {error && <div className="invalid-feedback">{error}</div>}
-            {success && <div className="valid-feedback">{success}</div>}
-            {formText && <small className="form-text text-muted">{formText}</small>}
+            {error && <p className="mt-2 text-sm text-danger-500">{error}</p>}
         </div>
     );
 };
 
-export default Input;
+export default InputField;

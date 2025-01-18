@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import  { useState, useEffect, useCallback, useMemo, lazy, Suspense } from 'react';
 import useFetchProduct from '../../hooks/GetProducts';
-import ProductsList from './ProductsList';
 import { TProduct } from '../../types/products';
 import Btn from './Btn';
 
@@ -8,6 +7,8 @@ interface OurProductsProps {
   visibleNumber: number;
   Title: string;
 }
+
+const ProductsList = lazy(() => import('../ui/ProductsList'));
 
 function OurProducts({ visibleNumber, Title }: OurProductsProps) {
   const { loading, data, error } = useFetchProduct();
@@ -30,13 +31,17 @@ function OurProducts({ visibleNumber, Title }: OurProductsProps) {
   const handleToggle = useCallback(() => {
     setState((prevState) => {
       const totalProducts = data?.products.length || 0;
-      const newVisibleProducts = prevState.showMore
-        ? Math.max(visibleNumber, prevState.visibleProducts - 4) 
-        : Math.min(totalProducts, prevState.visibleProducts + 4); 
+      let newVisibleProducts = prevState.visibleProducts;
+
+      if (prevState.showMore) {
+        newVisibleProducts = Math.max(visibleNumber, prevState.visibleProducts - 4); // Decrease
+      } else {
+        newVisibleProducts = Math.min(totalProducts, prevState.visibleProducts + 4); // Increase
+      }
 
       return {
         visibleProducts: newVisibleProducts,
-        showMore: newVisibleProducts < totalProducts, 
+        showMore: newVisibleProducts < totalProducts, // Show more only if there's more to show
       };
     });
 
@@ -44,9 +49,10 @@ function OurProducts({ visibleNumber, Title }: OurProductsProps) {
       top: 1200,
       behavior: 'smooth',
     });
-  }, [data?.products.length, state.visibleProducts, visibleNumber]);
+  }, [data?.products.length, visibleNumber, state.visibleProducts]);
 
   if (loading) return <div>Loading, please wait...</div>;
+
   if (error) return <div className="text-3xl font-bold text-danger-500">Something went wrong.</div>;
 
   return (
@@ -55,10 +61,9 @@ function OurProducts({ visibleNumber, Title }: OurProductsProps) {
         {Title}
       </h1>
 
-      {/* Use React.lazy for better performance if ProductsList is large */}
-      <React.Suspense fallback={<div>Loading products...</div>}>
+      <Suspense fallback={<div>Loading Products...</div>}>
         <ProductsList cardData={productsToDisplay} />
-      </React.Suspense>
+      </Suspense>
 
       <div className="flex justify-center mt-8">
         <Btn

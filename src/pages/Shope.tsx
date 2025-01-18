@@ -1,56 +1,70 @@
-import { useState, } from 'react';
 import ProductsList from '../components/ui/ProductsList';
 import Banner from '../components/ui/Banner';
-import useFetchProduct from '../hooks/GetProducts';
 import TopageBanner from '../components/ui/TopageBanner';
-import AppImg from '../components/ui/AppImg';
-
+import useShopeProducts from '../hooks/useShope';
+import Loading from '../components/feedback/Loading';
 function Shope() {
-  const { loading, data, error } = useFetchProduct();
+  const {productsToDisplay,totalPages,currentPage,
+    handleNext,handlePageClick,loading,error
+  }=useShopeProducts();
   
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 16;
-
-  const totalPages = Math.ceil((data?.products.length || 0) / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const productsToDisplay = data?.products.slice(
-    startIndex,
-    startIndex + itemsPerPage,
-  );
-
-  const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage((prev) => prev + 1);
-    }
-  };
-
-
-  const handlePageClick = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  if (loading) {
-    return (
-      <div className="font-bold md:text-5xl  text-lg w-full min-h-screen flex items-center justify-center  bg-primary-500 rounded-md">
-        <AppImg  className='' src='/images/logo.svg' alt='loading'/>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-3xl font-bold text-danger-500 text-center">
-        Something went wrong.
-      </div>
-    );
-  }
-
   return (
-    <div>
+    
+      <Loading loading={loading} error={error as undefined}>
       <TopageBanner />
-      <div className="w-full h-[100px] bg-primary-500"></div>
-      <section className="container px-4 mx-auto my-8">
-        <ProductsList cardData={productsToDisplay || []} />
+
+      <div className="w-full bg-primary-500  text-center ">
+        <div className=" md:container mx-auto h-[100px]    flex items-center md:justify-between flex-col md:flex-row justify-center">
+          <div className="flex items-center gap-x-6 w-full md:w-auto">
+
+            <div className="flex items-center gap-x-3">
+              <img
+                src="/filter/system-uicons_filtering.webp"
+                className="w-[25px] h-[25px]"
+                alt="Filter icon"
+              />
+              <h3 className="text-xl font-normal">Filter</h3>
+            </div>
+
+            <div className="flex gap-x-6">
+              <img
+                src="/filter/ci_grid-big-round.webp"
+                className="w-[25px] h-[25px] object-cover"
+                alt="Grid view icon"
+              />
+              <img
+                src="/filter/bi_view-list.webp"
+                className="w-[25px] h-[25px] object-cover"
+                alt="List view icon"
+              />
+            </div>
+
+            <div className="md:w-[237px] h-[37px] border-l-2 border-l-text-links flex justify-center items-center">
+              Showing 1–16 of 32 results
+            </div>
+          </div>
+
+          <div className="flex items-center gap-x-6 mt-4 md:mt-0">
+
+            <div className="w-fit h-[55px] flex items-center gap-x-4">
+              <span className="font-normal text-xl">Show</span>
+              <div className="w-[55px] h-full bg-white text-xl font-normal text-text-links flex items-center justify-center">
+                16
+              </div>
+            </div>
+
+            <div className="md:w-[288px] h-[55px] flex items-center gap-x-4">
+              <span className="font-normal text-xl">Sort by</span>
+              <div className="md:w-[188px] h-full bg-white text-xl font-normal text-text-links flex items-center justify-center">
+                Default
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section className="container px-4 mx-auto my-8 ">
+        <ProductsList   cardData={productsToDisplay || []} />
         <div className="flex justify-center gap-4 my-20 items-center">
           {Array.from({ length: totalPages }, (_, index) => (
             <button
@@ -79,7 +93,8 @@ function Shope() {
         </div>
       </section>
       <Banner />
-    </div>
+      </Loading>
+    
   );
 }
 

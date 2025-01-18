@@ -8,7 +8,7 @@ import { TProduct } from '../../types/products';
 import Counter from '../ui/Counter';
 
 interface CardProps {
-  id:string;
+  id: string;
   image: string;
   title: string;
   subtitle: string;
@@ -26,9 +26,9 @@ const Card = ({
   discount,
   offer,
   percent,
-}:CardProps) => {
+}: CardProps) => {
 
-  const { addToCart  } = useCart();
+  const { addToCart } = useCart();
 
 
   const handleAddToCart = () => {
@@ -36,16 +36,19 @@ const Card = ({
       id,
       title,
       price,
-      description: '', 
-      images: [image], 
+      description: '',
+      images: [image],
       category: {
-        image, 
+        image,
       },
     };
 
     addToCart(product);
   }
- 
+
+
+
+
 
   return (
     <div className="col-span-1 md:col-span-1 lg:h-[500px] md:h-fit h-full relative bg-Cardeatios-500  rounded-sm shadow-md">
@@ -65,9 +68,9 @@ const Card = ({
           {percent}
         </span>
       ) : null}
-         {/* Image and Hover Group */}
+      {/* Image and Hover Group */}
       <div className="relative group overflow-hidden w-full h-[301px]">
-        <AppImg src={image} alt={title} width='100%' className=" h-full object-cover"  />
+        <AppImg src={image} alt={title} width='100%' className=" h-full object-cover" />
 
         {/* Hover Content */}
         <div
@@ -80,20 +83,16 @@ const Card = ({
 
 
 
-          <Counter productData={id}/>
+            <Counter productData={id} />
 
             <button
-             onClick={handleAddToCart}
+              onClick={handleAddToCart}
               type="button"
               className="text-secondary-500 w-[202px] font-semibold h-12 flex items-center 
               justify-center text-base bg-white"
             >
               Add to Cart
             </button>
-
-
-
-
             <div className="flex items-center text-base font-semibold text-white gap-x-5">
               <button type="button" className="flex items-center">
                 <IconBxsShareAlt /> Share
@@ -111,16 +110,16 @@ const Card = ({
 
       {/* Card Details */}
 
-      <div  className="py-5  w-full  px-5   cursor-pointer">
+      <div className="py-5  w-full  px-5   cursor-pointer">
         <Link to={`/shop/${id}`} >
-        <h2 className="text-2xl text-text-cardTitle font-semibold">{title}</h2>
-        <p className="text-base text-text-cardSubtitle font-medium">{subtitle}</p>
-        <div className="mt-2 flex justify-between items-center">
-          <h3 className="text-lg text-text-cardTitle font-bold">{price}</h3>
-          <span className="line-through text-text-cardSubtitle/30 font-normal text-base">
-            {discount}
-          </span>
-        </div>
+          <h2 className="text-2xl text-text-cardTitle font-semibold">{title}</h2>
+          <p className="text-base text-text-cardSubtitle font-medium">{subtitle}</p>
+          <div className="mt-2 flex justify-between items-center">
+            <h3 className="text-lg text-text-cardTitle font-bold">{price}</h3>
+            <span className="line-through text-text-cardSubtitle/30 font-normal text-base">
+              {discount}
+            </span>
+          </div>
         </Link>
       </div>
     </div>

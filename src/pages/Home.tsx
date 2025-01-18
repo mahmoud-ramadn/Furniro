@@ -3,25 +3,13 @@ import FuniroFurniture from '../components/ui/FuniroFurniture';
 import BrowserTheRange from '../components/ui/BrowserTheRange';
 import BeautifulRoomSection from '../components/ui/BeautifulRoomSection';
 import HeroSection from '../components/ui/HeroSection';
-import { useEffect } from 'react';
 import useFetchProduct from '../hooks/GetProducts';
-import AppImg from '../components/ui/AppImg';
+import Loading from '../components/feedback/Loading';
 function Home() {
-  const { loading } = useFetchProduct();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="font-bold md:text-5xl  text-lg w-full min-h-screen flex items-center justify-center  bg-primary-500 rounded-md">
-        <AppImg className='' src='/images/logo.svg' alt='loading' />
-      </div>
-    );
-  }
-
+  const { loading,error } = useFetchProduct();  
+ 
   return (
+    <Loading error={error as undefined} type='Home' loading={loading}>
     <main className=" overflow-hidden">
       <HeroSection />
       <BrowserTheRange />
@@ -31,6 +19,7 @@ function Home() {
       <BeautifulRoomSection />
       <FuniroFurniture />
     </main>
+    </Loading>
   );
 }
 

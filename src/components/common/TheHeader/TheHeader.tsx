@@ -4,145 +4,18 @@ import User from '../../../assets/icons/User';
 import Search from '../../../assets/icons/Search';
 import Favorite from '../../../assets/icons/Faviort';
 import Cart from '../../../assets/icons/Cart';
-import { useState, useMemo } from 'react';
 import { MingcuteCloseFill } from '../../../assets/icons/Close';
 import AppImg from '../../ui/AppImg';
-import useFetchProduct from '../../../hooks/GetProducts';
-import debounce from 'lodash.debounce';
 import ProductsList from '../../ui/ProductsList';
-import { useCart } from '../../../context/Cartcontext';
-import  { CarbonCloseFilled } from '../../../assets/icons/Closes';
-import { PhLockLight } from '../../../assets/icons/lock';
+import RenderCartDropdown from '../../ecommerce/renderCartDropdown';
+import useHeader from '../../../hooks/useheader';
 
 function TheHeader() {
-  const [openMenu, setOpenMenu] = useState(true);
-  const [searchVisible, setSearchVisible] = useState(false);
-  const [searchText, setSearchText] = useState('');
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [cartDropdownOpen, setCartDropdownOpen] = useState(false);
+  const { pagesLinks, toggleCartDropdown, openMenu, toggleMenu,
+    searchVisible, searchText, handleSearchInput, loading, error, filteredProducts, cart,
+    deleteProduct, cartDropdownOpen, setSearchVisible, subtotal
 
-  const { loading, error, data } = useFetchProduct();
-  const { cart, deleteProduct, subtotal} = useCart();
-
-  const pagesLinks = [
-    { title: 'Home', path: '/' },
-    { title: 'Shop', path: '/shop' },
-    { title: 'About', path: '/' },
-    { title: 'Cart', path: '/cart' },
-    { title: 'Contact', path: '/contact' },
-    { title: 'blog', path: '/blog' },
-  ];
-
-  const toggleMenu = () => setOpenMenu(!openMenu);
-
-  const toggleCartDropdown = () => setCartDropdownOpen(!cartDropdownOpen);
-
-  const handleSearch = useMemo(
-    () =>
-      debounce((value: string) => {
-        if (!data?.products) return;
-        const results = data.products.filter((product) =>
-          product.title.toLowerCase().includes(value.toLowerCase()),
-        );
-        setFilteredProducts(results as never);
-      }, 500),
-    [data],
-  );
-
-  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchText(value);
-    handleSearch(value);
-  };
-
-  const renderCartDropdown = () => (
-    <div className="absolute right-0 mt-2 w-[450px] bg-white h-[746px]   shadow-lg rounded-md ">
-      {cart.length > 0 ? (
-        <div className=" flex justify-between flex-col h-full">
-          <div className=" w-[350px]     mt-7 ml-7    ">
-            <div className=" w-full border-b-[1px] pb-6 border-text-links ">
-              <h2 className=" text-2xl font-semibold w-full flex justify-between items-center">
-                Shopping Cart <PhLockLight className=' w-[32px] h-[19px] '/>
-              </h2>
-            </div>
-            <div className=' flex justify-between h-full flex-col'>
-
-            <div className="overflow-y-scroll  h-[450px]  scrollbar-hidden">
-              {cart.map((item, index) => (
-                <div
-                  key={index}
-                  className="   flex justify-between items-center  my-5 "
-                >
-                  <div className="w-16 h-16 md:w-24 md:h-24 rounded-lg bg-primary-500 overflow-hidden">
-                    {/* Check if images exist and have at least one element */}
-                    {item.images && item.images.length > 0 ? (
-                      <div className=' overflow-hidden w-[105px] h-[108px] rounded-md'>
-                        <AppImg
-                          className="w-full h-full"
-                          src={item.images[0]}
-                          alt="product item"
-                        />
-                      </div>
-                    ) : (
-                      <div className="w-full h-full bg-gray-200"></div>
-                    )}
-                  </div>
-                  <div>
-                    <h3 className=" text-base font-normal">
-                      {item.title.substring(0,20)}
-                    </h3>
-                    <p>
-                      {item.count} x
-                      <span className=" text-secondary-500 text-sm">
-                        RS{item.price}
-                      </span>
-                    </p>
-                  </div>
-                  <button type="button" onClick={() => deleteProduct(item)}>
-                    <CarbonCloseFilled className='w-5 h-5'/>
-                  </button>
-                </div>
-              ))}
-            </div>
-
-        <div className='flex items-center justify-between'>
-                <h4 className=' text-base font-normal '>Subtotal</h4>
-                 <p className=' text-secondary-500 font-semibold text-base'>Rs {subtotal}</p>
-                
-        </div>
- </div>
-
-          </div>
-
-          <div className=" border-t-[1px] w-full  flex items-center gap-x-4 justify-center py-7 ">
-            <Link
-              to="/cart"
-              className=" text-sm  font-normal  border-[1px] rounded-[50px] flex items-center  h-[30px] px-8"
-            >
-              cart
-            </Link>
-            <Link
-              to="/checkout"
-              className=" text-sm  font-normal  border-[1px] rounded-[50px] flex items-center  h-[30px] px-8"
-            >
-              Checkout
-            </Link>
-            <Link
-              to="/cart"
-              className=" text-sm  font-normal  border-[1px] rounded-[50px]  flex items-center  h-[30px] px-8"
-            >
-              Comparison
-            </Link>
-          </div>
-        </div>
-      ) : (
-        <div   className=' h-full flex  justify-center items-center'>
-
-          <p className=" text-lg  text-text-links text-center font-bold ">Your cart is empty.</p>
-        </div>
-      )}
-    </div>
-  );
+  } = useHeader();
 
   return (
     <>
@@ -164,7 +37,9 @@ function TheHeader() {
           </nav>
 
           <div className="hidden md:flex items-center gap-6">
+            <Link to='/auth'>
             <User />
+            </Link>
             <span
               onClick={() => setSearchVisible(!searchVisible)}
               className="cursor-pointer"
@@ -181,7 +56,7 @@ function TheHeader() {
                 )}
                 <Cart />
               </Link>
-              {cartDropdownOpen && renderCartDropdown()}
+              {cartDropdownOpen && <RenderCartDropdown deleteProduct={deleteProduct} subtotal={subtotal} cart={cart} />}
             </div>
 
           </div>
@@ -194,7 +69,6 @@ function TheHeader() {
             {openMenu ? <IconBars /> : <MingcuteCloseFill />}
           </button>
         </div>
-
         {!openMenu && (
           <div className="absolute w-full  left-0 top-24 bg-text-primary/55 z-50">
             <nav className="flex flex-col items-center py-8">
@@ -208,7 +82,6 @@ function TheHeader() {
             </nav>
           </div>
         )}
-
         {searchVisible && (
           <div className="w-full hidden bg-primary-500 p-4 md:flex justify-center">
             <div className="relative w-2/3">

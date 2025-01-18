@@ -5,20 +5,14 @@ import Banner from "../components/ui/Banner"
 import TopageBanner from "../components/ui/TopageBanner"
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import Btn from "../components/ui/Btn"
+import { contactformSchema ,FormValues } from "../Validations/CheckoutValiadion"
+
 
 
 function Contact() {
 
-const formSchema = z.object({
-    yourname: z.string().nonempty("your name is required"),
-    email: z.string().email("Invalid email address"),
-    subject: z.string().nonempty("subject is required"),
-    message: z.string().nonempty("message is required"),
-});
 
-type FormValues = z.infer<typeof formSchema>;
 
 
     const {
@@ -26,7 +20,7 @@ type FormValues = z.infer<typeof formSchema>;
         handleSubmit,
         formState: { errors },
     } = useForm<FormValues>({
-        resolver: zodResolver(formSchema),
+        resolver: zodResolver(contactformSchema),
     });
 
       const onSubmit: SubmitHandler<FormValues> = (data) => {

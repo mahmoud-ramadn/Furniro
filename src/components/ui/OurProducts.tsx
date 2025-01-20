@@ -34,14 +34,14 @@ function OurProducts({ visibleNumber, Title }: OurProductsProps) {
       let newVisibleProducts = prevState.visibleProducts;
 
       if (prevState.showMore) {
-        newVisibleProducts = Math.max(visibleNumber, prevState.visibleProducts - 4); // Decrease
+        newVisibleProducts = Math.max(visibleNumber, prevState.visibleProducts - 4); 
       } else {
-        newVisibleProducts = Math.min(totalProducts, prevState.visibleProducts + 4); // Increase
+        newVisibleProducts = Math.min(totalProducts, prevState.visibleProducts + 4); 
       }
 
       return {
         visibleProducts: newVisibleProducts,
-        showMore: newVisibleProducts < totalProducts, // Show more only if there's more to show
+        showMore: newVisibleProducts < totalProducts,
       };
     });
 

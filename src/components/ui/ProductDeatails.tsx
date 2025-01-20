@@ -4,16 +4,17 @@ import Btn from './Btn';
 import { TProduct, TProductWithCount } from '../../types/products';
 import { useCart } from '../../context/Cartcontext';
 import Counter from './Counter';
+import { TeenyiconsStarSolid } from '../../assets/icons/starIcon';
 function ProductDetails({ productData }: { productData: TProductWithCount }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { addToCart } = useCart();
   const images = productData?.images || [];
   const displayedImage = selectedImage || images[0];
   return (
-    <div className="container mt-9 mb-14 flex flex-wrap justify-center items-start gap-20 ">
+    <div className="container mt-9 mb-14 flex flex-wrap justify-center items-start gap-20  ">
 
 
-      <div className="flex md:items-start flex-wrap md:flex-row flex-col gap-8">
+      <div className="flex md:items-start flex-wrap md:flex-row flex-col gap-8  ">
         <div className="flex md:flex-col flex-row gap-8 justify-between md:h-[416px]">
           <>
             {images.map((image, index) => (
@@ -49,7 +50,7 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
         </div>
       </div>
 
-      <div className="md:w-[606px] md:h-[730px] rounded-md">
+      <div className="md:w-[606px] md:h-[730px] rounded-md   px-4  ">
         <h2 className="font-normal text-[42px]">
           {productData?.title?.slice(0, 19)}
         </h2>
@@ -58,10 +59,11 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
         </h3>
         <div className="h-[30px] mt-[10px] mb-3 flex items-center gap-x-5">
           <div className="flex items-center gap-2">
-            <img src="/src/assets/icons/star.Webp" alt="Star" />
-            <img src="/src/assets/icons/star.Webp" alt="Star" />
-            <img src="/src/assets/icons/star.Webp" alt="Star" />
-            <img src="/src/assets/icons/star.Webp" alt="Star" />
+            <TeenyiconsStarSolid/>
+            <TeenyiconsStarSolid/>
+            <TeenyiconsStarSolid/>
+            <TeenyiconsStarSolid/>
+            <TeenyiconsStarSolid/>
             <img src="/src/assets/icons/haifstar.png" alt="Half Star" />
           </div>
           <div className="h-full w-[2px] bg-text-links"></div>
@@ -106,6 +108,7 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
             + Compare
           </Btn>
         </div>
+
         <hr className="w-full h-[1px] text-text-links" />
         <div className="my-12   w-full  text-text-links text-base font-normal">
           <div className=" w-full  flex items-start ">

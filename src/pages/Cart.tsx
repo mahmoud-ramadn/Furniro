@@ -1,19 +1,14 @@
-import { Link } from "react-router-dom";
-import AppImg from "../components/ui/AppImg";
-import Banner from "../components/ui/Banner";
-import Btn from "../components/ui/Btn";
-import TopageBanner from "../components/ui/TopageBanner";
-import { useCart } from "../context/Cartcontext";
-import { IconoirTrashSolid } from "../assets/icons/Trash";
+import { Link } from 'react-router-dom';
+import AppImg from '../components/ui/AppImg';
+import Banner from '../components/ui/Banner';
+import Btn from '../components/ui/Btn';
+import TopageBanner from '../components/ui/TopageBanner';
+import { useCart } from '../context/Cartcontext';
+import { IconoirTrashSolid } from '../assets/icons/Trash';
 function Cart() {
-  const { cart, deleteProduct ,subtotal } = useCart();
-  
+  const { cart, deleteProduct, subtotal } = useCart();
 
- 
-  
   return (
-
-
     <section className=" ">
       <TopageBanner />
       <div className="container px-4 grid lg:grid-cols-6 md:grid-cols-2 grid-cols-1 gap-8 mt-8 mb-8">
@@ -62,7 +57,7 @@ function Cart() {
                   Rs. {subtotal}
                 </p>
                 <button type="button" onClick={() => deleteProduct(item)}>
-                  <IconoirTrashSolid/>
+                  <IconoirTrashSolid />
                 </button>
               </div>
             ))

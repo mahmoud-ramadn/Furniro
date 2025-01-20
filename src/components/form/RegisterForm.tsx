@@ -11,7 +11,7 @@ import Cookies from 'js-cookie';
 import { useState } from "react";
 function RegisterForm() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false); 
 
   const {
     register,
@@ -23,31 +23,25 @@ function RegisterForm() {
   });
 
   const submitForm: SubmitHandler<RegisterForm> = async (data) => {
-    setLoading(true); // Set loading to true before making the request
+    setLoading(true); 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
       const user = userCredential.user;
 
-      // Set the user's full name
       const fullName = `${data.firstname} ${data.lastname}`;
       await updateProfile(user, { displayName: fullName });
 
-      // Get the user token
       const token = await user.getIdToken();
 
-      // Store display name and token in cookies
-      Cookies.set('userDisplayName', fullName, { expires: 7 }); // Cookie will expire in 7 days
-      Cookies.set('userToken', token, { expires: 7 }); // Store the token in cookies
-
+      Cookies.set('userDisplayName', fullName, { expires: 7 }); 
+      Cookies.set('userToken', token, { expires: 7 });
       console.log("User registered successfully:", user);
-
-      // Redirect to the homepage
       navigate("/");
 
     } catch (error) {
       console.error("Registration error:", error);
     } finally {
-      setLoading(false); // Set loading to false after the process is complete
+      setLoading(false);
     }
   };
 
@@ -100,9 +94,9 @@ function RegisterForm() {
       <Btn
         type="submit"
         className={`w-full h-[75px] bg-secondary-500 text-white rounded-xl ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-        disabled={loading} // Disable button while loading
+        disabled={loading} 
       >
-        {loading ? 'Signing Up...' : 'Sign Up'} {/* Change text based on loading state */}
+        {loading ? 'Signing Up...' : 'Sign Up'} 
       </Btn>
     </form>
   );

@@ -14,38 +14,28 @@ const Blog = lazy(() => import('../pages/Blog'));
 const Success = lazy(() => import('../pages/sucess'));
 const Cancel = lazy(() => import('../pages/cancel'));
 const Orders = lazy(() => import('../pages/Order'));
-const AuthLayout=lazy(()=>import('../layouts/AuthLayout'));
-const Auth=lazy(()=>import('../pages/Auth/Auth'))
-
-
-
+const AuthLayout = lazy(() => import('../layouts/AuthLayout'));
+const Auth = lazy(() => import('../pages/Auth/Auth'));
 const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      
-        <MainLayout />
-    ),
+    element: <MainLayout />,
     errorElement: <Error />,
     children: [
       {
         index: true,
-        element: (
-            <Home />
-          
-        ),
+        element: <Home />,
       },
       {
-        path: '/shop', // Corrected from /shope
+        path: '/shop',
         element: (
           <SuspenseWrapper>
-
             <Shope />
           </SuspenseWrapper>
         ),
       },
       {
-        path: '/shop/:id', // Corrected from /shope/:id
+        path: '/shop/:id',
         element: (
           <SuspenseWrapper>
             <SingleProduct />
@@ -53,28 +43,22 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: '/cart', // Corrected from /shope/:id
+        path: '/cart',
         element: (
-          <ProtectedRoute>
-
           <SuspenseWrapper>
-
             <Cart />
           </SuspenseWrapper>
-          </ProtectedRoute>
-       
         ),
       },
       {
         path: '/checkout',
-        element:(
+        element: (
           <ProtectedRoute>
-          <SuspenseWrapper>
-
-            <Checkout />
-          </SuspenseWrapper>
+            <SuspenseWrapper>
+              <Checkout />
+            </SuspenseWrapper>
           </ProtectedRoute>
-          ),
+        ),
       },
       {
         path: '/contact',
@@ -88,9 +72,9 @@ const router = createBrowserRouter([
       {
         path: '/Success',
         element: (
-         <SuspenseWrapper>
-           <Success />
-         </SuspenseWrapper>
+          <SuspenseWrapper>
+            <Success />
+          </SuspenseWrapper>
         ),
       },
       {
@@ -99,14 +83,12 @@ const router = createBrowserRouter([
           <SuspenseWrapper>
             <Cancel />
           </SuspenseWrapper>
-         
         ),
       },
       {
         path: '/order',
         element: (
           <SuspenseWrapper>
-
             <Orders />
           </SuspenseWrapper>
         ),
@@ -114,41 +96,35 @@ const router = createBrowserRouter([
       {
         path: '/blog',
         element: (
-         <SuspenseWrapper>
-
-           <Blog />
-         </SuspenseWrapper>
+          <SuspenseWrapper>
+            <Blog />
+          </SuspenseWrapper>
         ),
       },
     ],
-  
   },
   {
-    path:'/auth',
-    element:(
+    path: '/auth',
+    element: (
       <SuspenseWrapper>
-        <AuthLayout/> 
+        <AuthLayout />
       </SuspenseWrapper>
     ),
-    children:[
-     {index:true,
-     path:"/auth",
-     element:(
-  <SuspenseWrapper>
-    <Auth/>
-  </SuspenseWrapper>
-     )
-     }
-    ]
-  }
+    children: [
+      {
+        index: true,
+        path: '/auth',
+        element: (
+          <SuspenseWrapper>
+            <Auth />
+          </SuspenseWrapper>
+        ),
+      },
+    ],
+  },
 ]);
 
 const AppRouter = () => {
-
-
- 
-  
-  
   return <RouterProvider router={router} />;
 };
 export default AppRouter;

@@ -1,11 +1,10 @@
-import { useCart } from "../../context/Cartcontext";
+import { useCart } from '../../context/Cartcontext';
 
 function Counter({ productData }: { productData: string }) {
-  const { incrementCount, decrementCount, getProductQuantity, } = useCart();
+  const { incrementCount, decrementCount, getProductQuantity } = useCart();
 
   const quantity = Number(getProductQuantity(productData)) || 0;
 
-  
   return (
     <>
       {quantity > 0 && (

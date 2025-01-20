@@ -1,6 +1,5 @@
 import  { Suspense, lazy } from 'react';
 
-// تحميل المكونات بشكل كسول
 const Banner = lazy(() => import("../components/ui/Banner"));
 const TopageBanner = lazy(() => import("../components/ui/TopageBanner"));
 

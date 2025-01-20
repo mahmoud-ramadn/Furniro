@@ -51,7 +51,9 @@ function Carousel() {
       const carouselElement = carouselRef.current;
 
       carouselElement.addEventListener('scroll', updateActiveDot);
-      carouselElement.addEventListener('wheel', handleWheel, { passive: false });
+      carouselElement.addEventListener('wheel', handleWheel, {
+        passive: false,
+      });
 
       return () => {
         carouselElement.removeEventListener('scroll', updateActiveDot);
@@ -89,10 +91,11 @@ function Carousel() {
         {items.map((_, index) => (
           <div
             key={index}
-            className={`w-4 h-4 rounded-full ${activeIndex === index
-              ? 'bg-secondary-500 outline outline-secondary-500 p-2'
-              : 'bg-[#D8D8D8]'
-              }`}
+            className={`w-4 h-4 rounded-full ${
+              activeIndex === index
+                ? 'bg-secondary-500 outline outline-secondary-500 p-2'
+                : 'bg-[#D8D8D8]'
+            }`}
           ></div>
         ))}
       </div>

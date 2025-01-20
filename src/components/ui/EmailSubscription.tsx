@@ -34,8 +34,9 @@ function EmailSubscription() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter Your Email Address"
-            className={`md:w-[200px] border-b-[1px] focus:outline-none placeholder:text-text-links text-sm font-normal pb-1 ${error ? 'border-red-500' : 'border-black'
-              }`}
+            className={`md:w-[200px] border-b-[1px] focus:outline-none placeholder:text-text-links text-sm font-normal pb-1 ${
+              error ? 'border-red-500' : 'border-black'
+            }`}
           />
           <button
             onClick={handleSubmit}

@@ -6,7 +6,7 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode }> = ({ children }) =
     const token = Cookies.get('userToken');
 
     if (!token) {
-        return <Navigate to="/auth" />;  // Redirect to login if token doesn't exist
+        return <Navigate to="/auth" />;  
     } 
 
     return <>{children}</>;  // Render protected children if token exists

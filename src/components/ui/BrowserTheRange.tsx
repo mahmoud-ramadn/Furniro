@@ -28,7 +28,7 @@ function BrowserTheRange() {
       <div className="w-full grid md:grid-cols-4 lg:grid-cols-3 mb-14 gap-5 grid-cols-1">
         {CardImage.map((item, index) => (
           <div
-            key={index} 
+            key={index}
             className="sm:col-span-2 lg:col-span-1 col-span-1 md:h-[520px] flex space-y-7 flex-col justify-between"
           >
             <AppImg

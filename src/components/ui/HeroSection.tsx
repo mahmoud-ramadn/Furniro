@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function HeroSection() {
   return (
@@ -24,7 +24,8 @@ function HeroSection() {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
           tellus, luctus nec ullamcorper mattis.
         </p>
-        <Link to='/shop'
+        <Link
+          to="/shop"
           className="bg-secondary-500 font-bold text-base w-[222px] h-16  flex items-center justify-center text-white hover:bg-secondary-600 transition duration-300"
           aria-label="Buy Now"
         >

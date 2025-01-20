@@ -6,7 +6,6 @@ function Cancel() {
         <section className="min-h-screen flex flex-col items-center  justify-between">
             <TopageBanner />
 
-            {/* محتوى الإلغاء */}
             <div className="text-center mt-8">
                 <h1 className="text-3xl font-bold text-red-500 mb-4">
                     تم إلغاء الطلب!

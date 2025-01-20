@@ -72,7 +72,6 @@ function Tabs() {
         </div>
       </div>
 
-
       <OurProducts Title="Related Products" visibleNumber={4} />
     </div>
   );

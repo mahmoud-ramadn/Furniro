@@ -6,7 +6,6 @@ import { useCart } from '../../context/Cartcontext';
 import Counter from './Counter';
 import { FluentStar48Filled} from '../../assets/icons/starIcon';
 import { FaStarHalf } from '../../assets/icons/StarHalf';
-import { Facebook } from 'react-content-loader';
 function ProductDetails({ productData }: { productData: TProductWithCount }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { addToCart } = useCart();

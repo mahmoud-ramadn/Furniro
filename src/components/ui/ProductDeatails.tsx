@@ -4,7 +4,9 @@ import Btn from './Btn';
 import { TProduct, TProductWithCount } from '../../types/products';
 import { useCart } from '../../context/Cartcontext';
 import Counter from './Counter';
-import { TeenyiconsStarSolid } from '../../assets/icons/starIcon';
+import { FluentStar48Filled} from '../../assets/icons/starIcon';
+import { FaStarHalf } from '../../assets/icons/StarHalf';
+import { Facebook } from 'react-content-loader';
 function ProductDetails({ productData }: { productData: TProductWithCount }) {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const { addToCart } = useCart();
@@ -59,12 +61,12 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
         </h3>
         <div className="h-[30px] mt-[10px] mb-3 flex items-center gap-x-5">
           <div className="flex items-center gap-2">
-            <TeenyiconsStarSolid/>
-            <TeenyiconsStarSolid/>
-            <TeenyiconsStarSolid/>
-            <TeenyiconsStarSolid/>
-            <TeenyiconsStarSolid/>
-            <img src="/src/assets/icons/haifstar.png" alt="Half Star" />
+            <FluentStar48Filled/>
+            <FluentStar48Filled/>
+            <FluentStar48Filled/>
+            <FluentStar48Filled/>
+            <FluentStar48Filled/>
+            <FaStarHalf/>
           </div>
           <div className="h-full w-[2px] bg-text-links"></div>
           <p className="text-sm font-normal text-text-links">
@@ -110,7 +112,7 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
         </div>
 
         <hr className="w-full h-[1px] text-text-links" />
-        <div className="my-12   w-full  text-text-links text-base font-normal">
+        <div className="my-12   space-y-4  w-full  text-text-links text-base font-normal">
           <div className=" w-full  flex items-start ">
             <span className=" w-36">SKU</span>
             <div className='  w-56 h-6 pl-3 '>:  Sofas
@@ -126,7 +128,6 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
             </div>
           
           </div>
-
           <div className=" w-full flex items-center">
             <span className=" w-36">Tags</span>
             <div className='   h-6  pl-3'>:  Sofa, Chair, Home, Shop
@@ -134,7 +135,12 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
           </div>
           <div className=" w-full flex items-center">
             <span className=" w-36">Share</span>
-            <div className='   h-6  pl-3'>:  Sofa, Chair, Home, Shop
+            <div className='   h-6  pl-3 flex items-centerg gap-x-3 '> :  
+              <div className=' flex  gap-x-6  items-center '>
+              <img src="/Social/facebook.svg" alt="" />
+              <img src="/Social/linkediin.svg" alt="" />
+              <img src="/Social/twiiter.svg" alt="" />
+            </div>
             </div>
           </div>
 

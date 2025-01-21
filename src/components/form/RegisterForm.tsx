@@ -9,9 +9,11 @@ import { auth } from "../../firebase/firebase";
 import { updateProfile } from "firebase/auth/cordova";
 import Cookies from 'js-cookie';
 import { useState } from "react";
+import Spinner from "../../assets/spinner";
 function RegisterForm() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false); 
+  const [errorMessage, setErrorMessage] = useState('');
 
   const {
     register,
@@ -38,8 +40,15 @@ function RegisterForm() {
       console.log("User registered successfully:", user);
       navigate("/");
 
-    } catch (error) {
-      console.error("Registration error:", error);
+    } catch (error ) {
+      switch (error) {
+        case 'auth/weak-password':
+          setErrorMessage("The password is too weak.");
+          break;
+        default:
+          setErrorMessage('The email address is already in use.');
+      }
+      console.error('Login error:', error);
     } finally {
       setLoading(false);
     }
@@ -50,6 +59,11 @@ function RegisterForm() {
       <div className="text-center">
         <Link to='/' className="text-4xl cursor-pointer font-bold text-secondary-500">Furnio</Link>
       </div>
+
+ <p className=" text-danger-500">{errorMessage &&  errorMessage }</p>
+
+
+
       <InputField
         register={register}
         placeholder="First Name"
@@ -96,7 +110,7 @@ function RegisterForm() {
         className={`w-full h-[75px] bg-secondary-500 text-white rounded-xl ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
         disabled={loading} 
       >
-        {loading ? 'Signing Up...' : 'Sign Up'} 
+        {loading ? <div className="  flex items-center gap-x-2 justify-center"> Signing Up... <Spinner/>  </div> : 'Sign Up'} 
       </Btn>
     </form>
   );

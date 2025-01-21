@@ -7,8 +7,10 @@ function MainLayout() {
   return (
     <div className="w-full mx-auto relative">
       <TheHeader />
+      <div className='h-[100px]'></div>
       <Toaster position="top-right" />
-      <Outlet />
+   
+      <Outlet   />
       <TheFooter />
     </div>
   );

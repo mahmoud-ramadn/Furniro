@@ -7,7 +7,6 @@ import { useCart } from '../context/Cartcontext';
 import { IconoirTrashSolid } from '../assets/icons/Trash';
 function Cart() {
   const { cart, deleteProduct, subtotal } = useCart();
-
   return (
     <section className=" ">
       <TopageBanner />

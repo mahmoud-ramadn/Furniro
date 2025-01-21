@@ -7,6 +7,7 @@ import TopageBanner from '../components/ui/TopageBanner';
 import Banner from '../components/ui/Banner';
 import { formSchema, Formcheckout } from '../Validations/CheckoutValiadion';
 import { loadStripe } from '@stripe/stripe-js';
+import Spinner from '../assets/spinner';
 
 const stripePromise = loadStripe(
   'pk_test_51Qi1ltG1Yc7r0GlRGtv1njDWunCxy3QmSE4A8BBj6o6gcORsLZ3LM1617YYlZyhwjXPyCM1hpQvbxQEfgJ3g03li00CMDLYU9n',
@@ -212,7 +213,7 @@ const Checkout: React.FC = () => {
                 className="w-full md:w-[318px] border-2 text-xl font-normal h-[64px] rounded-2xl"
                 disabled={isLoading}
               >
-                {isLoading ? 'Processing...' : 'Place order'}
+                {isLoading ? <div className=' flex items-center  gap-x-1 justify-center'>   Processing...  <Spinner color='#B88E2F' /> </div>  : 'Place order '  }
               </Btn>
             ) : (
               <Btn

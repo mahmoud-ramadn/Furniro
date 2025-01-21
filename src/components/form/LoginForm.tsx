@@ -1,3 +1,4 @@
+import Spinner from "../../assets/spinner";
 import useLoging from "../../hooks/useLogin";
 import Btn from "../ui/Btn";
 import InputField from "../ui/Form/input";
@@ -45,7 +46,7 @@ function LoginForm() {
                 className="w-full h-[75px] bg-secondary-500 text-white rounded-xl"
                 disabled={loading} // Disable the button when submitting
             >
-                {loading ? "Signing In..." : "Sign In"} {/* Show loading text if submitting */}
+                {loading ? <div   className="  flex items-center gap-x-2 justify-center"> Signing In... <Spinner/>  </div> : "Sign In"} {/* Show loading text if submitting */}
             </Btn>
         </form>
     );

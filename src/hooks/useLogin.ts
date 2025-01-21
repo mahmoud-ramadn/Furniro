@@ -6,11 +6,16 @@ import {
   type LoginForm,
 } from '../Validations/AuthVailadation';
 import { useNavigate } from 'react-router-dom';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from 'firebase/auth';
 import { auth } from '../firebase/firebase';
 import Cookies from 'js-cookie';
+import { FirebaseError } from 'firebase/app';
 
-const useLoging = () => {
+const useLogin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -35,28 +40,66 @@ const useLoging = () => {
       );
       const user = userCredential.user;
 
-      // Store user name and token in cookies
-      Cookies.set('userDisplayName', user.displayName || '', { expires: 7 });
-
-      // Get the ID token and store it in cookies
+      // Store user info in cookies
+      Cookies.set('userDisplayName', user.displayName || 'Guest', {
+        expires: 7,
+      });
       const token = await user.getIdToken();
-      Cookies.set('userToken', token, { expires: 7 });
+      Cookies.set('userToken', token, { expires: 7, secure: true });
 
-      // Redirect to home page or another page
+      // Redirect to home page
       navigate('/');
-    } catch (error) {
-      const errorCode = error;
-      switch (errorCode) {
-        case 'auth/user-not-found':
-          setErrorMessage('User not found. Please check your email.');
-          break;
-        case 'auth/wrong-password':
-          setErrorMessage('Incorrect password. Please try again.');
-          break;
-        default:
-          setErrorMessage('Something went wrong. Please try again.');
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case 'auth/user-not-found':
+            setErrorMessage('User not found. Please check your email.');
+            break;
+          case 'auth/wrong-password':
+            setErrorMessage('Incorrect password. Please try again.');
+            break;
+          default:
+            setErrorMessage('Something went wrong. Please try again.');
+        }
+      } else {
+        setErrorMessage('An unknown error occurred.');
       }
-      console.error('Login error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const googleLogin = async () => {
+    setLoading(true);
+    setErrorMessage('');
+    const provider = new GoogleAuthProvider();
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      Cookies.set('userDisplayName', user.displayName || 'Guest', {
+        expires: 7,
+      });
+      Cookies.set('userPhotoURL', user.photoURL || '/default-avatar.png', {
+        expires: 7,
+      });
+      const token = await user.getIdToken();
+      Cookies.set('userToken', token, { expires: 7, secure: true });
+      navigate('/');
+    } catch (error: unknown) {
+      if (error instanceof FirebaseError) {
+        switch (error.code) {
+          case 'auth/popup-closed-by-user':
+            setErrorMessage(
+              'The popup was closed before completing the sign-in.',
+            );
+            break;
+          default:
+            setErrorMessage('Google login failed. Please try again.');
+        }
+      } else {
+        setErrorMessage('An unknown error occurred.');
+      }
     } finally {
       setLoading(false);
     }
@@ -69,7 +112,8 @@ const useLoging = () => {
     errorMessage,
     handleSubmit,
     submitForm,
+    googleLogin,
   };
 };
 
-export default useLoging;
+export default useLogin;

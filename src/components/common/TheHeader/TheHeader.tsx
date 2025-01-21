@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Cookies from 'js-cookie';
-import { signOut } from 'firebase/auth'; // Import signOut from firebase
+import { signOut } from 'firebase/auth';
 import User from '../../../assets/icons/User';
 import Search from '../../../assets/icons/Search';
 import Favorite from '../../../assets/icons/Faviort';
@@ -14,41 +14,51 @@ import useHeader from '../../../hooks/useheader';
 import { IconBars } from '../../../assets/icons/Bars';
 import { auth } from '../../../firebase/firebase';
 
-
 function TheHeader() {
-  const [userName, setUserName] = useState<string | null>(null);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const userPhotoURL = Cookies.get('userPhotoURL');
+  const userDisplayName = Cookies.get('userDisplayName');
 
-  const { pagesLinks, toggleCartDropdown, openMenu, toggleMenu, searchVisible, searchText, handleSearchInput, loading, error, filteredProducts, cart, deleteProduct, cartDropdownOpen, setSearchVisible, subtotal } = useHeader();
-
-  useEffect(() => {
-    const storedUserName = Cookies.get('userDisplayName');
-    if (storedUserName) {
-      setUserName(storedUserName);
-    }
-  }, []);
+  const {
+    pagesLinks,
+    toggleCartDropdown,
+    openMenu,
+    toggleMenu,
+    searchVisible,
+    searchText,
+    handleSearchInput,
+    loading,
+    error,
+    filteredProducts,
+    cart,
+    deleteProduct,
+    cartDropdownOpen,
+    setSearchVisible,
+    subtotal,
+  } = useHeader();
 
   const handleLogout = () => {
-  Cookies.remove('userToken');
-  Cookies.remove('userDisplayName');
+    Cookies.remove('userToken');
+    Cookies.remove('userDisplayName');
+    Cookies.remove('userPhotoURL'); 
+    signOut(auth)
+      .then(() => {
+        console.log('User logged out successfully');
+        window.location.reload(); // Optional: refresh page to reset state
+      })
+      .catch((err) => console.error('Logout error:', err));
+  };
 
-  signOut(auth)
-    .then(() => {
-      console.log('User logged out successfully');
-      setUserName(null); // Immediately clear the user name after logging out
-    })
-    .catch((error) => {
-      console.error('Logout error:', error);
-    });
-};
   return (
     <header className="w-full bg-white py-7 px-4 md:px-14 lg:px-20 fixed top-0 left-0 z-50">
       <div className="flex justify-between items-center">
+        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <AppImg src="/images/logo.svg" alt="logo" className="w-8 h-8" />
           <h1 className="font-bold text-xl md:text-2xl">Furniro</h1>
         </Link>
 
+        {/* Navigation Links */}
         <nav className="hidden lg:block">
           <ul className="flex gap-8">
             {pagesLinks.map((page, index) => (
@@ -59,14 +69,29 @@ function TheHeader() {
           </ul>
         </nav>
 
+        {/* Header Actions */}
         <div className="hidden md:flex items-center gap-6">
-          {userName ? (
+          {/* User Dropdown */}
+          {userDisplayName ? (
             <div
               className="relative"
-              onMouseEnter={() => setDropdownVisible(true)} // Show dropdown on hover
-              onMouseLeave={() => setDropdownVisible(false)} // Hide dropdown when not hovering
+              onMouseEnter={() => setDropdownVisible(true)}
+              onMouseLeave={() => setDropdownVisible(false)}
             >
-              <span className="cursor-pointer">{userName}</span>
+              {userPhotoURL ? (
+                <img
+                  src={userPhotoURL || '/images/default-avatar.png'}
+                  alt={userDisplayName || 'User'}
+                  className="w-8 h-8 rounded-full cursor-pointer"
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/default-avatar.png';
+                  }}
+                />
+              ) : (
+                <span className="cursor-pointer font-medium">
+                  {userDisplayName}
+                </span>
+              )}
               {dropdownVisible && (
                 <div className="absolute right-0 top-2 mt-2 bg-white border rounded-md shadow-lg p-4 w-40">
                   <button
@@ -84,12 +109,26 @@ function TheHeader() {
             </Link>
           )}
 
-          <span onClick={() => setSearchVisible(!searchVisible)} className="cursor-pointer">
+          {/* Search Icon */}
+          <span
+            onClick={() => setSearchVisible(!searchVisible)}
+            className="cursor-pointer"
+          >
             <Search />
           </span>
+
+          {/* Favorite Icon */}
           <Favorite />
+
+          {/* Cart Dropdown */}
           <div className="relative">
-            <Link to="/cart" onClick={(e) => { e.preventDefault(); toggleCartDropdown(); }}>
+            <Link
+              to="/cart"
+              onClick={(e) => {
+                e.preventDefault();
+                toggleCartDropdown();
+              }}
+            >
               {cart.length > 0 && (
                 <span className="absolute -top-2 -right-2 w-5 h-5 bg-secondary-500/85 text-white text-xs flex items-center justify-center rounded-full animate-bounce">
                   {cart.length}
@@ -97,10 +136,17 @@ function TheHeader() {
               )}
               <Cart />
             </Link>
-            {cartDropdownOpen && <RenderCartDropdown deleteProduct={deleteProduct} subtotal={subtotal} cart={cart} />}
+            {cartDropdownOpen && (
+              <RenderCartDropdown
+                deleteProduct={deleteProduct}
+                subtotal={subtotal}
+                cart={cart}
+              />
+            )}
           </div>
         </div>
 
+        {/* Mobile Menu Button */}
         <button
           type="button"
           onClick={toggleMenu}
@@ -109,6 +155,8 @@ function TheHeader() {
           {openMenu ? <IconBars /> : <MingcuteCloseFill />}
         </button>
       </div>
+
+      {/* Mobile Menu */}
       {!openMenu && (
         <div className="absolute w-full left-0 top-24 bg-text-primary/55 z-50">
           <nav className="flex flex-col items-center py-8">
@@ -122,6 +170,8 @@ function TheHeader() {
           </nav>
         </div>
       )}
+
+      {/* Search Bar */}
       {searchVisible && (
         <div className="w-full hidden bg-primary-500 p-4 md:flex justify-center">
           <div className="relative w-2/3">
@@ -147,7 +197,6 @@ function TheHeader() {
         </div>
       )}
     </header>
-    
   );
 }
 

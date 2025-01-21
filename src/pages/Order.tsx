@@ -20,31 +20,30 @@ function Order() {
     const [loading, setLoading] = useState<boolean>(true); // Type for loading
 
     useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                const userId = localStorage.getItem("userId"); // Assuming userId is stored locally
-                if (!userId) {
-                    console.error("User ID not found in local storage.");
-                    return;
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+            // Redirect to login or show a message
+            window.location.href = "/login"; // or your login route
+        } else {
+            const fetchOrders = async () => {
+                try {
+                    const response = await fetch(`http://localhost:5002/orders?userId=${userId}`);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch: ${response.statusText}`);
+                    }
+
+                    const data = await response.json();
+                    setOrders(data);
+                } catch (error) {
+                    console.error("Failed to fetch orders:", error);
+                } finally {
+                    setLoading(false);
                 }
+            };
 
-                const response = await fetch(`http://localhost:5002/orders?userId=${userId}`);
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch: ${response.statusText}`);
-                }
-
-                const data: Order[] = await response.json(); // Type the response
-                setOrders(data);
-            } catch (error) {
-                console.error("Failed to fetch orders:", error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchOrders();
+            fetchOrders();
+        }
     }, []);
-
 
     console.log(orders);
     

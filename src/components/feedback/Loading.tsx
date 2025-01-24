@@ -2,6 +2,7 @@ import HomeSkeleton from "../skeleteon/HomeSkeleton";
 import ShopeSkeleton from "../skeleteon/ShopeSkeleton";
 import CartSkeleton from "../skeleteon/CartSkeleton";
 import SingleProductSkeleton from "./SingleProductSkeleton";
+import AppImg from "../ui/AppImg";
 
 const skeletonsTypes = {
     Home: HomeSkeleton,
@@ -10,9 +11,9 @@ const skeletonsTypes = {
     SingleProduct:SingleProductSkeleton
 };
 type LoadingProps = {
-    children: React.ReactNode;
-    loading: boolean;
-    error: boolean | undefined;
+    children?: React.ReactNode;
+    loading?: boolean;
+    error?: boolean | undefined;
     type?: keyof typeof skeletonsTypes;
 };
 const Loading = ({ children, loading, error, type }: LoadingProps) => {
@@ -20,12 +21,15 @@ const Loading = ({ children, loading, error, type }: LoadingProps) => {
     if (loading) {
         return (
             <div
-                className=" bg-primary-500   min-h-screen pb-4"
+                className="   min-h-screen pb-4"
                 role="status"
                 aria-busy="true"
                 aria-live="polite"
             >
-                {Component ? <Component /> : "Loading..."}
+                {Component ? <Component /> : <div className=" min-h-screen flex items-center justify-center">
+                    <AppImg className=" w-full" src="/images/logo.svg"   alt='logo' />
+                    
+                    </div>}
             </div>
         );
     }

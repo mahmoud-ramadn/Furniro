@@ -44,7 +44,7 @@ function TheHeader() {
     signOut(auth)
       .then(() => {
         console.log('User logged out successfully');
-        window.location.reload(); // Optional: refresh page to reset state
+        window.location.reload();
       })
       .catch((err) => console.error('Logout error:', err));
   };

@@ -51,6 +51,9 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
         </div>
       </div>
 
+
+
+
       <div className="md:w-[606px] md:h-[730px] rounded-md   px-4  ">
         <h2 className="font-normal text-[42px]">
           {productData?.title?.slice(0, 19)}
@@ -144,6 +147,9 @@ function ProductDetails({ productData }: { productData: TProductWithCount }) {
           </div>
 
         </div>
+
+
+        
       </div>
       
     </div>

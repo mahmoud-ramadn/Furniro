@@ -50,8 +50,6 @@ export const CartProvider = ({ children }: CartProviderProps) => {
   }, 0);
 
   const addToCart = (product: TProduct) => {
-    const userId = auth.currentUser?.uid;
-    if (userId) {
       const exists = cart.find((item) => item.id === product.id);
       if (exists) {
         const updatedCart = cart.map((item) =>
@@ -62,7 +60,7 @@ export const CartProvider = ({ children }: CartProviderProps) => {
         setCart([...cart, { ...product, count: 1 }]);
       }
       toast.success('Item added to cart!');
-    }
+    
   };
 
   const deleteProduct = (product: TProduct) => {

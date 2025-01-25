@@ -71,7 +71,7 @@ function TheHeader() {
 
         {/* Header Actions */}
         <div className="hidden md:flex items-center gap-6">
-          {/* User Dropdown */}
+         
           {userDisplayName ? (
             <div
               className="relative"
@@ -102,6 +102,7 @@ function TheHeader() {
                   </button>
                 </div>
               )}
+
             </div>
           ) : (
             <Link to="/auth">
@@ -161,7 +162,39 @@ function TheHeader() {
         <div className="absolute w-full left-0 top-24 bg-text-primary/55 z-50">
           <nav className="flex flex-col items-center py-8">
             <ul className="flex flex-col gap-6">
+              <li>
+
+                {userDisplayName ? (
+                  <div
+                    className="relative"
+                    onMouseEnter={() => setDropdownVisible(true)}
+                    onMouseLeave={() => setDropdownVisible(false)}
+                  >
+                
+                      <span className="cursor-pointer font-medium text-white">
+                        {userDisplayName}
+                      </span>
+                    {dropdownVisible && (
+                      <div className="absolute right-0 top-2 mt-2 bg-white border rounded-md shadow-lg p-4 w-40">
+                        <button
+                          onClick={handleLogout}
+                          className="w-full text-red-500 hover:text-red-700"
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    )}
+
+                  </div>
+                ) : (
+                  <Link to="/auth" >
+                    <User  />
+                  </Link>
+                )}
+
+              </li>
               {pagesLinks.map((page, index) => (
+
                 <li key={index} onClick={toggleMenu} className="text-white">
                   <Link to={page.path}>{page.title}</Link>
                 </li>

@@ -1,13 +1,12 @@
 import HomeSkeleton from "../skeleteon/HomeSkeleton";
 import ShopeSkeleton from "../skeleteon/ShopeSkeleton";
-import CartSkeleton from "../skeleteon/CartSkeleton";
-import SingleProductSkeleton from "./SingleProductSkeleton";
+
+import SingleProductSkeleton from "../skeleteon/SingleProductSkeleton";
 import AppImg from "../ui/AppImg";
 
 const skeletonsTypes = {
     Home: HomeSkeleton,
     Shope:ShopeSkeleton,
-    Cart :CartSkeleton,
     SingleProduct:SingleProductSkeleton
 };
 type LoadingProps = {

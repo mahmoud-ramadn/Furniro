@@ -1,12 +1,12 @@
- export interface TProduct {
+export interface TProduct {
   id: string;
-  category: {
-    image: string;
-  };
   title: string;
-  price:string;
+  price: string;
   images: string[];
   description: string;
+  category?: {
+    image: string;
+  };
 }
 
 export interface TProductWithCount extends TProduct {

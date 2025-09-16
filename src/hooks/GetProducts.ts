@@ -19,9 +19,7 @@ interface ProductsResponse {
 
 const useFetchProduct = () => {
   const { loading, error, data } = useQuery<ProductsResponse>(GET_PRODUCTS, {
-    
-    fetchPolicy: 'cache-first', 
-   
+    fetchPolicy: 'cache-first',
   });
 
   // Error Handling: You can customize how you want to handle errors
@@ -30,7 +28,7 @@ const useFetchProduct = () => {
   }
 
   // You can return the error, loading, and data to the component
-  return { loading, error, data };
+  return { loading, error, data: data || { products: [] } };
 };
 
 export default useFetchProduct;

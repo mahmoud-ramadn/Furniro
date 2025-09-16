@@ -7,9 +7,11 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local('Poppins Regular'), 
-       local('Poppins-Regular'),
-       url('https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJfecg.woff2') format('woff2');
+  src:
+    local('Poppins Regular'),
+    local('Poppins-Regular'),
+    url('https://fonts.gstatic.com/s/poppins/v15/pxiEyp8kv8JHgFVrJJfecg.woff2')
+      format('woff2');
 }
 
 /* Define the fallback font-family in case Poppins fails to load */
@@ -23,10 +25,89 @@ body {
 }
 
 .scrollbar-hidden {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
-input[type="radio"] {
+
+input[type='radio'] {
   accent-color: black; /* Makes the radio button black */
 }
 
+/* Dark mode styles */
+.dark {
+  /* Background colors */
+  --bg-primary: #111827;
+  --bg-secondary: #1f2937;
+  --bg-tertiary: #374151;
+
+  /* Text colors */
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+
+  /* Border colors */
+  --border-primary: #374151;
+  --border-secondary: #4b5563;
+}
+
+.dark body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+.dark header {
+  background-color: var(--bg-primary);
+  border-color: var(--border-primary);
+}
+
+.dark .bg-white {
+  background-color: var(--bg-secondary);
+}
+
+.dark .text-gray-900 {
+  color: var(--text-primary);
+}
+
+.dark .text-gray-700 {
+  color: var(--text-secondary);
+}
+
+.dark .text-gray-600 {
+  color: var(--text-tertiary);
+}
+
+.dark .text-gray-500 {
+  color: var(--text-tertiary);
+}
+
+.dark .border-gray-200 {
+  border-color: var(--border-primary);
+}
+
+.dark .border-gray-100 {
+  border-color: var(--border-secondary);
+}
+
+.dark .hover\:bg-gray-100:hover {
+  background-color: var(--bg-tertiary);
+}
+
+.dark .shadow-sm {
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+}
+
+.dark .shadow-lg {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.4),
+    0 4px 6px -2px rgba(0, 0, 0, 0.2);
+}
+
+.dark .shadow-xl {
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.4),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.dark .shadow-2xl {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}

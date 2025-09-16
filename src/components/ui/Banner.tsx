@@ -28,15 +28,14 @@ function Banner() {
     },
   ];
 
-  
   return (
-    <div className="w-full bg-primary-500 flex flex-wrap items-center justify-between gap-6 py-4 px-14 md:h-[270px]">
+    <div className="w-full bg-gradient-to-r from-primary-500 to-primary-600 flex flex-wrap items-center justify-between gap-8 py-12 px-6 md:px-16">
       {bannerData.map((item, index) => (
         <div
           key={index}
-          className="flex items-center gap-4 w-full sm:w-auto text-center sm:text-left"
+          className="flex items-center gap-5 w-full sm:w-auto text-center sm:text-left bg-white/10 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
         >
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 bg-white/20 p-4 rounded-full">
             <img
               className="w-12 h-12 sm:w-16 sm:h-16"
               src={item.icon}
@@ -44,8 +43,10 @@ function Banner() {
             />
           </div>
           <div>
-            <h2 className="text-lg sm:text-xl font-semibold">{item.title}</h2>
-            <p className="text-sm sm:text-base text-text-cardSubtitle">
+            <h2 className="text-xl sm:text-2xl font-bold text-white">
+              {item.title}
+            </h2>
+            <p className="text-base sm:text-lg text-white/90 mt-1">
               {item.subtitle}
             </p>
           </div>

@@ -25,12 +25,16 @@ const Checkout: React.FC = () => {
   });
 
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null); // Add error state
+
   const onSubmit: SubmitHandler<Formcheckout> = async () => {
     setIsLoading(true);
+    setError(null); // Clear previous errors
     const stripe = await stripePromise;
 
     if (!stripe) {
       console.error('Stripe initialization failed.');
+      setError('Payment system initialization failed. Please try again.');
       setIsLoading(false);
       return;
     }
@@ -43,9 +47,10 @@ const Checkout: React.FC = () => {
     }));
 
     try {
-      const backendUrl = import.meta.env.VITE_STRIPE_BACKEND_URL || 'http://localhost:5002';
+      const backendUrl =
+        import.meta.env.VITE_STRIPE_BACKEND_URL || 'http://localhost:5002';
       const response = await fetch(
-        `${backendUrl.replace(/\/$/, '')}/create-checkout-session`,
+        `${backendUrl.replace(/\/$/, '')}/api/create-checkout-session`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -54,7 +59,11 @@ const Checkout: React.FC = () => {
       );
 
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(
+          errorData.error ||
+            `HTTP error! status: ${response.status} - ${response.statusText}`,
+        );
       }
 
       const responseData = await response.json();
@@ -66,15 +75,21 @@ const Checkout: React.FC = () => {
 
         if (result.error) {
           console.error(result.error.message);
+          setError(`Payment error: ${result.error.message}`);
         }
       } else {
-        console.error(
-          'Failed to create checkout session:',
-          responseData.error || 'Unknown error',
-        );
+        const errorMessage =
+          responseData.error || 'Failed to create checkout session';
+        console.error('Failed to create checkout session:', errorMessage);
+        setError(errorMessage);
       }
     } catch (error) {
       console.error('Error during checkout:', error);
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : 'An unknown error occurred during checkout';
+      setError(errorMessage);
     } finally {
       setIsLoading(false);
     }
@@ -149,6 +164,13 @@ const Checkout: React.FC = () => {
           </div>
         </div>
         <div className="col-span-1 sm:col-span-2 md:col-span-1 md:h-[768px] h-full overflow-hidden md:px-9 md:py-20 py-10">
+          {/* Add error display */}
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+              <strong>Error:</strong> {error}
+            </div>
+          )}
+
           <div className="border-b-[1px] border-x-text-links space-y-6 pb-9">
             <div className="flex items-center justify-between text-2xl font-medium">
               <h3>Product</h3>

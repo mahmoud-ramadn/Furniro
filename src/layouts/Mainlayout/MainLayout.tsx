@@ -5,12 +5,12 @@ import { Toaster } from 'react-hot-toast';
 
 function MainLayout() {
   return (
-    <div className="w-full overflow-hidden mx-auto relative">
+    <div className="w-full overflow-hidden mx-auto relative  md:px-0">
       <TheHeader />
-      <div className='h-[100px]'></div>
+      <div className="h-[100px]"></div>
       <Toaster position="top-right" />
-    
-      <Outlet   />
+
+      <Outlet />
       <TheFooter />
     </div>
   );

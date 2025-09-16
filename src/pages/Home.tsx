@@ -11,7 +11,7 @@ function Home() {
 
   return (
     <Loading error={error as undefined} type='Home' loading={loading}>
-    <main className=" overflow-hidden">
+    <main className=" overflow-hidden px-0">
       <HeroSection />
       <BrowserTheRange />
       <div className=" px-4">

@@ -121,8 +121,8 @@ function Shope() {
 
       {/* Filter and Controls Bar */}
       <div className="w-full bg-gradient-to-r from-primary-500 to-primary-600 text-center">
-        <div className="md:container mx-auto h-[100px] flex items-center md:justify-between flex-col md:flex-row justify-center px-4">
-          <div className="flex items-center gap-x-6 w-full md:w-auto">
+        <div className="container mx-auto h-auto md:h-[100px] flex flex-col md:flex-row items-center justify-between py-4 md:py-0 px-4 gap-4 md:gap-0">
+          <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 w-full md:w-auto">
             <div className="flex items-center gap-x-3">
               <img
                 src="/filter/system-uicons_filtering.webp"
@@ -138,21 +138,23 @@ function Shope() {
               </h3>
             </div>
 
-            <div className="md:w-[237px] h-[37px] border-l-2 border-l-white/30 flex justify-center items-center">
-              <span className="text-white font-medium">
+            <div className="w-full sm:w-auto h-[37px] border-l-0 sm:border-l-2 border-l-white/30 flex justify-center items-center pt-2 sm:pt-0">
+              <span className="text-white font-medium text-sm sm:text-base">
                 Showing 1–{Math.min(itemsPerPage, filteredProducts.length)} of{' '}
                 {filteredProducts.length} results
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-x-6 mt-4 md:mt-0">
-            <div className="w-fit h-[55px] flex items-center gap-x-4">
-              <span className="font-medium text-lg text-white">Show</span>
+          <div className="flex flex-col sm:flex-row items-center gap-4 md:gap-6 w-full md:w-auto">
+            <div className="w-full sm:w-fit h-[55px] flex items-center gap-x-4">
+              <span className="font-medium text-lg text-white whitespace-nowrap">
+                Show
+              </span>
               <select
                 value={itemsPerPage}
                 onChange={(e) => setItemsPerPage(Number(e.target.value))}
-                className="w-[55px] h-full bg-white text-lg font-medium text-text-links flex items-center justify-center border-none outline-none rounded-md px-2"
+                className="w-full sm:w-[55px] h-full bg-white text-lg font-medium text-text-links flex items-center justify-center border-none outline-none rounded-md px-2"
               >
                 <option value={8}>8</option>
                 <option value={16}>16</option>
@@ -161,12 +163,14 @@ function Shope() {
               </select>
             </div>
 
-            <div className="md:w-[288px] h-[55px] flex items-center gap-x-4">
-              <span className="font-medium text-lg text-white">Sort by</span>
+            <div className="w-full sm:w-[288px] h-[55px] flex items-center gap-x-4">
+              <span className="font-medium text-lg text-white whitespace-nowrap">
+                Sort by
+              </span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="md:w-[188px] h-full bg-white text-lg font-medium text-text-links px-3 border-none outline-none rounded-md"
+                className="w-full sm:w-[188px] h-full bg-white text-lg font-medium text-text-links px-3 border-none outline-none rounded-md"
               >
                 <option value="default">Default</option>
                 <option value="price-low-high">Price: Low to High</option>

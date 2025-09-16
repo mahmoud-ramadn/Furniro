@@ -22,7 +22,8 @@ const BrowseTheRange: FC<BrowseTheRangeProps> = ({ className = '' }) => {
   const categoryData: CategoryCard[] = [
     {
       id: 'dining',
-      image: '/our Products/Images-4.webp',
+      image:
+        'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
       title: 'Dining',
       description: 'Elegant dining sets and accessories for memorable meals',
       link: '/category/dining',
@@ -30,7 +31,8 @@ const BrowseTheRange: FC<BrowseTheRangeProps> = ({ className = '' }) => {
     },
     {
       id: 'living',
-      image: '/our Products/Images-6.webp',
+      image:
+        'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
       title: 'Living',
       description: 'Comfortable sofas, chairs and living room essentials',
       link: '/category/living',
@@ -38,14 +40,14 @@ const BrowseTheRange: FC<BrowseTheRangeProps> = ({ className = '' }) => {
     },
     {
       id: 'bedroom',
-      image: '/our Products/Images-3.webp',
+      image:
+        'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80',
       title: 'Bedroom',
       description: 'Peaceful bedroom furniture for restful nights',
       link: '/category/bedroom',
       itemCount: 127,
     },
   ];
-
   return (
     <section className={`py-16 lg:py-24 ${className}`}>
       <div className="container mx-auto px-4">
@@ -72,9 +74,9 @@ const BrowseTheRange: FC<BrowseTheRangeProps> = ({ className = '' }) => {
                 {/* Card Container */}
                 <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transform hover:-translate-y-2 transition-all duration-500">
                   {/* Image Container */}
-                  <div className="relative overflow-hidden w-full h-64 md:h-72 lg:h-80">
+                  <div className="relative overflow-hidden aspect-[4/3]">
                     <AppImg
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       src={category.image}
                       alt={`${category.title} furniture collection`}
                     />
@@ -124,7 +126,7 @@ const BrowseTheRange: FC<BrowseTheRangeProps> = ({ className = '' }) => {
                   </div>
 
                   {/* Content Section */}
-                  <div className="p-6">
+                  <div className="p-6 flex-1 flex flex-col justify-between">
                     <div className="flex items-center justify-between mb-3">
                       <h3 className="text-2xl font-bold text-gray-900 group-hover:text-secondary-600 transition-colors duration-300">
                         {category.title}

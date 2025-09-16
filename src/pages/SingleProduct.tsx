@@ -8,7 +8,7 @@ function SingleProduct() {
   const { error, loading, data } = useFetchSinglProduct()
   return (
     <Loading loading={loading} error={error as undefined} type='SingleProduct'>
-      <section>
+      <section className=' px-4'>
         <div className=" w-full h-[130px]  flex items-center   px-10   md:px-[100px] bg-primary-500">
           <div className="text-base font-normal   ">
             <div className=" flex  items-center  gap-[14px]  ">

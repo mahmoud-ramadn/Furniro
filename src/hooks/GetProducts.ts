@@ -18,17 +18,20 @@ interface ProductsResponse {
 }
 
 const useFetchProduct = () => {
-  const { loading, error, data } = useQuery<ProductsResponse>(GET_PRODUCTS, {
-    fetchPolicy: 'cache-first',
-  });
+  const { loading, error, data, refetch } = useQuery<ProductsResponse>(
+    GET_PRODUCTS,
+    {
+      fetchPolicy: 'cache-first',
+    },
+  );
 
   // Error Handling: You can customize how you want to handle errors
   if (error) {
     console.error('Error fetching products:', error);
   }
 
-  // You can return the error, loading, and data to the component
-  return { loading, error, data: data || { products: [] } };
+  // You can return the error, loading, data, and refetch function to the component
+  return { loading, error, data: data || { products: [] }, refetch };
 };
 
 export default useFetchProduct;

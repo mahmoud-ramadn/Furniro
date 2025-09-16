@@ -1,7 +1,9 @@
 import { useRef, useState, useEffect } from 'react';
+import { useTheme } from '../../context/ThemeContext';
 import { EpArrowRightBold } from '../../assets/ArrowRig';
 
 function Carousel() {
+  const { darkMode } = useTheme();
   const carouselRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -66,14 +68,22 @@ function Carousel() {
     <div className="col-span-1 h-full flex flex-col justify-between gap-5 relative pb-5 items-start">
       <span
         onClick={() => scrollCarousel('right')}
-        className="w-12 h-12 absolute cursor-pointer right-20 top-80 rounded-full p-5 flex items-center justify-center bg-white shadow-md"
+        className={`w-12 h-12 absolute cursor-pointer right-20 top-80 rounded-full p-5 flex items-center justify-center shadow-md transition-all duration-300 ${
+          darkMode 
+            ? 'bg-gray-700/80 hover:bg-gray-600/80 text-white' 
+            : 'bg-white/80 hover:bg-white text-gray-800'
+        }`}
       >
         <EpArrowRightBold />
       </span>
 
       <span
         onClick={() => scrollCarousel('left')}
-        className="w-12 h-12 absolute cursor-pointer left-20 top-80 rounded-full p-5 flex items-center justify-center bg-white shadow-md"
+        className={`w-12 h-12 absolute cursor-pointer left-20 top-80 rounded-full p-5 flex items-center justify-center shadow-md transition-all duration-300 ${
+          darkMode 
+            ? 'bg-gray-700/80 hover:bg-gray-600/80 text-white' 
+            : 'bg-white/80 hover:bg-white text-gray-800'
+        }`}
       >
         <EpArrowRightBold className="rotate-180" />
       </span>
@@ -83,7 +93,20 @@ function Carousel() {
         className="overflow-x-scroll flex items-center scrollbar-hidden gap-4"
       >
         {items.map((item, index) => (
-          <img key={index} src={item} alt={`carousel-${index}`} />
+          <div 
+            key={index} 
+            className={`rounded-xl overflow-hidden transition-all duration-300 ${
+              darkMode ? 'bg-gray-800/50' : 'bg-white/50'
+            }`}
+          >
+            <img 
+              src={item} 
+              alt={`carousel-${index}`} 
+              className={`transition-all duration-300 ${
+                darkMode ? 'brightness-90' : 'brightness-100'
+              }`}
+            />
+          </div>
         ))}
       </div>
 
@@ -91,10 +114,14 @@ function Carousel() {
         {items.map((_, index) => (
           <div
             key={index}
-            className={`w-4 h-4 rounded-full ${
+            className={`w-4 h-4 rounded-full transition-all duration-300 ${
               activeIndex === index
-                ? 'bg-secondary-500 outline outline-secondary-500 p-2'
-                : 'bg-[#D8D8D8]'
+                ? darkMode
+                  ? 'bg-secondary-400 outline outline-secondary-400 p-2'
+                  : 'bg-secondary-500 outline outline-secondary-500 p-2'
+                : darkMode
+                  ? 'bg-gray-600'
+                  : 'bg-[#D8D8D8]'
             }`}
           ></div>
         ))}

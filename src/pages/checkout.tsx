@@ -43,8 +43,9 @@ const Checkout: React.FC = () => {
     }));
 
     try {
+      const backendUrl = import.meta.env.VITE_STRIPE_BACKEND_URL || 'http://localhost:5002';
       const response = await fetch(
-        `${import.meta.env.VITE_STRIPE_BACKEND_URL || 'http://localhost:5002'}/create-checkout-session`,
+        `${backendUrl.replace(/\/$/, '')}/create-checkout-session`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

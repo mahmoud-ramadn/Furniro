@@ -27,7 +27,8 @@ function Order() {
         } else {
             const fetchOrders = async () => {
                 try {
-                    const response = await fetch(`http://localhost:5002/orders?userId=${userId}`);
+                    const backendUrl = import.meta.env.VITE_STRIPE_BACKEND_URL || 'http://localhost:5002';
+                    const response = await fetch(`${backendUrl.replace(/\/$/, '')}/orders?userId=${userId}`);
                     if (!response.ok) {
                         throw new Error(`Failed to fetch: ${response.statusText}`);
                     }

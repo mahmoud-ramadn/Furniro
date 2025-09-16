@@ -52,7 +52,7 @@ function LoginForm() {
             </Btn>
 
             <Btn
-                 type="submit"
+                type="button" // Changed from "submit" to "button" to prevent form submission
                 className="w-full h-[75px] 
                  flex items-center gap-x-3 justify-center
                 bg-secondary-500 text-white rounded-xl mt-4"

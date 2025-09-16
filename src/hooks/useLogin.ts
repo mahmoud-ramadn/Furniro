@@ -6,12 +6,8 @@ import {
   type LoginForm,
 } from '../Validations/AuthVailadation';
 import { useNavigate } from 'react-router-dom';
-import {
-  signInWithEmailAndPassword,
-  signInWithPopup,
-  GoogleAuthProvider,
-} from 'firebase/auth';
-import { auth } from '../firebase/firebase';
+import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '../firebase/firebase'; // Use the imported provider
 import Cookies from 'js-cookie';
 import { FirebaseError } from 'firebase/app';
 
@@ -45,9 +41,13 @@ const useLogin = () => {
         expires: 7,
       });
       // For email login, use a default avatar if no photoURL exists
-      Cookies.set('userPhotoURL', user.photoURL || '/images/default-avatar.png', {
-        expires: 7,
-      });
+      Cookies.set(
+        'userPhotoURL',
+        user.photoURL || '/images/default-avatar.png',
+        {
+          expires: 7,
+        },
+      );
       const token = await user.getIdToken();
       Cookies.set('userToken', token, { expires: 7, secure: true });
 
@@ -76,8 +76,12 @@ const useLogin = () => {
   const googleLogin = async () => {
     setLoading(true);
     setErrorMessage('');
-    const provider = new GoogleAuthProvider();
     try {
+      // Add custom parameters to provider
+      provider.setCustomParameters({
+        prompt: 'select_account', // This will always prompt the user to select an account
+      });
+
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
@@ -91,6 +95,7 @@ const useLogin = () => {
       Cookies.set('userToken', token, { expires: 7, secure: true });
       navigate('/');
     } catch (error: unknown) {
+      console.error('Google login error:', error); // Added for better debugging
       if (error instanceof FirebaseError) {
         switch (error.code) {
           case 'auth/popup-closed-by-user':
@@ -98,11 +103,24 @@ const useLogin = () => {
               'The popup was closed before completing the sign-in.',
             );
             break;
+          case 'auth/cancelled-popup-request':
+            setErrorMessage('Popup request cancelled. Please try again.');
+            break;
+          case 'auth/network-request-failed':
+            setErrorMessage(
+              'Network error. Please check your connection and try again.',
+            );
+            break;
+          case 'auth/operation-not-allowed':
+            setErrorMessage(
+              'Google sign-in is not enabled. Please contact support.',
+            );
+            break;
           default:
-            setErrorMessage('Google login failed. Please try again.');
+            setErrorMessage(`Google login failed: ${error.message}`);
         }
       } else {
-        setErrorMessage('An unknown error occurred.');
+        setErrorMessage(`An unknown error occurred: ${error}`);
       }
     } finally {
       setLoading(false);

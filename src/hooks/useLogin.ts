@@ -44,6 +44,10 @@ const useLogin = () => {
       Cookies.set('userDisplayName', user.displayName || 'Guest', {
         expires: 7,
       });
+      // For email login, use a default avatar if no photoURL exists
+      Cookies.set('userPhotoURL', user.photoURL || '/images/default-avatar.png', {
+        expires: 7,
+      });
       const token = await user.getIdToken();
       Cookies.set('userToken', token, { expires: 7, secure: true });
 

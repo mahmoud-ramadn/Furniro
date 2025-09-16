@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { updateProfile } from "firebase/auth/cordova";
+import { FirebaseError } from "firebase/app";
 import Cookies from 'js-cookie';
 import { useState } from "react";
 import Spinner from "../../assets/spinner";
@@ -36,19 +37,24 @@ function RegisterForm() {
       const token = await user.getIdToken();
 
       Cookies.set('userDisplayName', fullName, { expires: 7 }); 
+      Cookies.set('userPhotoURL', '/images/default-avatar.png', { expires: 7 });
       Cookies.set('userToken', token, { expires: 7 });
       console.log("User registered successfully:", user);
       navigate("/");
 
-    } catch (error ) {
-      switch (error) {
-        case 'auth/weak-password':
-          setErrorMessage("The password is too weak.");
-          break;
-        default:
+    } catch (error: unknown) {
+      console.error('Registration error:', error);
+      if (error instanceof FirebaseError) {
+        if (error.code === 'auth/email-already-in-use') {
           setErrorMessage('The email address is already in use.');
+        } else if (error.code === 'auth/weak-password') {
+          setErrorMessage('The password is too weak.');
+        } else {
+          setErrorMessage('An unknown error occurred. Please try again.');
+        }
+      } else {
+        setErrorMessage('An unknown error occurred. Please try again.');
       }
-      console.error('Login error:', error);
     } finally {
       setLoading(false);
     }

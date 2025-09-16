@@ -36,21 +36,25 @@ const Checkout: React.FC = () => {
     }
 
     const formattedCart = cart.map((item) => ({
-      name: item.title, 
+      name: item.title,
       discountedPrice: parseFloat(item.price.replace('$', '')),
       quantity: item.count,
-      images: item.images || [item.images[0]], 
+      images: item.images || [item.images[0]],
     }));
 
     try {
       const response = await fetch(
-        'https://back-end-stripe-9tg4-ji2jlkghd-mahmoud-ramadans-projects.vercel.app/create-checkout-session',
+        `${import.meta.env.VITE_STRIPE_BACKEND_URL || 'http://localhost:5002'}/create-checkout-session`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ items: formattedCart }),
         },
       );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
 
       const responseData = await response.json();
 
@@ -213,7 +217,14 @@ const Checkout: React.FC = () => {
                 className="w-full md:w-[318px] border-2 text-xl font-normal h-[64px] rounded-2xl"
                 disabled={isLoading}
               >
-                {isLoading ? <div className=' flex items-center  gap-x-1 justify-center'>   Processing...  <Spinner color='#B88E2F' /> </div>  : 'Place order '  }
+                {isLoading ? (
+                  <div className=" flex items-center  gap-x-1 justify-center">
+                    {' '}
+                    Processing... <Spinner color="#B88E2F" />{' '}
+                  </div>
+                ) : (
+                  'Place order '
+                )}
               </Btn>
             ) : (
               <Btn

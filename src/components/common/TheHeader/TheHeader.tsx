@@ -40,7 +40,7 @@ function TheHeader() {
   const handleLogout = () => {
     Cookies.remove('userToken');
     Cookies.remove('userDisplayName');
-    Cookies.remove('userPhotoURL'); 
+    Cookies.remove('userPhotoURL');
     signOut(auth)
       .then(() => {
         console.log('User logged out successfully');
@@ -71,7 +71,6 @@ function TheHeader() {
 
         {/* Header Actions */}
         <div className="hidden md:flex items-center gap-6">
-         
           {userDisplayName ? (
             <div
               className="relative"
@@ -80,17 +79,19 @@ function TheHeader() {
             >
               {userPhotoURL ? (
                 <img
-                  src={userPhotoURL || '/images/default-avatar.png'}
+                  src={userPhotoURL}
                   alt={userDisplayName || 'User'}
-                  className="w-8 h-8 rounded-full cursor-pointer"
+                  className="w-8 h-8 rounded-full cursor-pointer object-cover"
                   onError={(e) => {
                     e.currentTarget.src = '/images/default-avatar.png';
                   }}
                 />
               ) : (
-                <span className="cursor-pointer font-medium">
-                  {userDisplayName}
-                </span>
+                <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer">
+                  <span className="text-gray-600 font-medium text-sm">
+                    {userDisplayName.charAt(0).toUpperCase()}
+                  </span>
+                </div>
               )}
               {dropdownVisible && (
                 <div className="absolute right-0 top-2 mt-2 bg-white border rounded-md shadow-lg p-4 w-40">
@@ -102,7 +103,6 @@ function TheHeader() {
                   </button>
                 </div>
               )}
-
             </div>
           ) : (
             <Link to="/auth">
@@ -163,17 +163,28 @@ function TheHeader() {
           <nav className="flex flex-col items-center py-8">
             <ul className="flex flex-col gap-6">
               <li>
-
                 {userDisplayName ? (
                   <div
                     className="relative"
                     onMouseEnter={() => setDropdownVisible(true)}
                     onMouseLeave={() => setDropdownVisible(false)}
                   >
-                
-                      <span className="cursor-pointer font-medium text-white">
-                        {userDisplayName}
-                      </span>
+                    {userPhotoURL ? (
+                      <img
+                        src={userPhotoURL}
+                        alt={userDisplayName || 'User'}
+                        className="w-8 h-8 rounded-full cursor-pointer object-cover"
+                        onError={(e) => {
+                          e.currentTarget.src = '/images/default-avatar.png';
+                        }}
+                      />
+                    ) : (
+                      <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center cursor-pointer">
+                        <span className="text-gray-600 font-medium text-sm">
+                          {userDisplayName.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                    )}
                     {dropdownVisible && (
                       <div className="absolute right-0 top-2 mt-2 bg-white border rounded-md shadow-lg p-4 w-40">
                         <button
@@ -184,17 +195,14 @@ function TheHeader() {
                         </button>
                       </div>
                     )}
-
                   </div>
                 ) : (
-                  <Link to="/auth" >
-                    <User  />
+                  <Link to="/auth">
+                    <User />
                   </Link>
                 )}
-
               </li>
               {pagesLinks.map((page, index) => (
-
                 <li key={index} onClick={toggleMenu} className="text-white">
                   <Link to={page.path}>{page.title}</Link>
                 </li>

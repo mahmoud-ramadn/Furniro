@@ -44,7 +44,7 @@ const Checkout: React.FC = () => {
 
     try {
       const response = await fetch(
-        'http://localhost:5002/create-checkout-session',
+        'https://back-end-stripe-9tg4-ji2jlkghd-mahmoud-ramadans-projects.vercel.app/create-checkout-session',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

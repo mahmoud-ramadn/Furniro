@@ -1,19 +1,22 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { AuthRegisterSchema, type RegisterForm } from "../../Validations/AuthVailadation";
-import Btn from "../ui/Btn";
-import InputField from "../ui/Form/input";
-import { Link, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
-import { updateProfile } from "firebase/auth/cordova";
-import { FirebaseError } from "firebase/app";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import {
+  AuthRegisterSchema,
+  type RegisterForm,
+} from '../../Validations/AuthVailadation';
+import Btn from '../ui/Btn';
+import InputField from '../ui/Form/input';
+import { Link, useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../../firebase/firebase';
+import { updateProfile } from 'firebase/auth/cordova';
+import { FirebaseError } from 'firebase/app';
 import Cookies from 'js-cookie';
-import { useState } from "react";
-import Spinner from "../../assets/spinner";
+import { useState } from 'react';
+import Spinner from '../../assets/spinner';
 function RegisterForm() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   const {
@@ -21,14 +24,18 @@ function RegisterForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterForm>({
-    mode: "onBlur",
+    mode: 'onBlur',
     resolver: zodResolver(AuthRegisterSchema),
   });
 
   const submitForm: SubmitHandler<RegisterForm> = async (data) => {
-    setLoading(true); 
+    setLoading(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password,
+      );
       const user = userCredential.user;
 
       const fullName = `${data.firstname} ${data.lastname}`;
@@ -36,12 +43,11 @@ function RegisterForm() {
 
       const token = await user.getIdToken();
 
-      Cookies.set('userDisplayName', fullName, { expires: 7 }); 
+      Cookies.set('userDisplayName', fullName, { expires: 7 });
       Cookies.set('userPhotoURL', '/images/default-avatar.png', { expires: 7 });
       Cookies.set('userToken', token, { expires: 7 });
-      console.log("User registered successfully:", user);
-      navigate("/");
-
+      console.log('User registered successfully:', user);
+      navigate('/');
     } catch (error: unknown) {
       console.error('Registration error:', error);
       if (error instanceof FirebaseError) {
@@ -49,6 +55,14 @@ function RegisterForm() {
           setErrorMessage('The email address is already in use.');
         } else if (error.code === 'auth/weak-password') {
           setErrorMessage('The password is too weak.');
+        } else if (error.code === 'auth/unauthorized-domain') {
+          setErrorMessage(
+            'This domain is not authorized. Please contact support.',
+          );
+          console.error(
+            'Unauthorized domain. Current domain:',
+            window.location.origin,
+          );
         } else {
           setErrorMessage('An unknown error occurred. Please try again.');
         }
@@ -61,14 +75,20 @@ function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(submitForm)} className="w-3/4 mx-auto space-y-7">
+    <form
+      onSubmit={handleSubmit(submitForm)}
+      className="w-3/4 mx-auto space-y-7"
+    >
       <div className="text-center">
-        <Link to='/' className="text-4xl cursor-pointer font-bold text-secondary-500">Furnio</Link>
+        <Link
+          to="/"
+          className="text-4xl cursor-pointer font-bold text-secondary-500"
+        >
+          Furnio
+        </Link>
       </div>
 
- <p className=" text-danger-500">{errorMessage &&  errorMessage }</p>
-
-
+      <p className=" text-danger-500">{errorMessage && errorMessage}</p>
 
       <InputField
         register={register}
@@ -114,9 +134,16 @@ function RegisterForm() {
       <Btn
         type="submit"
         className={`w-full h-[75px] bg-secondary-500 text-white rounded-xl ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
-        disabled={loading} 
+        disabled={loading}
       >
-        {loading ? <div className="  flex items-center gap-x-2 justify-center"> Signing Up... <Spinner/>  </div> : 'Sign Up'} 
+        {loading ? (
+          <div className="  flex items-center gap-x-2 justify-center">
+            {' '}
+            Signing Up... <Spinner />{' '}
+          </div>
+        ) : (
+          'Sign Up'
+        )}
       </Btn>
     </form>
   );

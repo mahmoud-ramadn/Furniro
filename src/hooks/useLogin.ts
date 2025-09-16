@@ -116,6 +116,16 @@ const useLogin = () => {
               'Google sign-in is not enabled. Please contact support.',
             );
             break;
+          case 'auth/unauthorized-domain':
+            setErrorMessage(
+              'This domain is not authorized for Google sign-in. Please contact support.',
+            );
+            // Log additional info for debugging
+            console.error(
+              'Unauthorized domain. Current domain:',
+              window.location.origin,
+            );
+            break;
           default:
             setErrorMessage(`Google login failed: ${error.message}`);
         }
